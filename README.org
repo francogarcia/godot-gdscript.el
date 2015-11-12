@@ -1,0 +1,347 @@
+#+TITLE: Emacs Major Mode for Godot's GDSCript
+#+AUTHOR: Franco Eusébio Garcia
+#+EMAIL: francogarcia@protonmail.com
+
+* Introduction
+This is a prototype of major mode to support GDScript, the scripting language
+used by the [[www.godotengine.org][Godot Game Engine]] into [[https://www.gnu.org/software/emacs/][GNU Emacs]]. It follows the description of the
+language provided in [[https://github.com/godotengine/godot/wiki/gdscript][gdscript]].
+
+* Setting-Up in Emacs
+#+BEGIN_SRC emacs-lisp :tangle no
+(require 'godot-gdscript-mode)
+#+END_SRC
+
+* About this File
+** Org-Mode Notes
+- Set ~comments~ to ~both~ to ease debugging and exporting Org as comments.
+  + See "Jumping between code and Org" in [[http://orgmode.org/manual/Extracting-source-code.html][Extracting source code - The Org
+    Manual]].
+
+#+BEGIN_SRC org :tangle no
+:PROPERTIES:
+:tangle:  godot-gdscript-mode.el
+:padline: yes
+:comments: both
+:END:
+#+END_SRC
+
+- For version control, however, it is more interesting to disable comments, as
+  it leaves the comments out of the tangled code.
+
+#+BEGIN_SRC org :tangle no
+:PROPERTIES:
+:tangle:  godot-gdscript-mode.el
+:padline: yes
+:comments: no
+:END:
+#+END_SRC
+
+* Implementation
+:PROPERTIES:
+:tangle:  godot-gdscript-mode.el
+:padline: yes
+:comments: no
+:END:
+
+** Header
+#+BEGIN_SRC emacs-lisp
+;;; godot-gdscript.el --- Edit GDSCript code for Godot Game Engine.
+#+END_SRC
+
+*** Copyright
+#+BEGIN_SRC emacs-lisp
+;; Copyright (C) 2015 Franco Eusébio Garcia
+#+END_SRC
+
+*** License
+#+NAME: license
+#+BEGIN_SRC emacs-lisp
+;;; License:
+
+;; This file not shipped as part of GNU Emacs.
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#+END_SRC
+
+*** Commentary
+#+BEGIN_SRC emacs-lisp
+;;; Comentary:
+
+;; This is a draft to add support for GDScript in Emacs. GDScript is the
+;; language which Godot Game Engine uses to prototype and implement games.
+#+END_SRC
+
+** Dependencies
+- [[https://github.com/magnars/dash.el][magnars/dash.el · GitHub]].
+
+#+BEGIN_SRC emacs-lisp
+(require 'dash)
+#+END_SRC
+
+** Settings
+#+NAME: settings
+#+BEGIN_SRC emacs-lisp
+;; (defgroup godot-gdscript-mode nil
+;;   "Support for the GDScript programming language, used by the Godot Game Engine (available at: <http://www.godotengine.org/>)."
+;;   :group 'languages
+;;   :prefix "gd")
+
+;; (defcustom godot-gdscript-mode-modeline-display "GDScript"
+;;   "String to display in Emacs modeline."
+;;   :type 'string
+;;   :tag "godot-gdscript-modeline-display"
+;;   :group 'godot-gdscript-mode)
+
+;; (defcustom godot-gdscript-mode-hoook nil
+;;   "Hook to run when entering Godot GDScript mode."
+;;   :type 'hook
+;;   :tag "godot-gdscript-hook"
+;;   :group 'godot-gdscript-mode)
+#+END_SRC
+
+** Code
+#+BEGIN_SRC emacs-lisp
+;;; Code
+#+END_SRC
+
+** Grammar and Syntax
+*** Keywords
+For the time being, we use Python's keywords for font locking.
+
+#+NAME: language_keywords
+#+BEGIN_SRC emacs-lisp
+(setq godot-gdscript-keywords
+      '(
+        "break" "class" "extends" "export" "default"
+        "do" "elif" "else" "for" "func" "if" "pass"
+        "return" "static" "setget" "self" "signal"
+        "tool" "var" "while" "yield"))
+#+END_SRC
+
+*** Types
+#+NAME: language_keywords
+#+BEGIN_SRC emacs-lisp
+(setq godot-gdscript-types '())
+#+END_SRC
+
+**** Built-In Types
+***** Basic Types
+- ~null~;
+- ~bool~;
+- ~int~;
+- ~float~;
+- ~String~.
+
+#+BEGIN_SRC emacs-lisp
+(setq godot-gdscript-types
+      (-snoc godot-gdscript-types
+             "null" "bool" "int" "float" "String"))
+#+END_SRC
+
+***** Vector Types
+- ~Vector2~;
+- ~Rect2~;
+- ~Vector3~;
+- ~Matrix32~;
+- ~Plane~;
+- ~Quat~;
+- ~AABB~;
+- ~Matrix3~;
+- ~Transform~.
+
+#+BEGIN_SRC emacs-lisp
+(setq godot-gdscript-types
+      (-snoc godot-gdscript-types
+             "Vector2" "Rect2" "Vector3" "Matrix32" "Plane"
+             "Quat" "AABB" "Matrix3" "Transform"))
+#+END_SRC
+
+***** Engine Types
+- ~Color~;
+- ~Image~;
+- ~NodePath~;
+- ~RID~;
+- ~Object~;
+- ~InputEvent~.
+
+#+BEGIN_SRC emacs-lisp
+(setq godot-gdscript-types
+      (-snoc godot-gdscript-types
+             "Color" "Image" "NodePath" "RID" "Object" "InputEvent"))
+#+END_SRC
+
+***** Containers
+- ~Array~;
+- ~Dictionary~;
+- ~ByteArray~;
+- ~IntArray~;
+- ~StringArray~;
+- ~Vector2Array~;
+- ~Vector3Array~;
+- ~ColorArray~.
+
+#+BEGIN_SRC emacs-lisp
+(setq godot-gdscript-types
+      (-snoc godot-gdscript-types
+             "Array" "Dictionary" "ByteArray" "IntArray" "StringArray"
+             "Vector2Array" "Vector3Array" "ColorArray"))
+#+END_SRC
+
+*** Variables
+
+*** Constants
+#+NAME: language_constants
+#+BEGIN_SRC emacs-lisp
+(setq godot-gdscript-constants
+  '())
+#+END_SRC
+
+*** Events
+#+NAME: language_events
+#+BEGIN_SRC emacs-lisp
+(setq godot-gdscript-events
+  '())
+#+END_SRC
+
+*** Functions
+#+NAME: language_functions
+#+BEGIN_SRC emacs-lisp
+(setq godot-gdscript-functions
+  '("_init" "_process" "_input" "assert" "basefunc" "new" "print" "range"))
+#+END_SRC
+
+*** Operators
+| Operator               | Description                           |
+|------------------------+---------------------------------------|
+| x[index]               | Subscription, Highest Priority        |
+| x.attribute            | Attribute Reference                   |
+| extends                | Instance Type Checker                 |
+| ~                      | Bitwise NOT                           |
+| -x                     | Negative                              |
+| * / %                  | Multiplication / Division / Remainder |
+| + -                    | Addition / Subtraction                |
+| << >>                  | Bit Shifting                          |
+| &                      | Bitwise AND                           |
+| ^                      | Bitwise XOR                           |
+| |                      | Bitwise OR                            |
+| < > == != >= <=        | Comparisons                           |
+| in                     | Content Test                          |
+| ! not                  | Boolean NOT                           |
+| and &&                 | Boolean AND                           |
+| or ||                  | Boolean OR                            |
+| = += -= *= /= %= &= |= | Assignment, Lowest Priority           |
+
+*** Literals
+| Literal           | Name                         |
+|-------------------+------------------------------|
+| 45                | Base 10 Integer              |
+| 0x8F51            | Base 16 (hex) Integer        |
+| 3.14, 58.1e-10    | Floating Point Number (real) |
+| 'Hello', "Hi"     | Strings                      |
+| """Hello, Dude""" | Multiline String             |
+| @"Node/Label"     | Node Path or StringName      |
+
+*** Comments
+
+** Syntax Highlighting
+#+NAME: syntax_regex
+#+BEGIN_SRC emacs-lisp
+(setq godot-gdscript-keywords-regexp (regexp-opt godot-gdscript-keywords 'words))
+(setq godot-gdscript-type-regexp (regexp-opt godot-gdscript-types 'words))
+(setq godot-gdscript-constant-regexp (regexp-opt godot-gdscript-constants 'words))
+(setq godot-gdscript-event-regexp (regexp-opt godot-gdscript-events 'words))
+(setq godot-gdscript-functions-regexp (regexp-opt godot-gdscript-functions 'words))
+#+END_SRC
+
+#+NAME: font_lock
+#+BEGIN_SRC emacs-lisp
+(setq godot-gdscript-font-lock-keywords
+      `(
+        (,godot-gdscript-type-regexp . font-lock-type-face)
+        (,godot-gdscript-constant-regexp . font-lock-constant-face)
+        (,godot-gdscript-event-regexp . font-lock-builtin-face)
+        (,godot-gdscript-functions-regexp . font-lock-function-name-face)
+        (,godot-gdscript-keywords-regexp . font-lock-keyword-face)
+        ;; note: order above matters, because once colored, that part won't change.
+        ;; in general, longer words first
+        ))
+#+END_SRC
+
+** Declaration
+~define-derived-mode~ uses another major mode as a basis to create a new major
+mode (see [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Derived-Modes.html#Derived-Modes][GNU Emacs Lisp Reference Manual: Derived Modes]]). The documentation
+recommends to inherit either from ~fundamental-mode~ or ~prog-mode~. However, as
+GDScript resembles Python, this implementation used ~python-mode~ at this time.
+
+#+NAME: declaration
+#+BEGIN_SRC emacs-lisp
+(define-derived-mode godot-gdscript-mode python-mode
+  "Godot GDScript mode"
+  "Major mode for editing GDScript language files, used to script games in Godot Engine."
+  (set (make-local-variable 'font-lock-defaults) '(godot-gdscript-font-lock-keywords)))
+#+END_SRC
+
+Besides the mode, it automatically defines the variables:
+- ~godot-gdscript-mode-abbrev-table~;
+- ~godot-gdscript-mode-hook~;
+- ~godot-gdscript-mode-map~;
+- ~godot-gdscript-mode-syntax-table~.
+
+Therefore, one should consider all these values declared from this section on.
+
+** Clean-Up
+#+NAME: clean_up
+#+BEGIN_SRC emacs-lisp
+(setq godot-gdscript-keywords-regexp nil)
+(setq godot-gdscript-types-regexp nil)
+(setq godot-gdscript-constants-regexp nil)
+(setq godot-gdscript-events-regexp nil)
+(setq godot-gdscript-functions-regexp nil)
+#+END_SRC
+
+** File Association
+#+NAME: file_association
+#+BEGIN_SRC emacs-lisp
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.gd\\'" . godot-gdscript-mode))
+#+END_SRC
+
+** Keybindings
+#+NAME: keybindings
+#+BEGIN_SRC emacs-lisp
+(setq godot-gdscript-mode-map
+      (let ((map (make-keymap)))
+      (define-key map "\C-j" 'newline-and-indent)
+      map))
+#+END_SRC
+
+** Provide the Module
+#+NAME: provide
+#+BEGIN_SRC emacs-lisp
+(provide 'godot-gdscript-mode)
+#+END_SRC
+
+** Local Variables
+#+NAME: local_variables
+#+BEGIN_SRC emacs-lisp
+;; Local Variables:
+;; coding: utf-8
+;; End:
+#+END_SRC
+
+** End
+#+BEGIN_SRC emacs-lisp
+;;; godot-gdscript.el ends here.
+#+END_SRC
