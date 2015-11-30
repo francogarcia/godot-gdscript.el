@@ -9,8 +9,9 @@ language provided in [[https://github.com/godotengine/godot/wiki/gdscript][gdscr
 
 * References
 
-- [[http://godotengine.org/projects/godot-engine/wiki/Documentation][Godot Engine --- Documentation --- OpenProject]].
-- [[https://github.com/godotengine/godot/wiki][godotengine/godot Wiki --- GitHub]].
+- [[http://godotengine.org/projects/godot-engine/wiki/Documentation][Godot Engine --- Documentation --- OpenProject]];
+- [[https://github.com/godotengine/godot/wiki][godotengine/godot Wiki --- GitHub]];
+- [[https://github.com/godotengine/godot/wiki/gdscript][gdscript · godotengine/godot Wiki · GitHub]];
 - [[https://github.com/beefsack/GDScript-sublime][beefsack/GDScript-sublime --- GitHub]].
 
 * Setting-Up in Emacs
