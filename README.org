@@ -85,10 +85,21 @@ language provided in [[https://github.com/godotengine/godot/wiki/gdscript][gdscr
 ;;; Comentary:
 
 ;; This is a draft to add support for GDScript in Emacs. GDScript is the
-;; language which Godot Game Engine uses to prototype and implement games.
+;; language which Godot Game Engine uses to prototype and implement games. Godot
+;; is an open-source game engine, available at: <http://www.godotengine.org/>.
 #+END_SRC
 
-** Dependencies
+*** Dependencies
+#+BEGIN_SRC emacs-lisp
+;; Package-Requires: ((dash "2.12.1"))
+#+END_SRC
+
+** Code
+#+BEGIN_SRC emacs-lisp
+;;; Code
+#+END_SRC
+
+** Dependencies --- Loading
 - [[https://github.com/magnars/dash.el][magnars/dash.el · GitHub]].
 
 #+BEGIN_SRC emacs-lisp
