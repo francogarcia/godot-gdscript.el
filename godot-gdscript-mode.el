@@ -67,6 +67,7 @@
         "for"
         "func"
         "if"
+        "in"
         "pass"
         "return"
         "static"
@@ -162,7 +163,8 @@
         ))
 
 (define-derived-mode godot-gdscript-mode python-mode
-  "Godot GDScript mode"
+  "Major mode for editing GDScript files, used by the Godot Game
+engine."
   (set (make-local-variable 'font-lock-defaults) '(godot-gdscript-font-lock-keywords))
   ;; Accept underscores in identifiers, by adding the '_' character
   ;; to the 'w' symbol (word constituent).

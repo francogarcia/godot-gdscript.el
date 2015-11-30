@@ -159,6 +159,7 @@ For the time being, we use Python's keywords for font locking.
         "for"
         "func"
         "if"
+        "in"
         "pass"
         "return"
         "static"
