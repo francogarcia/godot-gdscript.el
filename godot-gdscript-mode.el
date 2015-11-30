@@ -156,8 +156,10 @@
 
 (define-derived-mode godot-gdscript-mode python-mode
   "Godot GDScript mode"
-  "Major mode for editing GDScript language files, used to script games in Godot Engine."
-  (set (make-local-variable 'font-lock-defaults) '(godot-gdscript-font-lock-keywords)))
+  (set (make-local-variable 'font-lock-defaults) '(godot-gdscript-font-lock-keywords))
+  ;; Accept underscores in identifiers, by adding the '_' character
+  ;; to the 'w' symbol (word constituent).
+  (modify-syntax-entry ?_ "w" godot-gdscript-mode-syntax-table))
 
 (setq godot-gdscript-keywords-regexp nil)
 (setq godot-gdscript-types-regexp nil)
