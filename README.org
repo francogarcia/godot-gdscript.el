@@ -9,8 +9,9 @@ language provided in [[https://github.com/godotengine/godot/wiki/gdscript][gdscr
 
 * References
 
-- [[http://godotengine.org/projects/godot-engine/wiki/Documentation][Godot Engine - Documentation - OpenProject]].
-- [[https://github.com/beefsack/GDScript-sublime][beefsack/GDScript-sublime · GitHub]].
+- [[http://godotengine.org/projects/godot-engine/wiki/Documentation][Godot Engine --- Documentation --- OpenProject]].
+- [[https://github.com/godotengine/godot/wiki][godotengine/godot Wiki --- GitHub]].
+- [[https://github.com/beefsack/GDScript-sublime][beefsack/GDScript-sublime --- GitHub]].
 
 * Setting-Up in Emacs
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -144,10 +145,29 @@ For the time being, we use Python's keywords for font locking.
 #+BEGIN_SRC emacs-lisp
 (setq godot-gdscript-keywords
       '(
-        "break" "class" "continue" "extends" "export" "default"
-        "do" "elif" "else" "for" "func" "if" "pass"
-        "return" "static" "setget" "self" "signal"
-        "tool" "var" "while" "yield"))
+        "break"
+        "class"
+        "continue"
+        "const"
+        "extends"
+        "export"
+        "default"
+        "do"
+        "elif"
+        "else"
+        "for"
+        "func"
+        "if"
+        "pass"
+        "return"
+        "static"
+        "setget"
+        "self"
+        "signal"
+        "tool"
+        "var"
+        "while"
+        "yield"))
 #+END_SRC
 
 *** Types
@@ -167,7 +187,11 @@ For the time being, we use Python's keywords for font locking.
 #+BEGIN_SRC emacs-lisp
 (setq godot-gdscript-types
       (-snoc godot-gdscript-types
-             "null" "bool" "int" "float" "String"))
+             "null"
+             "bool"
+             "int"
+             "float"
+             "String"))
 #+END_SRC
 
 ***** Vector Types
@@ -184,8 +208,15 @@ For the time being, we use Python's keywords for font locking.
 #+BEGIN_SRC emacs-lisp
 (setq godot-gdscript-types
       (-snoc godot-gdscript-types
-             "Vector2" "Rect2" "Vector3" "Matrix32" "Plane"
-             "Quat" "AABB" "Matrix3" "Transform"))
+             "Vector2"
+             "Rect2"
+             "Vector3"
+             "Matrix32"
+             "Plane"
+             "Quat"
+             "AABB"
+             "Matrix3"
+             "Transform"))
 #+END_SRC
 
 ***** Engine Types
@@ -199,7 +230,12 @@ For the time being, we use Python's keywords for font locking.
 #+BEGIN_SRC emacs-lisp
 (setq godot-gdscript-types
       (-snoc godot-gdscript-types
-             "Color" "Image" "NodePath" "RID" "Object" "InputEvent"))
+             "Color"
+             "Image"
+             "NodePath"
+             "RID"
+             "Object"
+             "InputEvent"))
 #+END_SRC
 
 ***** Containers
@@ -215,8 +251,14 @@ For the time being, we use Python's keywords for font locking.
 #+BEGIN_SRC emacs-lisp
 (setq godot-gdscript-types
       (-snoc godot-gdscript-types
-             "Array" "Dictionary" "ByteArray" "IntArray" "StringArray"
-             "Vector2Array" "Vector3Array" "ColorArray"))
+             "Array"
+             "Dictionary"
+             "ByteArray"
+             "IntArray"
+             "StringArray"
+             "Vector2Array"
+             "Vector3Array"
+             "ColorArray"))
 #+END_SRC
 
 *** Variables
@@ -239,8 +281,15 @@ For the time being, we use Python's keywords for font locking.
 #+NAME: language_functions
 #+BEGIN_SRC emacs-lisp
 (setq godot-gdscript-functions
-  '("_init" "_process" "_input" "assert" "basefunc" "new" "print"
-    "range" "str"))
+  '("_init"
+    "_process"
+    "_input"
+    "assert"
+    "basefunc"
+    "new"
+    "print"
+    "range"
+    "str"))
 #+END_SRC
 
 *** Operators

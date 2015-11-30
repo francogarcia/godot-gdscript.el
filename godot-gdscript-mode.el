@@ -2,6 +2,10 @@
 
 ;; Copyright (C) 2015 Franco Eusébio Garcia
 
+;; Author: Franco Eusébio Garcia <francogarcia@protonmail.com>
+;; Version: 0.0.1
+;; Keywords: godot game engine
+
 ;;; License:
 
 ;; This file not shipped as part of GNU Emacs.
@@ -22,7 +26,12 @@
 ;;; Comentary:
 
 ;; This is a draft to add support for GDScript in Emacs. GDScript is the
-;; language which Godot Game Engine uses to prototype and implement games.
+;; language which Godot Game Engine uses to prototype and implement games. Godot
+;; is an open-source game engine, available at: <http://www.godotengine.org/>.
+
+;; Package-Requires: ((dash "2.12.1"))
+
+;;; Code
 
 (require 'dash)
 
@@ -43,34 +52,73 @@
 ;;   :tag "godot-gdscript-hook"
 ;;   :group 'godot-gdscript-mode)
 
-;;; Code
-
 (setq godot-gdscript-keywords
       '(
-        "break" "class" "extends" "export" "default"
-        "do" "elif" "else" "for" "func" "if" "pass"
-        "return" "static" "setget" "self" "signal"
-        "tool" "var" "while" "yield"))
+        "break"
+        "class"
+        "continue"
+        "const"
+        "extends"
+        "export"
+        "default"
+        "do"
+        "elif"
+        "else"
+        "for"
+        "func"
+        "if"
+        "pass"
+        "return"
+        "static"
+        "setget"
+        "self"
+        "signal"
+        "tool"
+        "var"
+        "while"
+        "yield"))
 
 (setq godot-gdscript-types '())
 
 (setq godot-gdscript-types
       (-snoc godot-gdscript-types
-             "null" "bool" "int" "float" "String"))
+             "null"
+             "bool"
+             "int"
+             "float"
+             "String"))
 
 (setq godot-gdscript-types
       (-snoc godot-gdscript-types
-             "Vector2" "Rect2" "Vector3" "Matrix32" "Plane"
-             "Quat" "AABB" "Matrix3" "Transform"))
+             "Vector2"
+             "Rect2"
+             "Vector3"
+             "Matrix32"
+             "Plane"
+             "Quat"
+             "AABB"
+             "Matrix3"
+             "Transform"))
 
 (setq godot-gdscript-types
       (-snoc godot-gdscript-types
-             "Color" "Image" "NodePath" "RID" "Object" "InputEvent"))
+             "Color"
+             "Image"
+             "NodePath"
+             "RID"
+             "Object"
+             "InputEvent"))
 
 (setq godot-gdscript-types
       (-snoc godot-gdscript-types
-             "Array" "Dictionary" "ByteArray" "IntArray" "StringArray"
-             "Vector2Array" "Vector3Array" "ColorArray"))
+             "Array"
+             "Dictionary"
+             "ByteArray"
+             "IntArray"
+             "StringArray"
+             "Vector2Array"
+             "Vector3Array"
+             "ColorArray"))
 
 (setq godot-gdscript-constants
   '())
@@ -79,7 +127,15 @@
   '())
 
 (setq godot-gdscript-functions
-  '("_init" "_process" "_input" "assert" "basefunc" "new" "print" "range"))
+  '("_init"
+    "_process"
+    "_input"
+    "assert"
+    "basefunc"
+    "new"
+    "print"
+    "range"
+    "str"))
 
 (setq godot-gdscript-keywords-regexp (regexp-opt godot-gdscript-keywords 'words))
 (setq godot-gdscript-type-regexp (regexp-opt godot-gdscript-types 'words))
