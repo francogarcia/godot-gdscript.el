@@ -155,12 +155,13 @@
       `(
         (,godot-gdscript-type-regexp . font-lock-type-face)
         (,godot-gdscript-constant-regexp . font-lock-constant-face)
-        (,godot-gdscript-event-regexp . font-lock-builtin-face)
+        (,godot-gdscript-event-regexp . font-lock-event-face)
         (,godot-gdscript-functions-regexp . font-lock-function-name-face)
         (,godot-gdscript-keywords-regexp . font-lock-keyword-face)
         ;; note: order above matters, because once colored, that part won't change.
         ;; in general, longer words first
-        ))
+        '("\\('\\w*'\\)" . font-lock-variable-name-face))
+        "Highlighting for GDScript mode.")
 
 (define-derived-mode godot-gdscript-mode python-mode
   "Major mode for editing GDScript files, used by the Godot Game
