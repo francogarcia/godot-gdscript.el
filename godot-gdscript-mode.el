@@ -76,6 +76,7 @@
         "tool"
         "var"
         "while"
+        "resume"
         "yield"))
 
 (setq godot-gdscript-types '())
@@ -132,9 +133,15 @@
     "_input"
     "assert"
     "basefunc"
+    "call"
+    "funcref"
     "new"
+    "load"
+    "preload"
     "print"
     "range"
+    "connect"
+    "emit_signal"
     "str"))
 
 (setq godot-gdscript-keywords-regexp (regexp-opt godot-gdscript-keywords 'words))

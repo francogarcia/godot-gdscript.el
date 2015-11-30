@@ -167,6 +167,7 @@ For the time being, we use Python's keywords for font locking.
         "tool"
         "var"
         "while"
+        "resume"
         "yield"))
 #+END_SRC
 
@@ -286,9 +287,15 @@ For the time being, we use Python's keywords for font locking.
     "_input"
     "assert"
     "basefunc"
+    "call"
+    "funcref"
     "new"
+    "load"
+    "preload"
     "print"
     "range"
+    "connect"
+    "emit_signal"
     "str"))
 #+END_SRC
 
@@ -359,8 +366,10 @@ GDScript resembles Python, this implementation used ~python-mode~ at this time.
 #+BEGIN_SRC emacs-lisp
 (define-derived-mode godot-gdscript-mode python-mode
   "Godot GDScript mode"
-  "Major mode for editing GDScript language files, used to script games in Godot Engine."
-  (set (make-local-variable 'font-lock-defaults) '(godot-gdscript-font-lock-keywords)))
+  (set (make-local-variable 'font-lock-defaults) '(godot-gdscript-font-lock-keywords))
+  ;; Accept underscores in identifiers, by adding the '_' character
+  ;; to the 'w' symbol (word constituent).
+  (modify-syntax-entry ?_ "w" godot-gdscript-mode-syntax-table))
 #+END_SRC
 
 Besides the mode, it automatically defines the variables:
