@@ -160,6 +160,7 @@ For the time being, we use Python's keywords for font locking.
         "func"
         "if"
         "in"
+        "onready"
         "pass"
         "return"
         "static"

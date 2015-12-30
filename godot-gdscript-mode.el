@@ -68,6 +68,7 @@
         "func"
         "if"
         "in"
+        "onready"
         "pass"
         "return"
         "static"
