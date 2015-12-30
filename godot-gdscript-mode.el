@@ -1,4 +1,4 @@
-;;; godot-gdscript.el --- Edit GDSCript code for Godot Game Engine.
+;;; godot-gdscript.el --- A major mode to edit GDScript code for Godot Game Engine.
 
 ;; Copyright (C) 2015 Franco Eusébio Garcia
 

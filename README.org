@@ -53,7 +53,7 @@ language provided in [[https://github.com/godotengine/godot/wiki/gdscript][gdscr
 
 ** Header
 #+BEGIN_SRC emacs-lisp
-;;; godot-gdscript.el --- Edit GDSCript code for Godot Game Engine.
+;;; godot-gdscript.el --- A major mode to edit GDScript code for Godot Game Engine.
 #+END_SRC
 
 *** Copyright
