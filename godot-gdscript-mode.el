@@ -158,8 +158,8 @@
         (,godot-gdscript-event-regexp . font-lock-event-face)
         (,godot-gdscript-functions-regexp . font-lock-function-name-face)
         (,godot-gdscript-keywords-regexp . font-lock-keyword-face)
-        ;; note: order above matters, because once colored, that part won't change.
-        ;; in general, longer words first
+        ;; Note: order above matters, because once colored, that part won't change.
+        ;; In general, add longer words first.
         ))
 
 (define-derived-mode godot-gdscript-mode python-mode
