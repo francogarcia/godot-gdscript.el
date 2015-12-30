@@ -102,7 +102,7 @@ Currently using GNU General Public License version 3.
 
 *** Dependencies
 #+BEGIN_SRC emacs-lisp
-;; Package-Requires: ((dash "2.12.1"))
+;; Package-Requires:
 #+END_SRC
 
 ** Code
@@ -111,10 +111,7 @@ Currently using GNU General Public License version 3.
 #+END_SRC
 
 ** Dependencies --- Loading
-- [[https://github.com/magnars/dash.el][magnars/dash.el · GitHub]].
-
 #+BEGIN_SRC emacs-lisp
-(require 'dash)
 #+END_SRC
 
 ** Settings
@@ -175,9 +172,10 @@ For the time being, we use Python's keywords for font locking.
 #+END_SRC
 
 *** Types
-#+NAME: language_keywords
+#+NAME: language_keywords_begin
 #+BEGIN_SRC emacs-lisp
-(setq godot-gdscript-types '())
+(setq godot-gdscript-types
+      '(
 #+END_SRC
 
 **** Built-In Types
@@ -189,13 +187,12 @@ For the time being, we use Python's keywords for font locking.
 - ~String~.
 
 #+BEGIN_SRC emacs-lisp
-(setq godot-gdscript-types
-      (-snoc godot-gdscript-types
-             "null"
-             "bool"
-             "int"
-             "float"
-             "String"))
+        ;; Bult-in types.
+        "null"
+        "bool"
+        "int"
+        "float"
+        "String"
 #+END_SRC
 
 ***** Vector Types
@@ -210,17 +207,16 @@ For the time being, we use Python's keywords for font locking.
 - ~Transform~.
 
 #+BEGIN_SRC emacs-lisp
-(setq godot-gdscript-types
-      (-snoc godot-gdscript-types
-             "Vector2"
-             "Rect2"
-             "Vector3"
-             "Matrix32"
-             "Plane"
-             "Quat"
-             "AABB"
-             "Matrix3"
-             "Transform"))
+        ;; Vector types.
+        "Vector2"
+        "Rect2"
+        "Vector3"
+        "Matrix32"
+        "Plane"
+        "Quat"
+        "AABB"
+        "Matrix3"
+        "Transform"
 #+END_SRC
 
 ***** Engine Types
@@ -232,14 +228,13 @@ For the time being, we use Python's keywords for font locking.
 - ~InputEvent~.
 
 #+BEGIN_SRC emacs-lisp
-(setq godot-gdscript-types
-      (-snoc godot-gdscript-types
-             "Color"
-             "Image"
-             "NodePath"
-             "RID"
-             "Object"
-             "InputEvent"))
+        ;; Engine types.
+        "Color"
+        "Image"
+        "NodePath"
+        "RID"
+        "Object"
+        "InputEvent"
 #+END_SRC
 
 ***** Containers
@@ -253,16 +248,21 @@ For the time being, we use Python's keywords for font locking.
 - ~ColorArray~.
 
 #+BEGIN_SRC emacs-lisp
-(setq godot-gdscript-types
-      (-snoc godot-gdscript-types
-             "Array"
-             "Dictionary"
-             "ByteArray"
-             "IntArray"
-             "StringArray"
-             "Vector2Array"
-             "Vector3Array"
-             "ColorArray"))
+         ;; Container types.
+         "Array"
+         "Dictionary"
+         "ByteArray"
+         "IntArray"
+         "StringArray"
+         "Vector2Array"
+         "Vector3Array"
+         "ColorArray"
+#+END_SRC
+
+**** Types End
+#+NAME: language_keywords_end
+#+BEGIN_SRC emacs-lisp
+        ))
 #+END_SRC
 
 *** Variables

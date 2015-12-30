@@ -29,11 +29,11 @@
 ;; language which Godot Game Engine uses to prototype and implement games. Godot
 ;; is an open-source game engine, available at: <http://www.godotengine.org/>.
 
-;; Package-Requires: ((dash "2.12.1"))
+;; Package-Requires:
 
 ;;; Code
 
-(require 'dash)
+
 
 ;; (defgroup godot-gdscript-mode nil
 ;;   "Support for the GDScript programming language, used by the Godot Game Engine (available at: <http://www.godotengine.org/>)."
@@ -81,47 +81,46 @@
         "resume"
         "yield"))
 
-(setq godot-gdscript-types '())
-
 (setq godot-gdscript-types
-      (-snoc godot-gdscript-types
-             "null"
-             "bool"
-             "int"
-             "float"
-             "String"))
+      '(
 
-(setq godot-gdscript-types
-      (-snoc godot-gdscript-types
-             "Vector2"
-             "Rect2"
-             "Vector3"
-             "Matrix32"
-             "Plane"
-             "Quat"
-             "AABB"
-             "Matrix3"
-             "Transform"))
+        ;; Bult-in types.
+        "null"
+        "bool"
+        "int"
+        "float"
+        "String"
 
-(setq godot-gdscript-types
-      (-snoc godot-gdscript-types
-             "Color"
-             "Image"
-             "NodePath"
-             "RID"
-             "Object"
-             "InputEvent"))
+        ;; Vector types.
+        "Vector2"
+        "Rect2"
+        "Vector3"
+        "Matrix32"
+        "Plane"
+        "Quat"
+        "AABB"
+        "Matrix3"
+        "Transform"
 
-(setq godot-gdscript-types
-      (-snoc godot-gdscript-types
-             "Array"
-             "Dictionary"
-             "ByteArray"
-             "IntArray"
-             "StringArray"
-             "Vector2Array"
-             "Vector3Array"
-             "ColorArray"))
+        ;; Engine types.
+        "Color"
+        "Image"
+        "NodePath"
+        "RID"
+        "Object"
+        "InputEvent"
+
+         ;; Container types.
+         "Array"
+         "Dictionary"
+         "ByteArray"
+         "IntArray"
+         "StringArray"
+         "Vector2Array"
+         "Vector3Array"
+         "ColorArray"
+
+        ))
 
 (setq godot-gdscript-constants
   '())
