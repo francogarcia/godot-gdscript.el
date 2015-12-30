@@ -1,4 +1,4 @@
-#+TITLE: Emacs Major Mode for Godot's GDSCript
+#+TITLE: Emacs Major Mode for Godot's GDScript
 #+AUTHOR: Franco Eusébio Garcia
 #+EMAIL: francogarcia@protonmail.com
 
@@ -137,8 +137,6 @@ Currently using GNU General Public License version 3.
 
 ** Grammar and Syntax
 *** Keywords
-For the time being, we use Python's keywords for font locking.
-
 #+NAME: language_keywords
 #+BEGIN_SRC emacs-lisp
 (setq godot-gdscript-keywords
@@ -362,12 +360,13 @@ For the time being, we use Python's keywords for font locking.
 ** Declaration
 ~define-derived-mode~ uses another major mode as a basis to create a new major
 mode (see [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Derived-Modes.html#Derived-Modes][GNU Emacs Lisp Reference Manual: Derived Modes]]). The documentation
-recommends to inherit either from ~fundamental-mode~ or ~prog-mode~. However, as
-GDScript resembles Python, this implementation used ~python-mode~ at this time.
+recommends to inherit either from ~fundamental-mode~ or ~prog-mode~. As GDScript
+resembles Python, it would be possible to use ~python-mode~ as basis.
 
 #+NAME: declaration
 #+BEGIN_SRC emacs-lisp
-(define-derived-mode godot-gdscript-mode python-mode
+(define-derived-mode godot-gdscript-mode prog-mode
+  "GDScript"
   "Major mode for editing GDScript files, used by the Godot Game
 engine."
   (set (make-local-variable 'font-lock-defaults) '(godot-gdscript-font-lock-keywords))

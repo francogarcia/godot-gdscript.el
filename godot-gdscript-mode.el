@@ -162,7 +162,8 @@
         ;; In general, add longer words first.
         ))
 
-(define-derived-mode godot-gdscript-mode python-mode
+(define-derived-mode godot-gdscript-mode prog-mode
+  "GDScript"
   "Major mode for editing GDScript files, used by the Godot Game
 engine."
   (set (make-local-variable 'font-lock-defaults) '(godot-gdscript-font-lock-keywords))
