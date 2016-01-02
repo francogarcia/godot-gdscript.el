@@ -33,13 +33,14 @@
 
 ;;; Code
 
-
+(require 'cl-lib)
 
 (defgroup godot-gdscript-mode nil
   "Support for the GDScript programming language, used by the
 Godot Game Engine (available at: <http://www.godotengine.org/>)
 to script games."
   :group 'languages
+  :version "24.5.1"
   :prefix "godot-gdscript-mode-")
 
 ;; (defcustom godot-gdscript-mode-modeline-display "GDScript"

@@ -112,6 +112,7 @@ Currently using GNU General Public License version 3.
 
 ** Dependencies --- Loading
 #+BEGIN_SRC emacs-lisp
+(require 'cl-lib)
 #+END_SRC
 
 ** Settings
@@ -122,6 +123,7 @@ Currently using GNU General Public License version 3.
 Godot Game Engine (available at: <http://www.godotengine.org/>)
 to script games."
   :group 'languages
+  :version "24.5.1"
   :prefix "godot-gdscript-mode-")
 
 ;; (defcustom godot-gdscript-mode-modeline-display "GDScript"
