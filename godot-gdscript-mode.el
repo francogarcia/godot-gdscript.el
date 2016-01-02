@@ -35,10 +35,12 @@
 
 
 
-;; (defgroup godot-gdscript-mode nil
-;;   "Support for the GDScript programming language, used by the Godot Game Engine (available at: <http://www.godotengine.org/>)."
-;;   :group 'languages
-;;   :prefix "gd")
+(defgroup godot-gdscript-mode nil
+  "Support for the GDScript programming language, used by the
+Godot Game Engine (available at: <http://www.godotengine.org/>)
+to script games."
+  :group 'languages
+  :prefix "godot-gdscript-mode-")
 
 ;; (defcustom godot-gdscript-mode-modeline-display "GDScript"
 ;;   "String to display in Emacs modeline."
@@ -52,8 +54,32 @@
 ;;   :tag "godot-gdscript-hook"
 ;;   :group 'godot-gdscript-mode)
 
+(defcustom godot-gdscript-mode-use-tabs nil
+  "Whether to use tabs (t) or spaces (nil) when indenting
+  code. Default value is nil."
+  :type 'boolean
+  ; :options '(t nil)
+  :safe 'booleanp
+  :group 'godot-gdscript-mode)
+
+(defcustom godot-gdscript-mode-indentation-width 4
+  "Width of a tab (indentation) in Godot GDScript Mode. Default
+  value is 4."
+  :type 'integer
+  :safe 'integerp
+  :group 'godot-gdscript-mode)
+
+(defcustom godot-gdscript-mode-comment-column (default-value 'comment-column)
+  "Indentation value for comments in columns."
+  :type 'integer
+  :safe 'integerp
+  :group 'godot-gdscript-mode)
+
+(defun godot-gdscript-skip-comments-blanks (&optional backward))
+
 (setq godot-gdscript-keywords
       '(
+        "and"
         "break"
         "class"
         "continue"
@@ -69,6 +95,7 @@
         "if"
         "in"
         "onready"
+        "not"
         "pass"
         "return"
         "static"
@@ -145,11 +172,50 @@
     "emit_signal"
     "str"))
 
+(setq godot-gdscript-operators
+  '("["
+    "]"
+    "extends"
+    "~"
+    "-"
+    "+"
+    "*"
+    "%"
+    "<<"
+    ">>"
+    "&"
+    "^"
+    "|"
+    "<"
+    ">"
+    "=="
+    "!="
+    ">="
+    "<="
+    "in"
+    "!"
+    "not"
+    "and"
+    "&&"
+    "or"
+    "||"
+    "="
+    "+="
+    "-="
+    "*="
+    "/="
+    "%="
+    "&="
+    "|="
+    "^="
+    ))
+
 (setq godot-gdscript-keywords-regexp (regexp-opt godot-gdscript-keywords 'words))
 (setq godot-gdscript-type-regexp (regexp-opt godot-gdscript-types 'words))
 (setq godot-gdscript-constant-regexp (regexp-opt godot-gdscript-constants 'words))
 (setq godot-gdscript-event-regexp (regexp-opt godot-gdscript-events 'words))
 (setq godot-gdscript-functions-regexp (regexp-opt godot-gdscript-functions 'words))
+(setq godot-gdscript-operators-regexp (regexp-opt godot-gdscript-operators 'symbols))
 
 (setq godot-gdscript-font-lock-keywords
       `(
@@ -177,6 +243,13 @@ engine."
 (setq godot-gdscript-events-regexp nil)
 (setq godot-gdscript-functions-regexp nil)
 
+(setq godot-gdscript-keywords nil)
+(setq godot-gdscript-types nil)
+(setq godot-gdscript-constants nil)
+(setq godot-gdscript-events nil)
+(setq godot-gdscript-functions nil)
+(setq godot-gdscript-operators nil)
+
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.gd\\'" . godot-gdscript-mode))
 
@@ -191,4 +264,4 @@ engine."
 ;; coding: utf-8
 ;; End:
 
-;;; godot-gdscript.el ends here.
+;;; godot-gdscript-mode.el ends here.

@@ -117,10 +117,12 @@ Currently using GNU General Public License version 3.
 ** Settings
 #+NAME: settings
 #+BEGIN_SRC emacs-lisp
-;; (defgroup godot-gdscript-mode nil
-;;   "Support for the GDScript programming language, used by the Godot Game Engine (available at: <http://www.godotengine.org/>)."
-;;   :group 'languages
-;;   :prefix "gd")
+(defgroup godot-gdscript-mode nil
+  "Support for the GDScript programming language, used by the
+Godot Game Engine (available at: <http://www.godotengine.org/>)
+to script games."
+  :group 'languages
+  :prefix "godot-gdscript-mode-")
 
 ;; (defcustom godot-gdscript-mode-modeline-display "GDScript"
 ;;   "String to display in Emacs modeline."
@@ -135,12 +137,44 @@ Currently using GNU General Public License version 3.
 ;;   :group 'godot-gdscript-mode)
 #+END_SRC
 
+** Customization
+*** Customizing Indentation
+#+NAME: indentation_customization
+#+BEGIN_SRC emacs-lisp
+(defcustom godot-gdscript-mode-use-tabs nil
+  "Whether to use tabs (t) or spaces (nil) when indenting
+  code. Default value is nil."
+  :type 'boolean
+  ; :options '(t nil)
+  :safe 'booleanp
+  :group 'godot-gdscript-mode)
+
+(defcustom godot-gdscript-mode-indentation-width 4
+  "Width of a tab (indentation) in Godot GDScript Mode. Default
+  value is 4."
+  :type 'integer
+  :safe 'integerp
+  :group 'godot-gdscript-mode)
+
+(defcustom godot-gdscript-mode-comment-column (default-value 'comment-column)
+  "Indentation value for comments in columns."
+  :type 'integer
+  :safe 'integerp
+  :group 'godot-gdscript-mode)
+#+END_SRC
+
+** Utilities
+#+BEGIN_SRC emacs-lisp
+(defun godot-gdscript-skip-comments-blanks (&optional backward))
+#+END_SRC
+
 ** Grammar and Syntax
 *** Keywords
 #+NAME: language_keywords
 #+BEGIN_SRC emacs-lisp
 (setq godot-gdscript-keywords
       '(
+        "and"
         "break"
         "class"
         "continue"
@@ -156,6 +190,7 @@ Currently using GNU General Public License version 3.
         "if"
         "in"
         "onready"
+        "not"
         "pass"
         "return"
         "static"
@@ -321,6 +356,47 @@ Currently using GNU General Public License version 3.
 | or ||                  | Boolean OR                            |
 | = += -= *= /= %= &= |= | Assignment, Lowest Priority           |
 
+#+NAME: language_operatords
+#+BEGIN_SRC emacs-lisp
+(setq godot-gdscript-operators
+  '("["
+    "]"
+    "extends"
+    "~"
+    "-"
+    "+"
+    "*"
+    "%"
+    "<<"
+    ">>"
+    "&"
+    "^"
+    "|"
+    "<"
+    ">"
+    "=="
+    "!="
+    ">="
+    "<="
+    "in"
+    "!"
+    "not"
+    "and"
+    "&&"
+    "or"
+    "||"
+    "="
+    "+="
+    "-="
+    "*="
+    "/="
+    "%="
+    "&="
+    "|="
+    "^="
+    ))
+#+END_SRC
+
 *** Literals
 | Literal           | Name                         |
 |-------------------+------------------------------|
@@ -341,6 +417,7 @@ Currently using GNU General Public License version 3.
 (setq godot-gdscript-constant-regexp (regexp-opt godot-gdscript-constants 'words))
 (setq godot-gdscript-event-regexp (regexp-opt godot-gdscript-events 'words))
 (setq godot-gdscript-functions-regexp (regexp-opt godot-gdscript-functions 'words))
+(setq godot-gdscript-operators-regexp (regexp-opt godot-gdscript-operators 'symbols))
 #+END_SRC
 
 #+NAME: font_lock
@@ -391,6 +468,13 @@ Therefore, one should consider all these values declared from this section on.
 (setq godot-gdscript-constants-regexp nil)
 (setq godot-gdscript-events-regexp nil)
 (setq godot-gdscript-functions-regexp nil)
+
+(setq godot-gdscript-keywords nil)
+(setq godot-gdscript-types nil)
+(setq godot-gdscript-constants nil)
+(setq godot-gdscript-events nil)
+(setq godot-gdscript-functions nil)
+(setq godot-gdscript-operators nil)
 #+END_SRC
 
 ** File Association
@@ -425,5 +509,10 @@ Therefore, one should consider all these values declared from this section on.
 
 ** End
 #+BEGIN_SRC emacs-lisp
-;;; godot-gdscript.el ends here.
+;;; godot-gdscript-mode.el ends here.
+#+END_SRC
+
+* Miscellaneous                                                                :noexport:
+#+BEGIN_SRC emacs-lisp
+(back-to-indentation)
 #+END_SRC
