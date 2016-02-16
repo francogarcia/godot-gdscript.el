@@ -22,7 +22,7 @@ is Python's one, left for reference and future work.
 
 * Setting-Up in Emacs
 #+BEGIN_SRC emacs-lisp :tangle no
-(require 'godot-gdscript-mode)
+(require 'godot-gdscript)
 #+END_SRC
 
 * About this File
@@ -52,7 +52,7 @@ is Python's one, left for reference and future work.
 
 * Implementation
 :PROPERTIES:
-:tangle:  godot-gdscript-mode.el
+:tangle:  godot-gdscript.el
 :padline: yes
 :comments: no
 :END:
