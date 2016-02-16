@@ -7,6 +7,12 @@ This is a prototype of major mode to support GDScript, the scripting language
 used by the [[www.godotengine.org][Godot Game Engine]] into [[https://www.gnu.org/software/emacs/][GNU Emacs]]. It follows the description of the
 language provided in [[https://github.com/godotengine/godot/wiki/gdscript][gdscript]].
 
+The implementation changes ~python.el~ major mode shipped with Emacs to support
+GDScript language syntax constructs. It is a work in progress; currently it
+supports syntax highlighting and indentation. It is important to note that
+completion and shell support is not available yet; the existing implementation
+is Python's one, left for reference and future work.
+
 * References
 
 - [[http://godotengine.org/projects/godot-engine/wiki/Documentation][Godot Engine --- Documentation --- OpenProject]];
