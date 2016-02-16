@@ -4,7 +4,7 @@
 
 * Introduction
 This is a prototype of major mode to support GDScript, the scripting language
-used by the [[www.godotengine.org][Godot Game Engine]] into [[https://www.gnu.org/software/emacs/][GNU Emacs]]. It follows the description of the
+used by the [[http://www.godotengine.org][Godot Game Engine]] into [[https://www.gnu.org/software/emacs/][GNU Emacs]]. It follows the description of the
 language provided in [[https://github.com/godotengine/godot/wiki/gdscript][gdscript]].
 
 The implementation changes ~python.el~ major mode shipped with Emacs to support
