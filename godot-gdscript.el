@@ -3,6 +3,7 @@
 ;; Copyright (C) 2015--2016 Franco Eusébio Garcia
 
 ;; Author: Franco Eusébio Garcia <francogarcia@protonmail.com>
+;; URL: https://github.com/francogarcia/godot-gdscript.el
 ;; Version: 0.0.1
 ;; Keywords: godot game engine
 

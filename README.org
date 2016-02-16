@@ -70,6 +70,7 @@ is Python's one, left for reference and future work.
 *** Author, Version, Keywords
 #+BEGIN_SRC emacs-lisp
 ;; Author: Franco Eusébio Garcia <francogarcia@protonmail.com>
+;; URL: https://github.com/francogarcia/godot-gdscript.el
 ;; Version: 0.0.1
 ;; Keywords: godot game engine
 #+END_SRC
