@@ -4435,6 +4435,19 @@ This is the list of candidates for auto-completion.
 #+END_SRC
 
 **** Creating a Request for the Completions
+***** Using Curl
+#+BEGIN_SRC sh :results output
+url \
+    --data '{"path": "/home/franco/tmp/godot/emacs/example.gd", "text": "extends Node\nfunc _ready():\n\tprint(\"Hello, world!\")\n\tget", "cursor": {"row": 3, "column": 4}, "meta": "Ignored by the service. Returned in the response."}' \
+    --header 'Accept: application/json' \
+    --header 'Connection: keep-alive' \
+    --header 'Content-Type: application/json; charset=UTF-8' \
+    --http1.1 \
+    --request POST http://localhost:6071
+#+END_SRC
+
+***** Curl in Emacs Lisp
+
 Add comma before ~buffer-content~.
 
 #+NAME: COMPLETION_REQUEST
@@ -4453,35 +4466,20 @@ Add comma before ~buffer-content~.
 #+END_SRC
 
 #+NAME: COMPLETION_JSON_REQUEST
-#+HEADER: :var PORT=PROJECT_PORT
-#+HEADER: :var JSON_CONTENT=COMPLETION_REQUEST
+ #+HEADER: :var PORT=PROJECT_PORT
+ #+HEADER: :var JSON_CONTENT=COMPLETION_REQUEST
 #+BEGIN_SRC emacs-lisp :results output
-;; From <https://github.com/caiorss/Emacs-Elisp-Programming#http-and-post-request>
-(defun url-http-post (url args)
-  "Send ARGS to URL as a POST request."
-  (let (
-        (response-string nil)
-        (url-request-method "POST")
-        (url-request-extra-headers
-         '(("Content-Type" . "application/json; charset=UTF-8")
-           ("Accept" . "application/json")
-           ("Connection" . "keep-alive")))
-        (url-request-data args))
-    (with-current-buffer (url-retrieve-synchronously url)
-      (goto-char (point-min))
-      (re-search-forward "^$")
-      (json-read))))
+(defun async-shell-command-to-string (command)
+  "Asynchronously execute shell command COMMAND, returning its
+output as a string."
+  (let* ((output-buffer (get-buffer-create "*Godot-GDScript GD-AutoComplete Service*"))
+         (error-buffer (get-buffer-create "*Godot-GDScript GD-AutoComplete Service Error*")))
+  (with-output-to-string
+    (with-current-buffer
+        (async-shell-command curl-command output-buffer error-buffer)))))
 
-(progn
-  ;;(let ((json-key-type 'string))
-  ;; (princ PORT)
-  ;; (print JSON_CONTENT)
-  ;; (princ (concat "http://localhost:" (replace-regexp-in-string "\n\\'" "" PORT) " HTTP/1.1"))
-  ;;(print (json-read-from-string JSON_CONTENT))
-
-  (princ (url-http-post (concat "http://localhost:" (replace-regexp-in-string "\n\\'" "" PORT))
-                 JSON_CONTENT))
-)
+(let ((curl-command "curl --data '{\"path\": \"/home/franco/tmp/godot/emacs/example.gd\", \"text\": \"extends Node\nfunc _ready():\n\tprint(\\\"Hello, world!\\\")\n\tget\", \"cursor\": {\"row\": 3, \"column\": 4}, \"meta\": \"Ignored by the service. Returned in the response.\"}' --header 'Accept: application/json' --header 'Connection: keep-alive' --header 'Content-Type: application/json; charset=UTF-8' --http1.1 --request POST http://localhost:6071"))
+  (print "%s" (async-shell-command-to-string curl-command)))
 #+END_SRC
 
 ** Company Back-End
