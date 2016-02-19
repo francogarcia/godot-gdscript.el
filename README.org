@@ -4437,7 +4437,7 @@ This is the list of candidates for auto-completion.
 **** Creating a Request for the Completions
 ***** Using Curl
 #+BEGIN_SRC sh :results output
-url \
+curl \
     --data '{"path": "/home/franco/tmp/godot/emacs/example.gd", "text": "extends Node\nfunc _ready():\n\tprint(\"Hello, world!\")\n\tget", "cursor": {"row": 3, "column": 4}, "meta": "Ignored by the service. Returned in the response."}' \
     --header 'Accept: application/json' \
     --header 'Connection: keep-alive' \
