@@ -4334,7 +4334,7 @@ GNU General Public License version 3.
   + Suggestions: list of completions;
   + Prefix: prefix string to be replaced with the user's chosen suggestion.
 
-*** Exploratory Example
+*** Exploratory Study
 This example uses [[https://github.com/zweifisch/ob-http][ob-http]].
 
 **** Obtaining the Project's Checksum
