@@ -4469,17 +4469,50 @@ Add comma before ~buffer-content~.
  #+HEADER: :var PORT=PROJECT_PORT
  #+HEADER: :var JSON_CONTENT=COMPLETION_REQUEST
 #+BEGIN_SRC emacs-lisp :results output
-(defun async-shell-command-to-string (command)
-  "Asynchronously execute shell command COMMAND, returning its
-output as a string."
-  (let* ((output-buffer (get-buffer-create "*Godot-GDScript GD-AutoComplete Service*"))
-         (error-buffer (get-buffer-create "*Godot-GDScript GD-AutoComplete Service Error*")))
-  (with-output-to-string
-    (with-current-buffer
-        (async-shell-command curl-command output-buffer error-buffer)))))
+;; Adapted from: <https://github.com/deepakg/emacs/blob/master/perlysense/async-shell-command-to-string.el>
+(defun company-godot-gdscript-async-shell-command (command buffer-name &optional callback)
+  "Execute shell command COMMAND asynchronously in the
+  background.
+
+Return the temporary output buffer (named BUFFER-NAME), which
+  command is writing to during execution.
+
+If CALLBACK is supplied, it is called with the return value of
+COMMAND passed as a string.
+
+When the command is finished, call CALLBACK with the resulting
+  output as a string.
+
+Synopsis:
+  (async-shell-command-to-string \"echo hello\" \"Hello World\" (lambda (s) (message \"RETURNED (%s)\" s)))
+"
+  (lexical-let ((output-buffer (get-buffer-create buffer-name))
+                (callback-function callback))
+    (set-process-sentinel
+     (start-process
+      "Godot-GDScript Autocomplete"
+      output-buffer
+      shell-file-name
+      ;; Command line arguments for the subprocess.
+      shell-command-switch
+      command)
+     (lambda (process signal)
+       ;; TODO: Handle failure.
+       (when (memq (process-status process) '(exit signal))
+         (if callback-function
+             (with-current-buffer output-buffer
+               (let ((output-string
+                      (buffer-substring-no-properties (point-min) (point-max))))
+                 (funcall callback-function output-string))))
+         (kill-buffer output-buffer))))
+    output-buffer))
 
 (let ((curl-command "curl --data '{\"path\": \"/home/franco/tmp/godot/emacs/example.gd\", \"text\": \"extends Node\nfunc _ready():\n\tprint(\\\"Hello, world!\\\")\n\tget\", \"cursor\": {\"row\": 3, \"column\": 4}, \"meta\": \"Ignored by the service. Returned in the response.\"}' --header 'Accept: application/json' --header 'Connection: keep-alive' --header 'Content-Type: application/json; charset=UTF-8' --http1.1 --request POST http://localhost:6071"))
-  (print "%s" (async-shell-command-to-string curl-command)))
+  (company-godot-gdscript-async-shell-command
+   curl-command
+   "*Godot-GDScript GD-AutoComplete Service*"
+  (lambda (result) (message "Command returned: %s.\n" result))
+   ))
 #+END_SRC
 
 ** Company Back-End
