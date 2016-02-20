@@ -4563,7 +4563,6 @@ MD5 value, given by PROJECT-MD5."
 #+END_SRC
 
 **** Curl Request
-
 #+BEGIN_SRC emacs-lisp
 (defun company-godot-gdscript-build-json-request-at-point ()
   "Gather the required data to send to GD Auto-Complete Service,
@@ -4685,7 +4684,39 @@ offered by GD Auto-Complete Service, if any."
                                                (company-godot-gdscript-project-configuration-md5 default-directory))
                                               (company-godot-gdscript-build-json-request-at-point))
    "*Godot-GDScript GD-AutoComplete Service*"
-   (lambda (result) (message "Command returned: %s.\n" result))))
+   (lambda (result)
+     (message "Command returned: %s %s %s.\n" ;; Change to %S %S %S to see raw data.
+              (company-godot-gdscript-mode-extract-completion-hint-from-json result)
+              (company-godot-gdscript-mode-extract-completion-prefix-from-json result)
+              (company-godot-gdscript-mode-extract-completion-suggestions-from-json result)
+              ))))
+#+END_SRC
+
+**** Extract Data for Completion
+#+BEGIN_SRC emacs-lisp
+(defun company-godot-gdscript-mode-extract-completion-hint-from-json (completion-json)
+  "Extract and return a string containing the hint field of the
+JSON completions."
+  (let* ((json-object-type 'plist)
+         (completion-data (json-read-from-string completion-json))
+         (completion-hint (plist-get completion-data :hint)))
+    completion-hint))
+
+(defun company-godot-gdscript-mode-extract-completion-prefix-from-json (completion-json)
+  "Extract and return the string containg prefix field of the JSON
+completions."
+  (let* ((json-object-type 'plist)
+         (completion-data (json-read-from-string completion-json))
+         (completion-prefix (plist-get completion-data :prefix)))
+    completion-prefix))
+
+(defun company-godot-gdscript-mode-extract-completion-suggestions-from-json (completion-json)
+  "Extract and return a list containing the completion candidates
+field of the JSON completions."
+  (let* ((json-object-type 'plist)
+         (completion-data (json-read-from-string completion-json))
+         (completion-suggestions (coerce (plist-get completion-data :suggestions) 'list)))
+    completion-suggestions))
 #+END_SRC
 
 **** Testing                                                                :noexport:
@@ -4729,7 +4760,22 @@ func _ready():
    "*Godot-GDScript GD-AutoComplete Service*"
   (lambda (result) (message "Command returned: %s.\n" result)))
 
+;; Function with complete version.
 (company-godot-gdscript-process-request-completion-at-point)
+
+;; Debug version (of the complete version): uses fake file, line, column.
+(company-godot-gdscript-async-shell-command
+ (company-godot-gdscript-build-curl-command "http://localhost"
+                                            (company-godot-gdscript-find-autocomplete-server-port
+                                             (company-godot-gdscript-project-configuration-md5 "/home/franco/tmp/godot/emacs/"))
+                                            (company-godot-gdscript-build-json-request-at-point-debug-version))
+ "*Godot-GDScript GD-AutoComplete Service*"
+ (lambda (result)
+   (message "Command returned: %s %s %s.\n" ;; Change to %S %S %S to see raw data.
+            (company-godot-gdscript-mode-extract-completion-hint-from-json result)
+            (company-godot-gdscript-mode-extract-completion-prefix-from-json result)
+            (company-godot-gdscript-mode-extract-completion-suggestions-from-json result)
+            )))
 #+END_SRC
 
 ** Company Back-End
