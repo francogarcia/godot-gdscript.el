@@ -4335,6 +4335,9 @@ GNU General Public License version 3.
   + Prefix: prefix string to be replaced with the user's chosen suggestion.
 
 *** Exploratory Study                                                        :noexport:
+:PROPERTIES:
+:tangle: no
+:END:
 This example uses [[https://github.com/zweifisch/ob-http][ob-http]].
 
 **** Obtaining the Project's Checksum
@@ -4720,6 +4723,9 @@ field of the JSON completions."
 #+END_SRC
 
 **** Testing                                                                :noexport:
+:PROPERTIES:
+:tangle: no
+:END:
 #+BEGIN_SRC emacs-lisp
 (company-godot-gdscript-find-project-configuration "/home/franco/tmp/godot/emacs/")
 
