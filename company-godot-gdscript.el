@@ -257,7 +257,7 @@ field of the JSON completions."
 
 (add-to-list 'company-backends 'company-godot-gdscript)
 
-(defun company-godot-dscript-grab-symbol-before-quotes ()
+(defun company-godot-gdscript-grab-symbol-before-quotes ()
   "Return the symbol before opening quotes, to search for path
   completions (such as node paths for the scene tree) inside
   Godot."
@@ -283,7 +283,7 @@ For GDScript, if there is no symbol, it aborts the completion."
         (or (company-grab-symbol) 'stop)
       ;; Handle strings, as they might be a call such as get_node(). Also allow
       ;; other back-ends to complete the string or comment.
-      (or (company-godot-dscript-grab-symbol-before-quotes) 'nil))))
+      (or (company-godot-gdscript-grab-symbol-before-quotes) 'nil))))
 
 (defun company-godot-gdscript-candidates (callback)
   "Look for possible completion candidates for completion at
