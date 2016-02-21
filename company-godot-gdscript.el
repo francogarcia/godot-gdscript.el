@@ -302,7 +302,7 @@ CALLBACK."
     ;; Remove two double quotes in a row, if exists.
     (backward-char)
     (if (search-forward-regexp "\"\"" nil t)
-        (replace-match "\""))))
+        (replace-match "\"" t nil))))
 
 ;;;###autoload
 (defun company-godot-gdscript (command &optional arg &rest ignored)
