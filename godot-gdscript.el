@@ -1,5 +1,8 @@
 ;;; godot-gdscript.el --- Major mode for editing Godot Engine GDScript files.
 
+;; Original code Python Mode (from `python.el'):
+;; Copyright (C) 2003--2015 Free Software Foundation, Inc.
+;; Godot-GDScript Mode:
 ;; Copyright (C) 2015--2016 Franco Eusébio Garcia
 
 ;; Author: Franco Eusébio Garcia <francogarcia@protonmail.com>
