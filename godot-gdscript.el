@@ -2733,13 +2733,8 @@ Argument OUTPUT is a string with the output from the comint process."
 For this to work as best as possible you should call
 `godot-gdscript-shell-send-buffer' from time to time so context in
 inferior Godot-Gdscript process is updated properly."
-  (let ((process (godot-gdscript-shell-get-process)))
-    (if (not process)
-        (error "Completion needs an inferior Godot-Gdscript process running")
-      (godot-gdscript-shell-completion-complete-at-point process))))
-
-(add-to-list 'debug-ignored-errors
-             "^Completion needs an inferior Godot-Gdscript process running.")
+  ;; (company-complete))
+)
 
 ;;; Fill paragraph
 

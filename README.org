@@ -4676,23 +4676,19 @@ Synopsis:
 
 **** Request Completion at Point
 #+BEGIN_SRC emacs-lisp
-(defun company-godot-gdscript-process-request-completion-at-point ()
+(defun company-godot-gdscript-process-request-completion-at-point (callback)
   "Build and send the request for completion at the current point in buffer.
 
-Returns a JSON file containing the hint, suggestions, and prefix
-offered by GD Auto-Complete Service, if any."
+The request returns a JSON file containing the hint, suggestions,
+and prefix offered by GD Auto-Complete Service, if any. The JSON
+filled should be handled by the supplied CALLBACK function."
   (company-godot-gdscript-async-shell-command
    (company-godot-gdscript-build-curl-command "http://localhost"
                                               (company-godot-gdscript-find-autocomplete-server-port
                                                (company-godot-gdscript-project-configuration-md5 default-directory))
                                               (company-godot-gdscript-build-json-request-at-point))
    "*Godot-GDScript GD-AutoComplete Service*"
-   (lambda (result)
-     (message "Command returned: %s %s %s.\n" ;; Change to %S %S %S to see raw data.
-              (company-godot-gdscript-mode-extract-completion-hint-from-json result)
-              (company-godot-gdscript-mode-extract-completion-prefix-from-json result)
-              (company-godot-gdscript-mode-extract-completion-suggestions-from-json result)
-              ))))
+   callback))
 #+END_SRC
 
 **** Extract Data for Completion
@@ -4766,9 +4762,6 @@ func _ready():
    "*Godot-GDScript GD-AutoComplete Service*"
   (lambda (result) (message "Command returned: %s.\n" result)))
 
-;; Function with complete version.
-(company-godot-gdscript-process-request-completion-at-point)
-
 ;; Debug version (of the complete version): uses fake file, line, column.
 (company-godot-gdscript-async-shell-command
  (company-godot-gdscript-build-curl-command "http://localhost"
@@ -4776,6 +4769,15 @@ func _ready():
                                              (company-godot-gdscript-project-configuration-md5 "/home/franco/tmp/godot/emacs/"))
                                             (company-godot-gdscript-build-json-request-at-point-debug-version))
  "*Godot-GDScript GD-AutoComplete Service*"
+ (lambda (result)
+   (message "Command returned: %s %s %s.\n" ;; Change to %S %S %S to see raw data.
+            (company-godot-gdscript-mode-extract-completion-hint-from-json result)
+            (company-godot-gdscript-mode-extract-completion-prefix-from-json result)
+            (company-godot-gdscript-mode-extract-completion-suggestions-from-json result)
+            )))
+
+;; Function with complete version.
+(company-godot-gdscript-process-request-completion-at-point
  (lambda (result)
    (message "Command returned: %s %s %s.\n" ;; Change to %S %S %S to see raw data.
             (company-godot-gdscript-mode-extract-completion-hint-from-json result)
@@ -4797,9 +4799,6 @@ complete, or evaluate:
 Then use ~M-x company-complete~.
 
 #+BEGIN_SRC emacs-lisp
-(defconst sample-completions
-  '("alan" "john" "ada" "don"))
-
 (defun company-godot-gdscript-prefix ()
   "Handle Company's prefix command case.
 
@@ -4812,11 +4811,16 @@ If there is no symbol, it aborts the completion."
        (or (company-grab-symbol) 'stop))
   )
 
-(defun company-godot-gdscript-candidates (name)
-  "Look for possible completion candidates for NAME."
-  (remove-if-not
-   (lambda (c) (string-prefix-p name c))
-   sample-completions))
+(defun company-godot-gdscript-candidates (callback)
+  "Look for possible completion candidates for completion at
+point, then updates Company list of candidates by calling
+CALLBACK."
+  (lexical-let ((callback-function callback))
+   (company-godot-gdscript-process-request-completion-at-point
+    (lambda (result)
+      (funcall callback-function
+               (company-godot-gdscript-mode-extract-completion-suggestions-from-json
+                result))))))
 
 ;;;###autoload
 (defun company-godot-gdscript (command &optional arg &rest ignored)
@@ -4828,8 +4832,10 @@ ARG."
   (cl-case command
     (interactive (company-begin-backend 'company-godot-gdscript))
     (prefix (company-godot-gdscript-prefix))
-    (candidates
-     (company-godot-gdscript-candidates arg))
+    (candidates (cons :async
+                      (lambda (company-async-callback)
+                        (company-godot-gdscript-candidates
+                         company-async-callback))))
     (sorted t)))
 #+END_SRC
 
