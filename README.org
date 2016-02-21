@@ -26,10 +26,23 @@ is Python's one, left for reference and future work.
 #+END_SRC
 
 ** Auto-Completion
+*NOTE*: Add this moment, auto-completion requires Curl (installed and exported
+to the system's path) and was only tested in Linux.
+
 Auto completion requires [[https://company-mode.github.io/][company-mode for Emacs]] and [[https://github.com/neikeq/gd-autocomplete-service][gd-autocomplete-service]].
 Therefore, in order to use auto-completion, it is necessary to compile Godot
 from source code, enabling the =gd-autocomplete-service=. To learn how to use
 custom modules in Godot, check [[http://www.godotengine.org/projects/godot-engine/wiki/Custom_modules_in_C++][Godot Engine - Custom modules in C++]].
+
+To enable auto-completion, first require Company and the Godot-GDScript
+back-end:
+
+#+BEGIN_SRC emacs-lisp
+(require 'company)
+(require 'company-godot-gdscript)
+#+END_SRC
+
+To add the back-end globally to Company, you may use:
 
 #+BEGIN_SRC emacs-lisp :tangle no
 (eval-after-load "company"
@@ -37,12 +50,29 @@ custom modules in Godot, check [[http://www.godotengine.org/projects/godot-engin
      (add-to-list 'company-backends 'company-godot-gdscript)))
 #+END_SRC
 
-To enable the completion in a buffer, enable Company: ~M-x company-mode~. Should
-you want to enable completion when the buffer is loaded, use:
+To enable the completion in a buffer, enable Company: ~M-x company-mode~.
+Afterwards, you may request a completion with ~M-x company-complete~.
+
+Should you want to enable completion when the buffer is loaded, you may use:
 
 #+BEGIN_SRC emacs-lisp :tangle no
 (add-hook 'godot-gdscript-mode-hook 'company-mode)
 #+END_SRC
+
+Or a custom function, such as:
+
+#+BEGIN_SRC emacs-lisp :tangle no
+(add-hook 'godot-gdscript-mode-hook
+          (lambda ()
+            (make-local-variable 'company-backends)
+            (add-to-list 'company-backends 'company-godot-gdscript)
+            (set (make-local-variable 'company-minimum-prefix-length) 1)
+            (set (make-local-variable  'company-async-timeout 10))
+            (company-mode)
+            (local-set-key (kbd "<f5>") 'company-complete)))
+#+END_SRC
+
+To customize local variables according to your own preferences.
 
 * About this File
 ** Org-Mode Notes
