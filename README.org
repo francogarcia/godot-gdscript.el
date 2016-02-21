@@ -99,7 +99,7 @@ To customize local variables according to your own preferences.
 :END:
 #+END_SRC
 
-* Implementation
+* Emacs Major Mode
 :PROPERTIES:
 :tangle:  godot-gdscript.el
 :padline: yes
@@ -4269,7 +4269,7 @@ Therefore, one should consider all these values declared from this section on.
 ;;; godot-gdscript.el ends here
 #+END_SRC
 
-* Code Completion
+* Code Completion with Company Mode
 :PROPERTIES:
 :tangle:  company-godot-gdscript.el
 :padline: yes
