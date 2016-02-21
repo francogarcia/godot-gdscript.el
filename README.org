@@ -4654,11 +4654,17 @@ The current line and column of the cursor are used as the point
 on which to ask for completion."
   (let ((file-path "/home/franco/tmp/godot/emacs/example.gd")
         (buffer-content
+;; "extends Node
+;; func _ready():
+;;     get_node("
 "extends Node
-func _re"
+func _ready():
+    get_node(\""
 )
-        (cursor-line 1)
-        (cursor-column 8)
+        ;; (cursor-line 2)
+        ;; (cursor-column 13)
+        (cursor-line 2)
+        (cursor-column 14)
         (meta-content "Request sent from Emacs Godot GDScript mode."))
     (json-encode `(:path ,file-path
                    :text ,buffer-content
@@ -4872,17 +4878,33 @@ complete, or evaluate:
 Then use ~M-x company-complete~.
 
 #+BEGIN_SRC emacs-lisp
+(defun company-godot-dscript-grab-symbol-before-quotes ()
+  "Return the symbol before opening quotes, to search for path
+  completions (such as node paths for the scene tree) inside
+  Godot."
+  ;; (company-grab-line "get_node(\\\"")
+  ;; (company-grab-symbol)
+  ;; Send an opening quote to search for candidates.
+  (concat "\"" (company-grab-symbol))
+  )
+
 (defun company-godot-gdscript-prefix ()
   "Handle Company's prefix command case.
 
-The implementation ignores strings and comments, trying to
-complete everything else.
+Only complete symbols when the current major mode is
+Godot-GDScript.
 
-If there is no symbol, it aborts the completion."
-  (and (eq major-mode 'godot-gdscript-mode)
-       (not (company-in-string-or-comment))
-       (or (company-grab-symbol) 'stop))
-  )
+For strings, it allows completion of code using this back-end and
+any other Company back-ends.
+
+For GDScript, if there is no symbol, it aborts the completion."
+  (when (eq major-mode 'godot-gdscript-mode)
+    (if (not (company-in-string-or-comment))
+        ;; Handle source code.
+        (or (company-grab-symbol) 'stop)
+      ;; Handle strings, as they might be a call such as get_node(). Also allow
+      ;; other back-ends to complete the string or comment.
+      (or (company-godot-dscript-grab-symbol-before-quotes) 'nil))))
 
 (defun company-godot-gdscript-candidates (callback)
   "Look for possible completion candidates for completion at
@@ -4894,6 +4916,14 @@ CALLBACK."
       (funcall callback-function
                (company-godot-gdscript-mode-extract-completion-suggestions-from-json
                 result))))))
+
+(defun company-godot-gdscript-post-completion ()
+  "Tweak the results of the completions."
+  (save-excursion
+    ;; Remove two double quotes in a row, if exists.
+    (backward-char)
+    (if (search-forward-regexp "\"\"" nil t)
+        (replace-match "\""))))
 
 ;;;###autoload
 (defun company-godot-gdscript (command &optional arg &rest ignored)
@@ -4909,6 +4939,7 @@ ARG."
                       (lambda (company-async-callback)
                         (company-godot-gdscript-candidates
                          company-async-callback))))
+    (post-completion (company-godot-gdscript-post-completion))
     (sorted t)))
 #+END_SRC
 
