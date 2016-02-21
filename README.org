@@ -74,6 +74,11 @@ Or a custom function, such as:
 
 To customize local variables according to your own preferences.
 
+*** Searching for Candidates in the Completion
+
+Company allows searching the candidates list by pressing ~C-s~ and typing. You
+may also use ~C-M-s~ to filter candidates whilst searching.
+
 * About this File
 ** Org-Mode Notes
 - Set ~comments~ to ~both~ to ease debugging and exporting Org as comments.
