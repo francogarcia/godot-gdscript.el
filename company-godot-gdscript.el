@@ -95,12 +95,34 @@ on which to ask for completion."
         (cursor-line (1- (line-number-at-pos)))
         (cursor-column (current-column))
         (meta-content "Request sent from Emacs Godot GDScript mode."))
-    (with-temp-buffer buffer-content
+    (with-current-buffer buffer-content
       (json-encode `(
                      :path ,file-path
                      :text ,(buffer-substring-no-properties (point-min) (point-max))
                      :cursor (:row ,cursor-line :column ,cursor-column)
                      :meta ,meta-content)))))
+
+(defun company-godot-gdscript-build-json-request-at-point-verbose ()
+  "Gather the required data to send to GD Auto-Complete Service,
+  and pack them all into a JSON string.
+
+The current line and column of the cursor are used as the point
+on which to ask for completion."
+  (let ((file-path buffer-file-name)
+        (buffer-content (current-buffer))
+        ;; TODO: Account for narrowing.
+        (cursor-line (1- (line-number-at-pos)))
+        (cursor-column (current-column))
+        (meta-content "Request sent from Emacs Godot GDScript mode."))
+    (progn
+      (message "file: %s\nbuffer: %s\nline: %s\tcolumn: %s"
+               file-path buffer-content cursor-line cursor-column)
+      (with-current-buffer buffer-content
+                        (json-encode `(
+                                       :path ,file-path
+                                       :text ,(buffer-substring-no-properties (point-min) (point-max))
+                                       :cursor (:row ,cursor-line :column ,cursor-column)
+                                       :meta ,meta-content))))))
 
 (defun company-godot-gdscript-build-json-request-at-point-debug-version ()
   "Gather the required data to send to GD Auto-Complete Service,
@@ -127,8 +149,8 @@ func _re"
   "Build the shell command to invocate Curl. URL and PORT specify
 the socket address, and JSON-REQUEST is a string containing the
 data for requesting completion to GD Auto-Complete Service."
-  ;;(let ((data (concat "--data '" (company-godot-gdscript-escape-gdscript-symbols json-request) "'"))
-  (let ((data (concat "--data '" json-request "'"))
+  ;;(let ((data (concat "--data \"" (company-godot-gdscript-escape-gdscript-symbols json-request) "\""))
+  (let ((data (concat "--data-raw \"" (company-godot-gdscript-escape-gdscript-symbols json-request) "\""))
         (header-accept "--header 'Accept: application/json'")
         (header-connection "--header 'Connection: keep-alive'")
         (header-content-type "--header 'Content-Type: application/json; charset=UTF-8'")
