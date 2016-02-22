@@ -71,9 +71,9 @@ Or a custom function, such as:
           (lambda ()
             (make-local-variable 'company-backends)
             (add-to-list 'company-backends 'company-godot-gdscript)
-            (set (make-local-variable 'company-minimum-prefix-length) 1)
-            (set (make-local-variable  'company-async-timeout) 10)
-            (set (make-local-variable  'company-idle-delay) 0.3)
+            (setq-local company-minimum-prefix-length 1)
+            (setq-local company-async-timeout 10)
+            (setq-local company-idle-delay 0.3)
             (company-mode)
             (local-set-key (kbd "<f5>") 'company-complete)))
 #+END_SRC
