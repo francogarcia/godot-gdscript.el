@@ -10,7 +10,7 @@ language provided in [[https://github.com/godotengine/godot/wiki/gdscript][gdscr
 The implementation changes ~python.el~ major mode shipped with Emacs to support
 GDScript language syntax constructs. It is a work in progress; currently it
 supports syntax highlighting, indentation, and auto-completion of functions,
-symbols, and nodes in the scene tree.
+symbols, input actions, and nodes in the scene tree.
 
 Shell support is not available yet; the existing implementation is Python's one,
 left for reference and future work.
