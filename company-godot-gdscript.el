@@ -43,6 +43,13 @@
 (require 'company)
 (require 'json)
 
+(defcustom company-godot-gdscript-curl-path "curl"
+  "Path to curl executable, used to send HTTP requests to GD
+Autocomplete Service."
+  :group 'godot-gdscript
+  :type 'string
+  :safe 'stringp)
+
 (defun company-godot-gdscript-find-project-configuration (&optional path)
   "Returns the path on which Godot's configuration
   file (\"engine.cfg\") is stored.
@@ -161,9 +168,8 @@ data for requesting completion to GD Auto-Complete Service."
         (header-connection "--header 'Connection: keep-alive'")
         (header-content-type "--header 'Content-Type: application/json; charset=UTF-8'")
         (http-version "--http1.1")
-        (http-request (concat "--request POST " url ":" port))
-        )
-    (concat "curl "
+        (http-request (concat "--request POST " url ":" port)))
+    (concat company-godot-gdscript-curl-path " "
             data " "
             header-accept " "
             header-connection " "

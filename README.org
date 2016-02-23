@@ -4362,6 +4362,16 @@ GNU General Public License version 3.
 (require 'json)
 #+END_SRC
 
+** Customization
+#+BEGIN_SRC emacs-lisp
+(defcustom company-godot-gdscript-curl-path "curl"
+  "Path to curl executable, used to send HTTP requests to GD
+Autocomplete Service."
+  :group 'godot-gdscript
+  :type 'string
+  :safe 'stringp)
+#+END_SRC
+
 ** GD Autocomplete Service
 - Request:
   + Path: absolute path of the file;
@@ -4689,9 +4699,8 @@ data for requesting completion to GD Auto-Complete Service."
         (header-connection "--header 'Connection: keep-alive'")
         (header-content-type "--header 'Content-Type: application/json; charset=UTF-8'")
         (http-version "--http1.1")
-        (http-request (concat "--request POST " url ":" port))
-        )
-    (concat "curl "
+        (http-request (concat "--request POST " url ":" port)))
+    (concat company-godot-gdscript-curl-path " "
             data " "
             header-accept " "
             header-connection " "
