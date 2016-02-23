@@ -178,8 +178,8 @@ data for requesting completion to GD Auto-Complete Service."
             http-request)))
 
 (defun company-godot-gdscript-escape-gdscript-symbols (source)
-  "Escape quotes in strings, in order to pass source code scripts
-  to shells."
+  "Escape symbols existing in SOURCE, in order to correcty pass
+string containing shell to shells."
   ;; `json-enconde-string' escapes the string's literal quotes as well, so we
   ;; remove them using substring to remove the first and last 2 characters
   ;; (which contains '\"' on both extremes).
@@ -239,23 +239,23 @@ filled should be handled by the supplied CALLBACK function."
 
 (defun company-godot-gdscript-mode-extract-completion-hint-from-json (completion-json)
   "Extract and return a string containing the hint field of the
-JSON completions."
+received in COMPLETION-JSON."
   (let* ((json-object-type 'plist)
          (completion-data (json-read-from-string completion-json))
          (completion-hint (plist-get completion-data :hint)))
     completion-hint))
 
 (defun company-godot-gdscript-mode-extract-completion-prefix-from-json (completion-json)
-  "Extract and return the string containg prefix field of the JSON
-completions."
+  "Extract and return the string containg prefix field of the
+received in COMPLETION-JSON."
   (let* ((json-object-type 'plist)
          (completion-data (json-read-from-string completion-json))
          (completion-prefix (plist-get completion-data :prefix)))
     completion-prefix))
 
 (defun company-godot-gdscript-mode-extract-completion-suggestions-from-json (completion-json)
-  "Extract and return a list containing the completion candidates
-field of the JSON completions."
+  "Extract and return a list containing the existing completion
+candidates received in COMPLETION-JSON."
   (let* ((json-object-type 'plist)
          (completion-data (json-read-from-string completion-json))
          (completion-suggestions (coerce (plist-get completion-data :suggestions) 'list)))
