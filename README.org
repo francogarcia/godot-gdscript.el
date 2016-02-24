@@ -85,6 +85,11 @@ To customize local variables according to your own preferences.
 Company allows searching the candidates list by pressing ~C-s~ and typing. You
 may also use ~C-M-s~ to filter candidates whilst searching.
 
+** Editing Scene and Other Resource Files
+
+To edit =.tscn= and other =.t*= files used by Godot with syntax highlighting in
+Emacs, [[https://github.com/dryman/toml-mode.el][toml-mode.el: Emacs Major mode for editing TOML files]].
+
 * About this File
 ** Org-Mode Notes
 - Set ~comments~ to ~both~ to ease debugging and exporting Org as comments.
