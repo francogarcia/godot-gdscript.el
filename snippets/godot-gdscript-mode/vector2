@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: Vector2
+# key: v2
+# --
+Vector2($1, $2)$0

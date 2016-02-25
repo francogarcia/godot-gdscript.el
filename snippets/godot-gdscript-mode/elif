@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: Elif
+# key: elif
+# --
+elif ($1):
+$0

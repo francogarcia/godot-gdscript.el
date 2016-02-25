@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: While
+# key: while
+# --
+while ($1):
+$0

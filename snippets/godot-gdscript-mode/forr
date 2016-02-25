@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: For In Range
+# key: forr
+# --
+for $1 in range($2):
+$0

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: For In
+# key: fori
+# --
+for $1 in $2:
+$0

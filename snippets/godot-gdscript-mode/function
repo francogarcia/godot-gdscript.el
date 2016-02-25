@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: Function
+# key: func
+# --
+func $1($2):
+$0

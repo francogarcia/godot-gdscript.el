@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: Constant
+# key: const
+# expand-env: ((yas-indent-line 'fixed))
+# --
+const $1 = $2

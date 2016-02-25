@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: Variable with On Ready
+# key: onready
+# expand-env: ((yas-indent-line 'fixed))
+# --
+onready var $1 = $2

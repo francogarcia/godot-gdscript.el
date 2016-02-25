@@ -4987,6 +4987,191 @@ ARG."
 ;;; company-godot-gdscript.el ends here
 #+END_SRC
 
+* Yasnippet
+
+** Configuration
+#+BEGIN_SRC emacs-lisp
+(add-hook 'godot-gdscript-mode-hook
+          '(lambda () (set (make-local-variable 'yas-indent-line) 'fixed)))
+#+END_SRC
+
+** Snippets
+
+*** Data Types
+**** Vector2
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/vector2"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: Vector2
+# key: v2
+# --
+Vector2($1, $2)$0
+#+END_SRC
+
+**** Vector3
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/vector3"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: Vector3
+# key: v3
+# --
+Vector3($1, $2, $3)$0
+#+END_SRC
+
+**** Rect2
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/rect2"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: Rect2
+# key: r2
+# --
+Rect2($1, $2, $3, $4)$0
+#+END_SRC
+
+*** Control Flow
+**** If
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/if"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: If
+# key: if
+# --
+if ($1):
+$0
+#+END_SRC
+
+**** Elif
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/elif"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: Elif
+# key: elif
+# --
+elif ($1):
+$0
+#+END_SRC
+
+**** For In
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/fori"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: For In
+# key: fori
+# --
+for $1 in $2:
+$0
+#+END_SRC
+
+**** For In Range
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/forr"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: For In Range
+# key: forr
+# --
+for $1 in range($2):
+$0
+#+END_SRC
+
+**** While
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/while"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: While
+# key: while
+# --
+while ($1):
+$0
+#+END_SRC
+
+*** Functions
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/function"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: Function
+# key: func
+# --
+func $1($2):
+$0
+#+END_SRC
+
+*** Classes
+**** Constant
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/const"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: Constant
+# key: const
+# expand-env: ((yas-indent-line 'fixed))
+# --
+const $1 = $2
+#+END_SRC
+
+**** Attribute with On Ready
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/varonready"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: Variable with On Ready
+# key: onready
+# expand-env: ((yas-indent-line 'fixed))
+# --
+onready var $1 = $2
+#+END_SRC
+
+**** TODO Attribute with Set Method
+Add the line with the correct indentation.
+
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/varset"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: Variable with Set Method
+# key: vs
+# expand-env: ((yas-indent-line 'fixed))
+# --
+var $1 = $2 setget set_$1
+
+func set_$1(new_value):
+    $1 = new_value
+$0
+#+END_SRC
+
+**** TODO Attribute with Get Method
+Add the line with the correct indentation.
+
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/varget"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: Variable with Get Method
+# key: vg
+# expand-env: ((yas-indent-line 'fixed))
+# --
+var $1 = $2 setget .get_$1
+
+func get_$1():
+    return $1
+$0
+#+END_SRC
+
+**** TODO Attribute with Get and Set Method
+Add the line with the correct indentation.
+
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/varsetget"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: Variable with Set and Get Methods
+# key: vsg
+# expand-env: ((yas-indent-line 'fixed))
+# --
+var $1 = $2 setget set_$1.get_$1
+
+func set_$1(new_value):
+    $1 = new_value
+
+func get_$1():
+    return $1
+$0
+#+END_SRC
+
 * Miscellaneous                                                                :noexport:
 #+BEGIN_SRC emacs-lisp
 (back-to-indentation)

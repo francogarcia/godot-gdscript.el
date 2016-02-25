@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# name: Rect2
+# key: r2
+# --
+Rect2($1, $2, $3, $4)$0
