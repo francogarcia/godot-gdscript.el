@@ -4,4 +4,4 @@
 # name: Vector3
 # key: v3
 # --
-Vector3($1, $2, $3)$0
+Vector3(${1:x}, ${2:y}, ${3:z})$0

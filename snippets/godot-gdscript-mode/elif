@@ -4,5 +4,5 @@
 # name: Elif
 # key: elif
 # --
-elif ($1):
+elif (${1:condition}):
 $0

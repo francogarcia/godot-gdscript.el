@@ -5,4 +5,4 @@
 # key: const
 # expand-env: ((yas-indent-line 'fixed))
 # --
-const $1 = $2
+const ${1:constant_name} = ${2:constant_value}

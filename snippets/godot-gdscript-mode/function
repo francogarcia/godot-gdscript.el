@@ -4,5 +4,5 @@
 # name: Function
 # key: func
 # --
-func $1($2):
+func ${1:function_name}(${2:parameters}):
 $0

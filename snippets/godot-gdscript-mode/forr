@@ -4,5 +4,5 @@
 # name: For In Range
 # key: forr
 # --
-for $1 in range($2):
+for ${1:variable} in range(${2:start, end, increment}):
 $0

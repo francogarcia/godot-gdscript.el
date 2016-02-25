@@ -4,4 +4,4 @@
 # name: Vector2
 # key: v2
 # --
-Vector2($1, $2)$0
+Vector2(${1:x}, ${2:y})$0

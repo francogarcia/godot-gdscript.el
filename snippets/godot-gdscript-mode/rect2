@@ -4,4 +4,4 @@
 # name: Rect2
 # key: r2
 # --
-Rect2($1, $2, $3, $4)$0
+Rect2(${1:x}, ${2:y}, ${3:width}, ${4:height})$0

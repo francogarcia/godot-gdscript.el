@@ -5006,7 +5006,7 @@ ARG."
 # name: Vector2
 # key: v2
 # --
-Vector2($1, $2)$0
+Vector2(${1:x}, ${2:y})$0
 #+END_SRC
 
 **** Vector3
@@ -5017,7 +5017,7 @@ Vector2($1, $2)$0
 # name: Vector3
 # key: v3
 # --
-Vector3($1, $2, $3)$0
+Vector3(${1:x}, ${2:y}, ${3:z})$0
 #+END_SRC
 
 **** Rect2
@@ -5028,7 +5028,7 @@ Vector3($1, $2, $3)$0
 # name: Rect2
 # key: r2
 # --
-Rect2($1, $2, $3, $4)$0
+Rect2(${1:x}, ${2:y}, ${3:width}, ${4:height})$0
 #+END_SRC
 
 *** Control Flow
@@ -5040,7 +5040,7 @@ Rect2($1, $2, $3, $4)$0
 # name: If
 # key: if
 # --
-if ($1):
+if (${1:condition}):
 $0
 #+END_SRC
 
@@ -5052,7 +5052,7 @@ $0
 # name: Elif
 # key: elif
 # --
-elif ($1):
+elif (${1:condition}):
 $0
 #+END_SRC
 
@@ -5064,7 +5064,7 @@ $0
 # name: For In
 # key: fori
 # --
-for $1 in $2:
+for ${1:variable} in ${2:collection}:
 $0
 #+END_SRC
 
@@ -5076,7 +5076,7 @@ $0
 # name: For In Range
 # key: forr
 # --
-for $1 in range($2):
+for ${1:variable} in range(${2:start, end, increment}):
 $0
 #+END_SRC
 
@@ -5088,7 +5088,7 @@ $0
 # name: While
 # key: while
 # --
-while ($1):
+while (${1:condition}):
 $0
 #+END_SRC
 
@@ -5100,7 +5100,7 @@ $0
 # name: Function
 # key: func
 # --
-func $1($2):
+func ${1:function_name}(${2:parameters}):
 $0
 #+END_SRC
 
@@ -5114,7 +5114,7 @@ $0
 # key: const
 # expand-env: ((yas-indent-line 'fixed))
 # --
-const $1 = $2
+const ${1:constant_name} = ${2:constant_value}
 #+END_SRC
 
 **** Attribute with On Ready
@@ -5126,7 +5126,7 @@ const $1 = $2
 # key: onready
 # expand-env: ((yas-indent-line 'fixed))
 # --
-onready var $1 = $2
+onready var ${1:variable_name} = ${2:variable_value}
 #+END_SRC
 
 **** TODO Attribute with Set Method
@@ -5140,7 +5140,7 @@ Add the line with the correct indentation.
 # key: vs
 # expand-env: ((yas-indent-line 'fixed))
 # --
-var $1 = $2 setget set_$1
+var ${1:variable_name} = ${2:variable_value} setget set_$1
 
 func set_$1(new_value):
     $1 = new_value
@@ -5158,7 +5158,7 @@ Add the line with the correct indentation.
 # key: vg
 # expand-env: ((yas-indent-line 'fixed))
 # --
-var $1 = $2 setget .get_$1
+var ${1:variable_name} = ${2:variable_value} setget .get_$1
 
 func get_$1():
     return $1
@@ -5176,7 +5176,7 @@ Add the line with the correct indentation.
 # key: vsg
 # expand-env: ((yas-indent-line 'fixed))
 # --
-var $1 = $2 setget set_$1.get_$1
+var ${1:variable_name} = ${2:variable_value} setget set_$1.get_$1
 
 func set_$1(new_value):
     $1 = new_value

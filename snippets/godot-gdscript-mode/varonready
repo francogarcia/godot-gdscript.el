@@ -5,4 +5,4 @@
 # key: onready
 # expand-env: ((yas-indent-line 'fixed))
 # --
-onready var $1 = $2
+onready var ${1:variable_name} = ${2:variable_value}
