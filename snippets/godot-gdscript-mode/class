@@ -1,0 +1,25 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Classes
+# name: Class
+# key: class
+# expand-env: ((yas-indent-line 'fixed))
+# --
+# Class: `(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`
+# Author: `(user-full-name)` `(if user-mail-address (concat "(<" user-mail-address ">)") "")`
+
+# Assets paths
+
+
+# Constants
+
+
+# Attributes
+$1
+
+# Methods
+func _ready():
+      ${2:pass}
+
+
+$0

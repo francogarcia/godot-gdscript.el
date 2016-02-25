@@ -10,6 +10,7 @@ var ${1:variable_name} = ${2:variable_value} setget set_$1.get_$1
 func set_$1(new_value):
     $1 = new_value
 
+
 func get_$1():
     return $1
 $0

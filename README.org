@@ -4997,6 +4997,18 @@ ARG."
 
 ** Snippets
 
+*** Meta
+**** Parents
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/.yas-parents"
+prog-mode
+#+END_SRC
+
+**** Setup
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/.yas-setup.el"
+# (add-hook godot-gdscript-mode-hook
+#           '(lambda () (set (make-local-variable 'yas-indent-line) 'fixed)))
+#+END_SRC
+
 *** Data Types
 **** Vector2
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/vector2"
@@ -5042,6 +5054,21 @@ Rect2(${1:x}, ${2:y}, ${3:width}, ${4:height})$0
 # --
 if (${1:condition}):
 $0
+#+END_SRC
+
+**** If/Else
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/ifelse"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Control Flow
+# name: If/Else
+# key: ife
+# expand-env: ((yas-indent-line 'fixed))
+# --
+if (${1:condition}):
+    ${2:pass}
+else:
+    $0
 #+END_SRC
 
 **** Elif
@@ -5105,6 +5132,35 @@ $0
 #+END_SRC
 
 *** Classes
+**** Class
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/class"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Classes
+# name: Class
+# key: class
+# expand-env: ((yas-indent-line 'fixed))
+# --
+# Class: `(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`
+# Author: `(user-full-name)` `(if user-mail-address (concat "(<" user-mail-address ">)") "")`
+
+# Assets paths
+
+
+# Constants
+
+
+# Attributes
+$1
+
+# Methods
+func _ready():
+      ${2:pass}
+
+
+$0
+#+END_SRC
+
 **** Constant
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/const"
 # -*- mode: snippet -*-
@@ -5180,6 +5236,7 @@ var ${1:variable_name} = ${2:variable_value} setget set_$1.get_$1
 
 func set_$1(new_value):
     $1 = new_value
+
 
 func get_$1():
     return $1
