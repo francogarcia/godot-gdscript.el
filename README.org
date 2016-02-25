@@ -5002,6 +5002,7 @@ ARG."
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/vector2"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
+# group: Data Types
 # name: Vector2
 # key: v2
 # --
@@ -5012,6 +5013,7 @@ Vector2($1, $2)$0
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/vector3"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
+# group: Data Types
 # name: Vector3
 # key: v3
 # --
@@ -5022,6 +5024,7 @@ Vector3($1, $2, $3)$0
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/rect2"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
+# group: Data Types
 # name: Rect2
 # key: r2
 # --
@@ -5033,6 +5036,7 @@ Rect2($1, $2, $3, $4)$0
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/if"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
+# group: Control Flow
 # name: If
 # key: if
 # --
@@ -5044,6 +5048,7 @@ $0
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/elif"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
+# group: Control Flow
 # name: Elif
 # key: elif
 # --
@@ -5055,6 +5060,7 @@ $0
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/fori"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
+# group: Control Flow
 # name: For In
 # key: fori
 # --
@@ -5066,6 +5072,7 @@ $0
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/forr"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
+# group: Control Flow
 # name: For In Range
 # key: forr
 # --
@@ -5077,6 +5084,7 @@ $0
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/while"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
+# group: Control Flow
 # name: While
 # key: while
 # --
@@ -5088,6 +5096,7 @@ $0
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/function"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
+# group: Functions
 # name: Function
 # key: func
 # --
@@ -5100,6 +5109,7 @@ $0
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/const"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
+# group: Classes
 # name: Constant
 # key: const
 # expand-env: ((yas-indent-line 'fixed))
@@ -5111,6 +5121,7 @@ const $1 = $2
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/varonready"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
+# group: Classes
 # name: Variable with On Ready
 # key: onready
 # expand-env: ((yas-indent-line 'fixed))
@@ -5124,6 +5135,7 @@ Add the line with the correct indentation.
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/varset"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
+# group: Classes
 # name: Variable with Set Method
 # key: vs
 # expand-env: ((yas-indent-line 'fixed))
@@ -5141,6 +5153,7 @@ Add the line with the correct indentation.
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/varget"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
+# group: Classes
 # name: Variable with Get Method
 # key: vg
 # expand-env: ((yas-indent-line 'fixed))
@@ -5158,6 +5171,7 @@ Add the line with the correct indentation.
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/varsetget"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
+# group: Classes
 # name: Variable with Set and Get Methods
 # key: vsg
 # expand-env: ((yas-indent-line 'fixed))

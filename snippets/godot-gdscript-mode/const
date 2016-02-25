@@ -1,5 +1,6 @@
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
+# group: Classes
 # name: Constant
 # key: const
 # expand-env: ((yas-indent-line 'fixed))

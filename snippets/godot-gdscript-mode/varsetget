@@ -1,5 +1,6 @@
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
+# group: Classes
 # name: Variable with Set and Get Methods
 # key: vsg
 # expand-env: ((yas-indent-line 'fixed))

@@ -1,5 +1,6 @@
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
+# group: Classes
 # name: Variable with Set Method
 # key: vs
 # expand-env: ((yas-indent-line 'fixed))

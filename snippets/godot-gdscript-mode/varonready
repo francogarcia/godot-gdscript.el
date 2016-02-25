@@ -1,5 +1,6 @@
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
+# group: Classes
 # name: Variable with On Ready
 # key: onready
 # expand-env: ((yas-indent-line 'fixed))
