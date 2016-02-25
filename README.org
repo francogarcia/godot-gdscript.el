@@ -5195,9 +5195,7 @@ const ${1:constant_name} = ${2:constant_value}
 onready var ${1:variable_name} = ${2:variable_value}
 #+END_SRC
 
-**** TODO Attribute with Set Method
-Add the line with the correct indentation.
-
+**** Attribute with Set Method
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/varset"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5213,9 +5211,7 @@ func set_$1(new_value):
 $0
 #+END_SRC
 
-**** TODO Attribute with Get Method
-Add the line with the correct indentation.
-
+**** Attribute with Get Method
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/varget"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5231,9 +5227,7 @@ func get_$1():
 $0
 #+END_SRC
 
-**** TODO Attribute with Get and Set Method
-Add the line with the correct indentation.
-
+**** Attribute with Get and Set Method
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/varsetget"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
