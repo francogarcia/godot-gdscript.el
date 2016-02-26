@@ -5276,7 +5276,7 @@ else:
     return
 $0
 #+END_SRC
-**** Read File
+**** Write File
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/file_write"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
