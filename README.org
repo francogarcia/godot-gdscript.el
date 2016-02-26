@@ -5247,6 +5247,63 @@ func get_$1():
 $0
 #+END_SRC
 
+*** Files
+**** Read File
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/file_read"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Files
+# name: Open File (Read-Mode)
+# key: file_read
+# expand-env: ((yas-indent-line 'fixed))
+# --
+var ${1:file} = File.new()
+var ${2:file_name} = "${3:file_path}"
+if ($1.file_exists($2)):
+    var ${4:error} = $1.open($2, File.READ)
+    if ($4 != OK):
+        # Handle error.
+        print(str("Could not open ", $2, "."))
+        return
+
+    # Read file content.
+    var ${5:file_buffer} = $1.get_as_text()
+
+    $1.close()
+else:
+    # Handle error.
+    print(str("File ", $2, " does not exist."))
+    return
+$0
+#+END_SRC
+**** Read File
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/file_write"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Files
+# name: Open File (Write-Mode)
+# key: file_write
+# expand-env: ((yas-indent-line 'fixed))
+# --
+var ${1:file} = File.new()
+var ${2:file_name} = "${3:file_path}"
+if (not $1.file_exists($2)):
+    var ${4:error} = $1.open($2, File.WRITE)
+    if ($4 != OK):
+        # Handle error.
+        print(str("Could not create ", $2, "."))
+        return
+
+    # Read file content.
+    $1.store_line("Hello, world!\n")
+
+    $1.close()
+else:
+    # Handle error.
+    print(str("File ", $2, " already exists."))
+    return
+$0
+#+END_SRC
 * Miscellaneous                                                                :noexport:
 #+BEGIN_SRC emacs-lisp
 (back-to-indentation)
