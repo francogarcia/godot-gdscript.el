@@ -5247,6 +5247,24 @@ func get_$1():
 $0
 #+END_SRC
 
+*** Nodes
+**** Duplicate a Node
+*Note*: this also work for data structures, such as arrays and dictionaries.
+
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/node_duplicate"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Nodes
+# name: Duplicate an Existing Node
+# key: node_duplicate
+# --
+var ${1:node} = get_node("${2:node_path}")
+var ${3:node_copy} = $1.duplicate()
+# Add the copy to the scene tree.
+add_child(node_copy)
+$0
+#+END_SRC
+
 *** Files
 **** Read from File
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/file_read"
@@ -5276,6 +5294,7 @@ else:
     return ERR_FILE_NOT_FOUND
 $0
 #+END_SRC
+
 **** Write to File
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/file_write"
 # -*- mode: snippet -*-

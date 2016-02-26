@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Nodes
+# name: Duplicate an Existing Node
+# key: node_duplicate
+# --
+var ${1:node} = get_node("${2:node_path}")
+var ${3:node_copy} = $1.duplicate()
+# Add the copy to the scene tree.
+add_child(node_copy)
+$0
