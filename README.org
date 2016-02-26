@@ -5248,7 +5248,7 @@ $0
 #+END_SRC
 
 *** Files
-**** Read File
+**** Read from File
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/file_read"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5264,7 +5264,7 @@ if ($1.file_exists($2)):
     if ($4 != OK):
         # Handle error.
         print(str("Could not open ", $2, "."))
-        return
+        return error
 
     # Read file content.
     var ${5:file_buffer} = $1.get_as_text()
@@ -5273,10 +5273,10 @@ if ($1.file_exists($2)):
 else:
     # Handle error.
     print(str("File ", $2, " does not exist."))
-    return
+    return ERR_FILE_NOT_FOUND
 $0
 #+END_SRC
-**** Write File
+**** Write to File
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/file_write"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5292,7 +5292,7 @@ if (not $1.file_exists($2)):
     if ($4 != OK):
         # Handle error.
         print(str("Could not create ", $2, "."))
-        return
+        return error
 
     # Read file content.
     $1.store_line("Hello, world!\n")
@@ -5301,7 +5301,7 @@ if (not $1.file_exists($2)):
 else:
     # Handle error.
     print(str("File ", $2, " already exists."))
-    return
+    return ERR_ALREADY_EXISTS
 $0
 #+END_SRC
 * Miscellaneous                                                                :noexport:
