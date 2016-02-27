@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Files
+# name: Read Value from Configuration (.ini) File
+# key: file_ini_read
+# expand-env: ((yas-indent-line 'fixed))
+# --
+var ${1:file} = ConfigFile.new()
+var ${2:file_name} = "${3:file_path}"
+var ${4:error} = $1.load($2)
+if ($4 != OK):
+    # Handle error.
+    print(str("Could not load ", $2, "."))
+    return error
+
+# Read value form file.
+var ${5:value} = $1.get_value(${6:"section"}, ${7:"key"}, ${8:"default_value"})
+
+$0

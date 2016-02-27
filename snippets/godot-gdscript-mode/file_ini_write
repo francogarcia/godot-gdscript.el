@@ -1,0 +1,25 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Files
+# name: Write Value to Configuration (.ini) File
+# key: file_ini_write
+# expand-env: ((yas-indent-line 'fixed))
+# --
+var ${1:file} = ConfigFile.new()
+var ${2:file_name} = "${3:file_path}"
+var ${4:error} = $1.load($2)
+if ($4 != OK):
+    # Handle error.
+    print(str("Could not load ", $2, "."))
+    # return $4
+    print("It will be created after writing the value.")
+
+# Write value to file.
+$1.set_value(${5:"section"}, ${6:"key"}, ${7:"value"})
+$4 = $1.save($2)
+if ($4 != OK):
+    # Handle error.
+    print(str("Could not write to ", $2, "."))
+    return $4
+
+$0
