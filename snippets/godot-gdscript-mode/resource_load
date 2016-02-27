@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Resources
+# name: Load Resource
+# key: resource_load
+# --
+var ${1:resource} = load("res://${2:resource_path}")
+$0

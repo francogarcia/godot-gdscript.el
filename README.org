@@ -5265,6 +5265,74 @@ add_child($3)
 $0
 #+END_SRC
 
+*** Resources
+**** Load Resource
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/resource_load"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Resources
+# name: Load Resource
+# key: resource_load
+# --
+var ${1:resource} = load("res://${2:resource_path}")
+$0
+#+END_SRC
+
+**** Preload Resource
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/resource_preload"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Resources
+# name: Pre-load Resource
+# key: resource_preload
+# --
+var ${1:resource} = preload("res://${2:resource_path}")
+$0
+#+END_SRC
+
+*** Scenes
+**** Load Scene
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/scene_load"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Scenes
+# name: Load Scene
+# key: scene_load
+# --
+var ${1:scene} = load("res://${2:scene_path}")
+var ${3:node} = $1.instance()
+# Add the node as child of the current scene.
+add_child($3)
+$0
+#+END_SRC
+
+**** Preload Scene
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/scene_preload"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Scenes
+# name: Pre-load Scene
+# key: scene_preload
+# --
+var ${1:scene} = preload("res://${2:scene_path}")
+var ${3:node} = $1.instance()
+# Add the node as child of the current scene.
+add_child($3)
+$0
+#+END_SRC
+
+**** Change Scene
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/scene_change"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Scenes
+# name: Change Scene
+# key: scene_change
+# --
+get_tree().change_scene("res://${1:scene_path}")
+$0
+#+END_SRC
+
 *** Files
 **** Read from File
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/file_read"

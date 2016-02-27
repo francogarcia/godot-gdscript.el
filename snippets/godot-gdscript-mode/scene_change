@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Scenes
+# name: Change Scene
+# key: scene_change
+# --
+get_tree().change_scene("res://${1:scene_path}")
+$0

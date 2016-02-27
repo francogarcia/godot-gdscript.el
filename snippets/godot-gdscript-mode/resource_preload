@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Resources
+# name: Pre-load Resource
+# key: resource_preload
+# --
+var ${1:resource} = preload("res://${2:resource_path}")
+$0

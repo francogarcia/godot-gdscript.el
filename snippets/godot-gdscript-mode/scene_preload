@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Scenes
+# name: Pre-load Scene
+# key: scene_preload
+# --
+var ${1:scene} = preload("res://${2:scene_path}")
+var ${3:node} = $1.instance()
+# Add the node as child of the current scene.
+add_child($3)
+$0
