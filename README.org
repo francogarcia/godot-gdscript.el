@@ -5282,7 +5282,7 @@ if ($1.file_exists($2)):
     if ($4 != OK):
         # Handle error.
         print(str("Could not open ", $2, "."))
-        return error
+        return $4
 
     # Read file content.
     var ${5:file_buffer} = $1.get_as_text()
@@ -5311,7 +5311,7 @@ if (not $1.file_exists($2)):
     if ($4 != OK):
         # Handle error.
         print(str("Could not create ", $2, "."))
-        return error
+        return $4
 
     # Read file content.
     $1.store_line("Hello, world!\n")
