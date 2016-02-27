@@ -5261,7 +5261,7 @@ $0
 var ${1:node} = get_node("${2:node_path}")
 var ${3:node_copy} = $1.duplicate()
 # Add the copy to the scene tree.
-add_child(node_copy)
+add_child($3)
 $0
 #+END_SRC
 
