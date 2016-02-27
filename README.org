@@ -5480,6 +5480,19 @@ if ($4 != OK):
 $0
 #+END_SRC
 
+
+*** Input
+**** Get Cursor (Mouse) Position
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/input_mouse_position"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Input
+# name: Get the Mouse Position
+# key: input_mouse_position
+# --
+var ${1:mouse_position} = get_viewport().get_mouse_pos()
+$0
+#+END_SRC
 * Miscellaneous                                                                :noexport:
 #+BEGIN_SRC emacs-lisp
 (back-to-indentation)

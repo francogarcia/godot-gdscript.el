@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Input
+# name: Get the Mouse Position
+# key: input_mouse_position
+# --
+var ${1:mouse_position} = get_viewport().get_mouse_pos()
+$0
