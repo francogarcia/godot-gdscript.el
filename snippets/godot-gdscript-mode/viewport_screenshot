@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: View Port
+# name: Screenshot
+# key: viewport_screenshot
+# --
+get_viewport().queue_screen_capture()
+# Wait a few frames (one or two) to capture the screen.
+yield(get_tree(), "idle_frame")
+yield(get_tree(), "idle_frame")
+# Store and save the screenshot.
+var ${1:screenshot} = get_viewport().get_screen_capture()
+$1.save_png("user://${2:file_path}.png")
+$0

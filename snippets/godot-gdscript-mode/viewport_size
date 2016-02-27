@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: View Port
+# name: View Port Size
+# key: viewport_size
+# --
+var ${1:viewport_rect} = get_viewport().get_rect()
+var ${2:viewport_width} = $1.size.width
+var ${3:viewport_height} = $1.size.height
+$0
