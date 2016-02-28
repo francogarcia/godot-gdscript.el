@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Nodes
+# name: Virtual Function: _process()
+# key: _process
+# expand-env: ((yas-indent-line 'fixed))
+# --
+func _process(${1:delta}):
+     $0

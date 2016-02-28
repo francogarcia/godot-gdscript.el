@@ -5265,6 +5265,148 @@ add_child($3)
 $0
 #+END_SRC
 
+**** Virtual Function: ~_enter_tree()~
+#+BEGIN_QUOTE
+When the node enters the ~Scene Tree~, it become active and this function is
+called. Children nodes have not entered the active scene yet. In general, it's
+better to use _ready() for most cases.
+
+--- [[http://docs.godotengine.org/en/latest/tutorials/step_by_step/scripting_continued.html?highlight=process][Scripting (continued) — Godot Engine latest documentation]].
+#+END_QUOTE
+
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/enter_tree"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Nodes
+# name: Virtual Function: _enter_tree()
+# key: _enter_tree
+# expand-env: ((yas-indent-line 'fixed))
+# --
+func _enter_tree():
+     $0
+#+END_SRC
+
+**** Virtual Function: ~_ready()~
+#+BEGIN_QUOTE
+This function is called after _enter_tree, but it ensures that all children
+nodes have also entered the ~SceneTree~, and became active.
+
+--- [[http://docs.godotengine.org/en/latest/tutorials/step_by_step/scripting_continued.html?highlight=process][Scripting (continued) — Godot Engine latest documentation]].
+#+END_QUOTE
+
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/ready"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Nodes
+# name: Virtual Function: _ready()
+# key: _ready
+# expand-env: ((yas-indent-line 'fixed))
+# --
+func _ready():
+    set_process(${1:$$(yas-choose-value '("true" "false"))})
+    set_fixed_process(${2:$$(yas-choose-value '("true" "false"))})
+    set_input(${3:$$(yas-choose-value '("true" "false"))})
+
+    $0
+#+END_SRC
+
+**** Virtual Function: ~_exit_tree()~
+#+BEGIN_QUOTE
+When the node exits the ~SceneTree~, this function is called. Children nodes
+have all exited the ~SceneTree~ at this point and all became inactive.
+
+--- [[http://docs.godotengine.org/en/latest/tutorials/step_by_step/scripting_continued.html?highlight=process][Scripting (continued) — Godot Engine latest documentation]].
+#+END_QUOTE
+
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/exit_tree"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Nodes
+# name: Virtual Function: _exit_tree()
+# key: _exit_tree
+# expand-env: ((yas-indent-line 'fixed))
+# --
+func _exit_tree():
+     $0
+#+END_SRC
+
+**** Virtual Function: ~_process()~
+#+BEGIN_QUOTE
+When ~set_process()~ is enabled, this function is called every frame.
+
+--- [[http://docs.godotengine.org/en/latest/tutorials/step_by_step/scripting_continued.html?highlight=process][Scripting (continued) — Godot Engine latest documentation]].
+#+END_QUOTE
+
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/process"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Nodes
+# name: Virtual Function: _process()
+# key: _process
+# expand-env: ((yas-indent-line 'fixed))
+# --
+func _process(${1:delta}):
+     $0
+#+END_SRC
+
+**** Virtual Function: ~_fixed_process()~
+#+BEGIN_QUOTE
+When ~set_fixed_process()~ is enabled, this is called every physics frame.
+
+--- [[http://docs.godotengine.org/en/latest/tutorials/step_by_step/scripting_continued.html?highlight=fixed_process][Scripting (continued) — Godot Engine latest documentation]].
+#+END_QUOTE
+
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/fixed_process"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Nodes
+# name: Virtual Function: _fixed_process()
+# key: _fixed_process
+# expand-env: ((yas-indent-line 'fixed))
+# --
+func _fixed_process(${1:delta}):
+     $0
+#+END_SRC
+
+**** Virtual Function: ~_paused()~
+#+BEGIN_QUOTE
+Called when game is paused. After this call, the node will not receive any more
+process callbacks.
+
+--- [[http://docs.godotengine.org/en/latest/tutorials/step_by_step/scripting_continued.html?highlight=process][Scripting (continued) — Godot Engine latest documentation]].
+#+END_QUOTE
+
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/paused"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Nodes
+# name: Virtual Function: _paused()
+# key: _paused
+# expand-env: ((yas-indent-line 'fixed))
+# --
+func _paused():
+     $0
+#+END_SRC
+
+**** Virtual Function: ~_unpaused()~
+#+BEGIN_QUOTE
+Called when game is unpaused.
+
+--- [[http://docs.godotengine.org/en/latest/tutorials/step_by_step/scripting_continued.html?highlight=process][Scripting (continued) — Godot Engine latest documentation]].
+#+END_QUOTE
+
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/unpaused"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Nodes
+# name: Virtual Function: _unpaused()
+# key: _unpaused
+# expand-env: ((yas-indent-line 'fixed))
+# --
+func _unpaused():
+     $0
+#+END_SRC
+
 *** Resources
 **** Load Resource
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/resource_load"

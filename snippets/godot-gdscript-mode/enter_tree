@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Nodes
+# name: Virtual Function: _enter_tree()
+# key: _enter_tree
+# expand-env: ((yas-indent-line 'fixed))
+# --
+func _enter_tree():
+     $0
