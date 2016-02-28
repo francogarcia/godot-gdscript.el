@@ -5004,9 +5004,16 @@ prog-mode
 #+END_SRC
 
 **** Setup
-#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/.yas-setup.el"
-# (add-hook godot-gdscript-mode-hook
-#           '(lambda () (set (make-local-variable 'yas-indent-line) 'fixed)))
+Do not expand a snippet when inside a comment or string (see [[https://capitaomorte.github.io/yasnippet/snippet-expansion.html#sec-2-2][Yasnippet:
+Expanding snippets, The condition system]]).
+
+#+BEGIN_SRC emacs-lisp :tangle "snippets/godot-gdscript-mode/.yas-setup.el"
+;; (add-hook godot-gdscript-mode-hook
+;;           '(lambda ()
+;;              ;;(set (make-local-variable 'yas-indent-line) 'fixed)
+;;              (set (make-local-variable
+;;                    'buffer-local-condition)
+;;                   ((not (godot-gdscript-syntax-comment-or-string-p))))))
 #+END_SRC
 
 *** Data Types
