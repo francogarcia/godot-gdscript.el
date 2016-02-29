@@ -5312,7 +5312,7 @@ nodes have also entered the ~SceneTree~, and became active.
 func _ready():
     set_process(${1:$$(yas-choose-value '("true" "false"))})
     set_fixed_process(${2:$$(yas-choose-value '("true" "false"))})
-    set_input(${3:$$(yas-choose-value '("true" "false"))})
+    set_process_input(${3:$$(yas-choose-value '("true" "false"))})
 
     $0
 #+END_SRC
@@ -5412,6 +5412,38 @@ Called when game is unpaused.
 # --
 func _unpaused():
      $0
+#+END_SRC
+
+**** Virtual Function: ~_input()~
+#+BEGIN_QUOTE
+Called when any input happens (also must enable with set_process_input or the
+property).
+
+--- [[http://docs.godotengine.org/en/latest/classes/class_node.html#class-node-input][Node — Godot Engine latest documentation]].
+#+END_QUOTE
+
+- Events:
+  + See [[http://docs.godotengine.org/en/latest/tutorials/engine/inputevent.html?highlight=_input][InputEvent — Godot Engine latest documentation]].
+  + Variations: ~_unhandled_input()~, ~unhandled_key_input()~ in [[http://docs.godotengine.org/en/latest/classes/class_node.html#class-node-input][Node — Godot
+    Engine latest documentation]].
+
+- Pooling:
+  + ~Input.is_key_pressed(KEY_A)~;
+  + ~Input.is_mouse_button_pressed(BUTTON_LEFT)~;
+  + ~Input.is_action_pressed("ui_accept")~.
+
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/input"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Nodes
+# name: Virtual Function: _input()
+# key: _input
+# expand-env: ((yas-indent-line 'fixed))
+# --
+func _input(${1:event}):
+     if ($1 == InputEvent.${2:MOUSE_BUTTON}):
+         if ($1.${3:button_index} == ${4:BUTTON_LEFT}):
+             $0
 #+END_SRC
 
 *** Resources

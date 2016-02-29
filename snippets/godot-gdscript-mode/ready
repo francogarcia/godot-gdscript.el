@@ -8,6 +8,6 @@
 func _ready():
     set_process(${1:$$(yas-choose-value '("true" "false"))})
     set_fixed_process(${2:$$(yas-choose-value '("true" "false"))})
-    set_input(${3:$$(yas-choose-value '("true" "false"))})
+    set_process_input(${3:$$(yas-choose-value '("true" "false"))})
 
     $0
