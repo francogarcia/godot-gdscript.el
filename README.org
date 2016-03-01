@@ -88,7 +88,19 @@ may also use ~C-M-s~ to filter candidates whilst searching.
 ** Editing Scene and Other Resource Files
 
 To edit =.tscn= and other =.t*= files used by Godot with syntax highlighting in
-Emacs, [[https://github.com/dryman/toml-mode.el][toml-mode.el: Emacs Major mode for editing TOML files]].
+Emacs, you may want to use [[https://github.com/dryman/toml-mode.el][toml-mode.el: Emacs Major mode for editing TOML
+files]].
+
+It might be useful to register Godot's extensions to the mode. For instance:
+
+#+BEGIN_SRC emacs-lisp
+(require 'toml-mode)
+;; Register the desired extensions.
+(dolist (pattern '("\\.tscn\\'"
+                   ;; Add more extensions here, if needed.
+                   ))
+  (add-to-list 'auto-mode-alist (cons pattern 'toml-mode))))
+#+END_SRC
 
 * About this File
 ** Org-Mode Notes
