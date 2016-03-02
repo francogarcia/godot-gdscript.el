@@ -7,16 +7,24 @@ This is a prototype of major mode to support GDScript, the scripting language
 used by the [[http://www.godotengine.org][Godot Game Engine]] into [[https://www.gnu.org/software/emacs/][GNU Emacs]]. It follows the description of the
 language provided in [[https://github.com/godotengine/godot/wiki/gdscript][gdscript]].
 
+To add this major mode to your Emacs configuration, please see [[*Setting-Up in Emacs][Setting-Up in
+Emacs]].
+
 The implementation changes ~python.el~ major mode shipped with Emacs to support
 GDScript language syntax constructs. It is a work in progress; currently it
 supports syntax highlighting, indentation, and auto-completion of functions,
 symbols, input actions, and nodes in the scene tree.
 
+Auto-completion provides completion for variables, functions, node paths, and
+input actions using Company-mode. To use it, however, you need to compile Godot
+from the source code with [[https://github.com/neikeq/gd-autocomplete-service][gd-autocomplete-service]] support, and have Curl
+installed and exported to the system's path. Check [[*Auto-Completion][Auto-Completion]] for more
+information. Currently, it was only tested in Linux.
+
+If you use Yasnippet, check the [[*Yasnippet][Yasnippet]] section.
+
 Shell support is not available yet; the existing implementation is Python's one,
 left for reference and future work.
-
-Auto-completion is currently a work in progress; although basic features are
-working, they require external tools and some configuration.
 
 * References
 
