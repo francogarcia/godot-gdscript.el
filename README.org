@@ -39,8 +39,8 @@ left for reference and future work.
 #+END_SRC
 
 ** Auto-Completion
-*NOTE*: Add this moment, auto-completion requires Curl (installed and exported
-to the system's path) and was only tested in Linux.
+*NOTE*: At this moment, auto-completion requires Curl (installed and exported to
+the system's path) and was only tested in Linux.
 
 Auto completion requires [[https://company-mode.github.io/][company-mode for Emacs]] and [[https://github.com/neikeq/gd-autocomplete-service][gd-autocomplete-service]].
 Therefore, in order to use auto-completion, it is necessary to compile Godot
