@@ -5681,7 +5681,6 @@ if ($4 != OK):
 $0
 #+END_SRC
 
-
 *** Input
 **** Get Cursor (Mouse) Position
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/input_mouse_position"
@@ -5693,6 +5692,75 @@ $0
 # --
 var ${1:mouse_position} = get_viewport().get_mouse_pos()
 $0
+#+END_SRC
+
+*** Editor Plugins
+**** Plugin Script
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/plugin_script"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Editor Plugin
+# name: Editor Plugin Script
+# key: plugin_script
+# expand-env: ((yas-indent-line 'fixed))
+# --
+tool # Always declare as Tool, if it's meant to run in the editor.
+extends EditorPlugin
+
+################################################################################
+# Constants                                                                    #
+################################################################################
+
+
+################################################################################
+# Attributes                                                                   #
+################################################################################
+var ${1:m_Label} = null
+
+################################################################################
+# Methods                                                                      #
+################################################################################
+
+func get_name():
+     return "${2:plugin_name}"
+
+
+func _init():
+     ${3:pass}
+
+
+func _enter_tree():
+     $1 = Label.new()
+     add_custom_control(CONTAINER_TOOLBAR, $1)
+     ${4:pass}
+
+
+func _exit_tree():
+     $1.free()
+     $1 = null
+     ${5:pass}
+$0
+#+END_SRC
+
+**** Plugin Configuration File
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/plugin_config"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Editor Plugin
+# name: Editor Plugin Configuration File
+# key: plugin_config
+# expand-env: ((yas-indent-line 'fixed))
+# --
+[plugin]
+
+name="${1:plugin_name}"
+description="${2:plugin_description}"
+author="${3:author_name}"
+version="${4:version}"
+installs="${5:false}"
+script="${6:script}.gd"
+install_files=[${7:"file_array"}]
+
 #+END_SRC
 * Miscellaneous                                                                :noexport:
 #+BEGIN_SRC emacs-lisp

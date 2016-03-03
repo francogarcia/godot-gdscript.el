@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Editor Plugin
+# name: Editor Plugin Configuration File
+# key: plugin_config
+# expand-env: ((yas-indent-line 'fixed))
+# --
+[plugin]
+
+name="${1:plugin_name}"
+description="${2:plugin_description}"
+author="${3:author_name}"
+version="${4:version}"
+installs="${5:false}"
+script="${6:script}.gd"
+install_files=[${7:"file_array"}]
