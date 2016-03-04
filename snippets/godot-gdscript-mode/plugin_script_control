@@ -1,0 +1,46 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Editor Plugin
+# name: Editor Plugin Script (Custom Control)
+# key: plugin_script_control
+# expand-env: ((yas-indent-line 'fixed))
+# --
+tool # Always declare as Tool, if it's meant to run in the editor.
+extends EditorPlugin
+
+################################################################################
+# Constants                                                                    #
+################################################################################
+
+
+################################################################################
+# Attributes                                                                   #
+################################################################################
+var ${1:m_Label} = null
+
+################################################################################
+# Methods                                                                      #
+################################################################################
+
+func get_name():
+    return "${2:plugin_name}"
+
+
+func _init():
+    ${3:pass}
+
+
+func _enter_tree():
+    $1 = Label.new()
+
+    add_custom_control(${4:$$(yas-choose-value '("CONTAINER_TOOLBAR" "CONTAINER_SPATIAL_EDITOR_MENU" "CONTAINER_SPATIAL_EDITOR_SIDE" "CONTAINER_SPATIAL_EDITOR_BOTTOM" "CONTAINER_CANVAS_EDITOR_MENU" "CONTAINER_CANVAS_EDITOR_SIDE"))}, $1)
+
+    ${5:pass}
+
+
+func _exit_tree():
+    $1.free()
+    $1 = null
+
+    ${6:pass}
+$0

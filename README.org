@@ -5695,13 +5695,13 @@ $0
 #+END_SRC
 
 *** Editor Plugins
-**** Plugin Script
-#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/plugin_script"
+**** Plugin Script (Custom Control)
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/plugin_script_control"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
 # group: Editor Plugin
-# name: Editor Plugin Script
-# key: plugin_script
+# name: Editor Plugin Script (Custom Control)
+# key: plugin_script_control
 # expand-env: ((yas-indent-line 'fixed))
 # --
 tool # Always declare as Tool, if it's meant to run in the editor.
@@ -5734,18 +5734,61 @@ func _enter_tree():
 
     add_custom_control(${4:$$(yas-choose-value '("CONTAINER_TOOLBAR" "CONTAINER_SPATIAL_EDITOR_MENU" "CONTAINER_SPATIAL_EDITOR_SIDE" "CONTAINER_SPATIAL_EDITOR_BOTTOM" "CONTAINER_CANVAS_EDITOR_MENU" "CONTAINER_CANVAS_EDITOR_SIDE"))}, $1)
 
-    add_custom_type("$2", ${5:"TypeName"}, preload("${6:script}.gd"), preload("${7:icon}.png"))
+    ${5:pass}
 
-    ${8:pass}
+
+func _exit_tree():
+    $1.free()
+    $1 = null
+
+    ${6:pass}
+$0
+#+END_SRC
+
+**** Plugin Script (Custom Type)
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/plugin_script_type"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Editor Plugin
+# name: Editor Plugin Script (Custom Type)
+# key: plugin_script_type
+# expand-env: ((yas-indent-line 'fixed))
+# --
+tool # Always declare as Tool, if it's meant to run in the editor.
+extends EditorPlugin
+
+################################################################################
+# Constants                                                                    #
+################################################################################
+
+
+################################################################################
+# Attributes                                                                   #
+################################################################################
+
+
+################################################################################
+# Methods                                                                      #
+################################################################################
+
+func get_name():
+    return "${2:plugin_name}"
+
+
+func _init():
+    ${3:pass}
+
+
+func _enter_tree():
+    add_custom_type("$2", "${4:TypeName}", preload("${5:script}.gd"), preload("${6:icon}.png"))
+
+    ${7:pass}
 
 
 func _exit_tree():
     remove_custom_type("$2")
 
-    $1.free()
-    $1 = null
-
-    ${9:pass}
+    ${8:pass}
 $0
 #+END_SRC
 
