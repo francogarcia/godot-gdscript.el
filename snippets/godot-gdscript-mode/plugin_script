@@ -23,21 +23,28 @@ var ${1:m_Label} = null
 ################################################################################
 
 func get_name():
-     return "${2:plugin_name}"
+    return "${2:plugin_name}"
 
 
 func _init():
-     ${3:pass}
+    ${3:pass}
 
 
 func _enter_tree():
-     $1 = Label.new()
-     add_custom_control(CONTAINER_TOOLBAR, $1)
-     ${4:pass}
+    $1 = Label.new()
+
+    add_custom_control(${4:$$(yas-choose-value '("CONTAINER_TOOLBAR" "CONTAINER_SPATIAL_EDITOR_MENU" "CONTAINER_SPATIAL_EDITOR_SIDE" "CONTAINER_SPATIAL_EDITOR_BOTTOM" "CONTAINER_CANVAS_EDITOR_MENU" "CONTAINER_CANVAS_EDITOR_SIDE"))}, $1)
+
+    add_custom_type("$2", ${5:"TypeName"}, preload("${6:script}.gd"), preload("${7:icon}.png"))
+
+    ${8:pass}
 
 
 func _exit_tree():
-     $1.free()
-     $1 = null
-     ${5:pass}
+    remove_custom_type("$2")
+
+    $1.free()
+    $1 = null
+
+    ${9:pass}
 $0
