@@ -5695,6 +5695,9 @@ $0
 #+END_SRC
 
 *** Editor Plugins
+For more information (and examples) on creating editor plugins, check [[http://www.godotengine.org/qa/58/how-to-create-editor-tools-in-gdscript][How to
+create editor tools in GDScript? - Godot Engine - Q&A]].
+
 **** Plugin Script (Custom Control)
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/plugin_script_control"
 # -*- mode: snippet -*-
