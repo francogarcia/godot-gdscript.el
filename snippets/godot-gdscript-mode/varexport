@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Classes
+# name: Variable (Exported to the Editor)
+# key: varexport
+# expand-env: ((yas-indent-line 'fixed))
+# --
+export (${1:String${2:, "Option1", "Option2"}}) var ${3:variable_name} = ${4:variable_value}
