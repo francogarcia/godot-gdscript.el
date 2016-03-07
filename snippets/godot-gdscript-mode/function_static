@@ -1,9 +1,9 @@
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
 # group: Functions
-# name: Function
-# key: func
+# name: Function (Static)
+# key: sfunc
 # expand-env: ((yas-indent-line 'fixed))
 # --
-func ${1:function_name}(${2:parameters}):
+static func ${1:function_name}(${2:parameters}):
     ${3:pass}

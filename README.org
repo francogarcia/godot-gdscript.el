@@ -5147,15 +5147,30 @@ $0
 #+END_SRC
 
 *** Functions
+**** Function
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/function"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
 # group: Functions
 # name: Function
 # key: func
+# expand-env: ((yas-indent-line 'fixed))
 # --
 func ${1:function_name}(${2:parameters}):
-$0
+    ${3:pass}
+#+END_SRC
+
+**** Static Function
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/function_static"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Functions
+# name: Function (Static)
+# key: sfunc
+# expand-env: ((yas-indent-line 'fixed))
+# --
+static func ${1:function_name}(${2:parameters}):
+    ${3:pass}
 #+END_SRC
 
 *** Classes
