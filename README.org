@@ -5496,6 +5496,31 @@ func _input(${1:event}):
              $0
 #+END_SRC
 
+*** Canvas Item
+**** Virtual Function: ~_draw()~
+#+BEGIN_QUOTE
+Called (if exists) to draw the canvas item.
+
+--- [[http://docs.godotengine.org/en/latest/classes/class_canvasitem.html#class-canvasitem-draw][CanvasItem — Godot Engine latest documentation]].
+#+END_QUOTE
+
+Useful to be used along [[*Editor Plugins][Editor Plugins]]. To redraw every frame, call ~update()~.
+
+For more information, refer to [[http://docs.godotengine.org/en/latest/tutorials/2d/custom_drawing_in_2d.html?highlight=_draw][Custom drawing in 2D — Godot Engine latest
+documentation]].
+
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/draw"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Canvas Items
+# name: Virtual Function: _draw()
+# key: _draw
+# expand-env: ((yas-indent-line 'fixed))
+# --
+func _draw():
+    ${1:pass}
+#+END_SRC
+
 *** Resources
 **** Load Resource
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/resource_load"

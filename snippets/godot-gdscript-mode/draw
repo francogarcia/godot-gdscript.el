@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Canvas Items
+# name: Virtual Function: _draw()
+# key: _draw
+# expand-env: ((yas-indent-line 'fixed))
+# --
+func _draw():
+    ${1:pass}
