@@ -5504,7 +5504,8 @@ Called (if exists) to draw the canvas item.
 --- [[http://docs.godotengine.org/en/latest/classes/class_canvasitem.html#class-canvasitem-draw][CanvasItem — Godot Engine latest documentation]].
 #+END_QUOTE
 
-Useful to be used along [[*Editor Plugins][Editor Plugins]]. To redraw every frame, call ~update()~.
+Useful to be used along [[*Editor Plugins][Editor Plugins]]. To redraw every frame, call ~update()~
+in a suitable method, such as ~_process()~.
 
 For more information, refer to [[http://docs.godotengine.org/en/latest/tutorials/2d/custom_drawing_in_2d.html?highlight=_draw][Custom drawing in 2D — Godot Engine latest
 documentation]].
