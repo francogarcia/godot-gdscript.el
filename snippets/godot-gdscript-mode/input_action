@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Input
+# name: Send Input Action
+# key: input_action
+# --
+var ${1:input_event} = InputEvent()
+$1.type = InputEvent.ACTION
+$1.set_as_action("$2", ${3:true})
+get_tree().input_event($1)

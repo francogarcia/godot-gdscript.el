@@ -5750,6 +5750,20 @@ var ${1:mouse_position} = get_viewport().get_mouse_pos()
 $0
 #+END_SRC
 
+**** Send Input Action
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/input_action"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Input
+# name: Send Input Action
+# key: input_action
+# --
+var ${1:input_event} = InputEvent()
+$1.type = InputEvent.ACTION
+$1.set_as_action("$2", ${3:true})
+get_tree().input_event($1)
+#+END_SRC
+
 *** Editor Plugins
 For more information (and examples) on creating editor plugins, check [[http://www.godotengine.org/qa/58/how-to-create-editor-tools-in-gdscript][How to
 create editor tools in GDScript? - Godot Engine - Q&A]].
