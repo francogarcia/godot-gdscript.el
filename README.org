@@ -5322,6 +5322,42 @@ add_child($3)
 $0
 #+END_SRC
 
+**** Add Node to Group
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/node_group_add"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Nodes
+# name: Add Node to Group
+# key: node_group_add
+# --
+add_to_group("${1:node_group}")
+$0
+#+END_SRC
+
+**** Get Node Group
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/node_group_get"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Nodes
+# name: Get Node Group
+# key: node_group_get
+# --
+var ${1:node_group} = get_tree().get_nodes_in_group("$1")
+$0
+#+END_SRC
+
+**** Call Function on Members Node Group
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/node_group_call"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Nodes
+# name: Call Function of Members of Node Group
+# key: node_group_call
+# --
+get_tree().call_group(0, "${1:node_group}", "${2:function_name}")
+$0
+#+END_SRC
+
 **** Virtual Function: ~_enter_tree()~
 #+BEGIN_QUOTE
 When the node enters the ~Scene Tree~, it become active and this function is

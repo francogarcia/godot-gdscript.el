@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Nodes
+# name: Add Node to Group
+# key: node_group_add
+# --
+add_to_group("${1:node_group}")
+$0

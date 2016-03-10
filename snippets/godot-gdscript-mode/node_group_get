@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Nodes
+# name: Get Node Group
+# key: node_group_get
+# --
+var ${1:node_group} = get_tree().get_nodes_in_group("$1")
+$0
