@@ -5532,6 +5532,21 @@ func _input(${1:event}):
              $0
 #+END_SRC
 
+*** Objects
+**** Virtual Function: ~_notification()~
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/notification"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Objects
+# name: Virtual Function: _notification()
+# key: _notification
+# expand-env: ((yas-indent-line 'fixed))
+# --
+func _notification(${1:what}):
+    if ($1 == ${2:NOTIFICATION_READY}):
+        $0
+#+END_SRC
+
 *** Canvas Item
 **** Virtual Function: ~_draw()~
 #+BEGIN_QUOTE

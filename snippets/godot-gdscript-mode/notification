@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Objects
+# name: Virtual Function: _notification()
+# key: _notification
+# expand-env: ((yas-indent-line 'fixed))
+# --
+func _notification(${1:what}):
+    if ($1 == ${2:NOTIFICATION_READY}):
+        $0
