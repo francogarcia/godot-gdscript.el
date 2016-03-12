@@ -5547,6 +5547,18 @@ func _notification(${1:what}):
         $0
 #+END_SRC
 
+**** Connect to Event/Callback
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/connect"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Objects
+# name: Connect to Event/Callback
+# key: _notification
+# expand-env: ((yas-indent-line 'fixed))
+# --
+get_node("${1:node}").connect("${2:event}", ${3:self}, "${4:function}")
+#+END_SRC
+
 *** Canvas Item
 **** Virtual Function: ~_draw()~
 #+BEGIN_QUOTE
