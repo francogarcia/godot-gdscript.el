@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Internationalization
+# name: Translatable String
+# key: tr
+# --
+tr("${1:string_code}")

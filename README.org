@@ -5948,6 +5948,20 @@ script="${6:script}.gd"
 install_files=[${7:"file_array"}]
 
 #+END_SRC
+
+*** Internationalization
+
+**** Translatable String
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/tr"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Internationalization
+# name: Translatable String
+# key: tr
+# --
+tr("${1:string_code}")
+#+END_SRC
+
 * Miscellaneous                                                                :noexport:
 #+BEGIN_SRC emacs-lisp
 (back-to-indentation)
