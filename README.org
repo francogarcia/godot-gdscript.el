@@ -5827,6 +5827,23 @@ $1.set_as_action("$2", ${3:true})
 get_tree().input_event($1)
 #+END_SRC
 
+**** Send Input Event
+Original code from: [[http://www.godotengine.org/qa/746/how-do-you-send-a-mouse-click-via-gdscript][How do you send a mouse click via gdscript? - Godot Engine -
+Q&A]].
+
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/input_event"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Input
+# name: Send Input Event
+# key: input_event
+# --
+var ${1:input_event} = InputEvent()
+$1.type = InputEvent.${2:MOUSE_BUTTON}
+$1.${3:button_index} = ${4:BUTTON_LEFT}
+get_tree().input_event($1)
+#+END_SRC
+
 *** Editor Plugins
 For more information (and examples) on creating editor plugins, check [[http://www.godotengine.org/qa/58/how-to-create-editor-tools-in-gdscript][How to
 create editor tools in GDScript? - Godot Engine - Q&A]].
