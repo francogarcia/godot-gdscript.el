@@ -5037,6 +5037,21 @@ Expanding snippets, The condition system]]).
 #+END_SRC
 
 *** Data Types
+**** Enumeration
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/enum"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Data Types
+# name: Enumeration
+# key: enum
+# expand-env: ((yas-indent-line 'fixed))
+# --
+const ${1:ENUM} = {
+    ${2:KEY} = ${3:VALUE},
+}
+$0
+#+END_SRC
+
 **** Vector2
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/vector2"
 # -*- mode: snippet -*-

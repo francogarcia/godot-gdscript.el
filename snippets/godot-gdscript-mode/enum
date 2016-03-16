@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Data Types
+# name: Enumeration
+# key: enum
+# expand-env: ((yas-indent-line 'fixed))
+# --
+const ${1:ENUM} = {
+    ${2:KEY} = ${3:VALUE},
+}
+$0
