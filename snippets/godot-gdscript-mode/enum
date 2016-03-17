@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
-# group: Data Types
+# group: Classes
 # name: Enumeration
 # key: enum
 # expand-env: ((yas-indent-line 'fixed))

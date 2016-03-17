@@ -5037,21 +5037,6 @@ Expanding snippets, The condition system]]).
 #+END_SRC
 
 *** Data Types
-**** Enumeration
-#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/enum"
-# -*- mode: snippet -*-
-# contributor: Franco Eusébio Garcia
-# group: Data Types
-# name: Enumeration
-# key: enum
-# expand-env: ((yas-indent-line 'fixed))
-# --
-const ${1:ENUM} = {
-    ${2:KEY} = ${3:VALUE},
-}
-$0
-#+END_SRC
-
 **** Vector2
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/vector2"
 # -*- mode: snippet -*-
@@ -5317,6 +5302,21 @@ to [[https://capitaomorte.github.io/yasnippet/snippet-development.html#sec-3-9][
 # expand-env: ((yas-indent-line 'fixed))
 # --
 export (${1:String${2:, "Option1", "Option2"}}) var ${3:variable_name} = ${4:variable_value}
+#+END_SRC
+
+**** Enumeration
+#+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/enum"
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: Classes
+# name: Enumeration
+# key: enum
+# expand-env: ((yas-indent-line 'fixed))
+# --
+const ${1:ENUM} = {
+    ${2:KEY} = ${3:VALUE},
+}
+$0
 #+END_SRC
 
 *** Nodes
