@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# contributor: Franco Eusébio Garcia
+# group: GUI Controls
+# name: Virtual Function: _input_event()
+# key: _input_event
+# expand-env: ((yas-indent-line 'fixed))
+# --
+func _input_event(${1:event}):
+     if ($1 == InputEvent.${2:MOUSE_BUTTON}):
+         if ($1.${3:button_index} == ${4:BUTTON_LEFT and $1.pressed}):
+             $0
