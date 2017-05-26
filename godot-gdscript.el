@@ -96,7 +96,6 @@
     (define-key map "\C-c\C-z" 'godot-gdscript-shell-switch-to-shell)
     ;; Some util commands
     (define-key map "\C-c\C-v" 'godot-gdscript-check)
-    (define-key map "\C-c\C-f" 'godot-gdscript-eldoc-at-point)
     ;; Utilities
     (substitute-key-definition 'complete-symbol 'completion-at-point
                                map global-map)
@@ -137,8 +136,6 @@
         "----"
         ["Check file" godot-gdscript-check
          :help "Check file for errors"]
-        ["Help on symbol" godot-gdscript-eldoc-at-point
-         :help "Get help on symbol at point"]
         ["Complete symbol" completion-at-point
          :help "Complete symbol before point"]))
     map)
@@ -1694,8 +1691,7 @@ virtualenv."
   :safe 'stringp)
 
 (defcustom godot-gdscript-shell-setup-codes '(godot-gdscript-shell-completion-setup-code
-                                      godot-gdscript-ffap-setup-code
-                                      godot-gdscript-eldoc-setup-code)
+                                      godot-gdscript-ffap-setup-code)
   "List of code run by `godot-gdscript-shell-send-setup-codes'."
   :type '(repeat symbol)
   :group 'godot-gdscript
@@ -1991,7 +1987,6 @@ interpreter is run.  Variables
 `godot-gdscript-shell-enable-font-lock',
 `godot-gdscript-shell-completion-setup-code',
 `godot-gdscript-shell-completion-string-code',
-`godot-gdscript-eldoc-setup-code', `godot-gdscript-eldoc-string-code',
 `godot-gdscript-ffap-setup-code' and `godot-gdscript-ffap-string-code' can
 customize this mode for different Godot-GDScript interpreters.
 
@@ -3198,89 +3193,6 @@ See `godot-gdscript-check-command' for the default."
                        (lambda (_modename)
                          (format godot-gdscript-check-buffer-name command)))))
 
-;;; Eldoc
-
-(defcustom godot-gdscript-eldoc-setup-code
-  "def __PYDOC_get_help(obj):
-    try:
-        import inspect
-        if hasattr(obj, 'startswith'):
-            obj = eval(obj, globals())
-        doc = inspect.getdoc(obj)
-        if not doc and callable(obj):
-            target = None
-            if inspect.isclass(obj) and hasattr(obj, '__init__'):
-                target = obj.__init__
-                objtype = 'class'
-            else:
-                target = obj
-                objtype = 'def'
-            if target:
-                args = inspect.formatargspec(
-                    *inspect.getargspec(target)
-                )
-                name = obj.__name__
-                doc = '{objtype} {name}{args}'.format(
-                    objtype=objtype, name=name, args=args
-                )
-        else:
-            doc = doc.splitlines()[0]
-    except:
-        doc = ''
-    try:
-        exec('print doc')
-    except SyntaxError:
-        print(doc)"
-  "Godot-Gdscript code to setup documentation retrieval."
-  :type 'string
-  :group 'godot-gdscript)
-
-(defcustom godot-gdscript-eldoc-string-code
-  "__PYDOC_get_help('''%s''')\n"
-  "Godot-Gdscript code used to get a string with the documentation of an object."
-  :type 'string
-  :group 'godot-gdscript)
-
-(defun godot-gdscript-eldoc--get-doc-at-point (&optional force-input force-process)
-  "Internal implementation to get documentation at point.
-If not FORCE-INPUT is passed then what `godot-gdscript-info-current-symbol'
-returns will be used.  If not FORCE-PROCESS is passed what
-`godot-gdscript-shell-get-process' returns is used."
-  (let ((process (or force-process (godot-gdscript-shell-get-process))))
-    (if (not process)
-        (error "Eldoc needs an inferior Godot-Gdscript process running")
-      (let ((input (or force-input
-                       (godot-gdscript-info-current-symbol t))))
-        (and input
-             ;; Prevent resizing the echo area when iGodot-Gdscript is
-             ;; enabled.  Bug#18794.
-             (godot-gdscript-util-strip-string
-              (godot-gdscript-shell-send-string-no-output
-               (format godot-gdscript-eldoc-string-code input)
-               process)))))))
-
-(defun godot-gdscript-eldoc-function ()
-  "`eldoc-documentation-function' for Godot-Gdscript.
-For this to work as best as possible you should call
-`godot-gdscript-shell-send-buffer' from time to time so context in
-inferior Godot-Gdscript process is updated properly."
-  (godot-gdscript-eldoc--get-doc-at-point))
-
-(defun godot-gdscript-eldoc-at-point (symbol)
-  "Get help on SYMBOL using `help'.
-Interactively, prompt for symbol."
-  (interactive
-   (let ((symbol (godot-gdscript-info-current-symbol t))
-         (enable-recursive-minibuffers t))
-     (list (read-string (if symbol
-                            (format "Describe symbol (default %s): " symbol)
-                          "Describe symbol: ")
-                        nil nil symbol))))
-  (message (godot-gdscript-eldoc--get-doc-at-point symbol)))
-
-(add-to-list 'debug-ignored-errors
-             "^Eldoc needs an inferior Godot-Gdscript process running.")
-
 ;;; Imenu
 
 (defvar godot-gdscript-imenu-format-item-label-function
@@ -3912,9 +3824,6 @@ returned as is."
          (< '(backward-delete-char-untabify (min godot-gdscript-indent-offset
                                                  (current-column))))
          (^ '(- (1+ (current-indentation))))))
-
-  (set (make-local-variable 'eldoc-documentation-function)
-       #'godot-gdscript-eldoc-function)
 
   (add-to-list 'hs-special-modes-alist
                `(godot-gdscript-mode "^\\s-*\\(?:def\\|class\\)\\>" nil "#"
