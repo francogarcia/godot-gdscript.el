@@ -118,9 +118,9 @@ It might be useful to register Godot's extensions to the mode. For instance:
 
 #+BEGIN_SRC org :tangle no
 :PROPERTIES:
-:tangle:  godot-gdscript-mode.el
-:padline: yes
-:comments: both
+:header-args: :tangle  godot-gdscript-mode.el
+:header-args: :padline yes
+:header-args: :comments both
 :END:
 #+END_SRC
 
@@ -129,17 +129,17 @@ It might be useful to register Godot's extensions to the mode. For instance:
 
 #+BEGIN_SRC org :tangle no
 :PROPERTIES:
-:tangle:  godot-gdscript-mode.el
-:padline: yes
-:comments: no
+:header-args: :tangle  godot-gdscript-mode.el
+:header-args: :padline yes
+:header-args: :comments no
 :END:
 #+END_SRC
 
 * Emacs Major Mode
 :PROPERTIES:
-:tangle:  godot-gdscript.el
-:padline: yes
-:comments: no
+:header-args: :tangle  godot-gdscript.el
+:header-args: :padline yes
+:header-args: :comments no
 :END:
 
 ** Header
@@ -4307,9 +4307,9 @@ Therefore, one should consider all these values declared from this section on.
 
 * Code Completion with Company Mode
 :PROPERTIES:
-:tangle:  company-godot-gdscript.el
-:padline: yes
-:comments: no
+:header-args: :tangle  company-godot-gdscript.el
+:header-args: :padline yes
+:header-args: :comments no
 :END:
 
 ** Header
@@ -4413,10 +4413,11 @@ Autocomplete Service."
   + Suggestions: list of completions;
   + Prefix: prefix string to be replaced with the user's chosen suggestion.
 
-*** Exploratory Study                                                        :noexport:
+*** COMMENT Exploratory Study                                                        :noexport:
 :PROPERTIES:
-:tangle: no
+:header-ags: :tangle no
 :END:
+
 This example uses [[https://github.com/zweifisch/ob-http][ob-http]].
 
 **** Obtaining the Project's Checksum
@@ -4826,7 +4827,7 @@ candidates received in COMPLETION-JSON."
 
 **** Testing                                                                :noexport:
 :PROPERTIES:
-:tangle: no
+:header-args: :tangle no
 :END:
 #+BEGIN_SRC emacs-lisp
 (company-godot-gdscript-find-project-configuration "/home/franco/tmp/godot/emacs/")
