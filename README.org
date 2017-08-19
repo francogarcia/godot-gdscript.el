@@ -3,6 +3,7 @@
 #+EMAIL: francogarcia@protonmail.com
 
 * Introduction
+
 This is a prototype of major mode to support GDScript, the scripting language
 used by the [[http://www.godotengine.org][Godot Game Engine]] into [[https://www.gnu.org/software/emacs/][GNU Emacs]]. It follows the description of the
 language provided in [[https://github.com/godotengine/godot/wiki/gdscript][gdscript]].
@@ -34,11 +35,13 @@ left for reference and future work.
 - [[https://github.com/beefsack/GDScript-sublime][beefsack/GDScript-sublime --- GitHub]].
 
 * Setting-Up in Emacs
+
 #+BEGIN_SRC emacs-lisp :tangle no
 (require 'godot-gdscript)
 #+END_SRC
 
 ** Auto-Completion
+
 *NOTE*: At this moment, auto-completion requires Curl (installed and exported to
 the system's path) and was only tested in Linux.
 
@@ -111,7 +114,9 @@ It might be useful to register Godot's extensions to the mode. For instance:
 #+END_SRC
 
 * About this File
+
 ** Org-Mode Notes
+
 - Set ~comments~ to ~both~ to ease debugging and exporting Org as comments.
   + See "Jumping between code and Org" in [[http://orgmode.org/manual/Extracting-source-code.html][Extracting source code - The Org
     Manual]].
@@ -143,11 +148,13 @@ It might be useful to register Godot's extensions to the mode. For instance:
 :END:
 
 ** Header
+
 #+BEGIN_SRC emacs-lisp
 ;;; godot-gdscript.el --- Major mode for editing Godot Engine GDScript files.
 #+END_SRC
 
 *** Copyright
+
 #+BEGIN_SRC emacs-lisp
 ;; Original code Python Mode (from `python.el'):
 ;; Copyright (C) 2003--2015 Free Software Foundation, Inc.
@@ -156,6 +163,7 @@ It might be useful to register Godot's extensions to the mode. For instance:
 #+END_SRC
 
 *** Author, Version, Keywords
+
 #+BEGIN_SRC emacs-lisp
 ;; Author: Franco Eusébio Garcia <francogarcia@protonmail.com>
 ;; URL: https://github.com/francogarcia/godot-gdscript.el
@@ -164,6 +172,7 @@ It might be useful to register Godot's extensions to the mode. For instance:
 #+END_SRC
 
 *** License
+
 GNU General Public License version 3.
 
 #+NAME: license
@@ -187,6 +196,7 @@ GNU General Public License version 3.
 #+END_SRC
 
 *** Commentary
+
 #+BEGIN_SRC emacs-lisp
 ;;; Comentary:
 
@@ -201,16 +211,19 @@ GNU General Public License version 3.
 #+END_SRC
 
 *** Dependencies
+
 #+BEGIN_SRC emacs-lisp
 ;; Package-Requires:
 #+END_SRC
 
 ** Code
+
 #+BEGIN_SRC emacs-lisp
 ;;; Code
 #+END_SRC
 
 ** Dependencies --- Loading
+
 #+BEGIN_SRC emacs-lisp
 (require 'ansi-color)
 (require 'cl-lib)
@@ -219,6 +232,7 @@ GNU General Public License version 3.
 #+END_SRC
 
 ** Settings
+
 #+NAME: settings
 #+BEGIN_SRC emacs-lisp
 ;; Avoid compiler warnings
@@ -230,6 +244,7 @@ GNU General Public License version 3.
 #+END_SRC
 
 ** File Association
+
 #+NAME: file_association
 #+BEGIN_SRC emacs-lisp
 ;;;###autoload
@@ -239,6 +254,7 @@ GNU General Public License version 3.
 #+END_SRC
 
 ** Group
+
 #+BEGIN_SRC emacs-lisp
 (defgroup godot-gdscript nil
   "Godot Engine GDScript Language support for developing games using Emacs."
@@ -248,6 +264,7 @@ GNU General Public License version 3.
 #+END_SRC
 
 ** Keybindings
+
 #+NAME: keybindings
 #+BEGIN_SRC emacs-lisp
 ;;; Bindings
@@ -328,16 +345,20 @@ GNU General Public License version 3.
 #+END_SRC
 
 ** Customization
+
 *** Customizing Indentation
+
 #+NAME: indentation_customization
 #+BEGIN_SRC emacs-lisp
 #+END_SRC
 
 ** Utilities
+
 #+BEGIN_SRC emacs-lisp
 #+END_SRC
 
 ** Grammar and Syntax
+
 *** Language Reference
 
 Useful classes and methods:
@@ -350,8 +371,11 @@ Useful classes and methods:
 *** Keywords
 
 *** Types
+
 **** Built-In Types
+
 ***** Basic Types
+
 - ~null~;
 - ~bool~;
 - ~int~;
@@ -359,6 +383,7 @@ Useful classes and methods:
 - ~String~.
 
 ***** Vector Types
+
 - ~Vector2~;
 - ~Rect2~;
 - ~Vector3~;
@@ -370,6 +395,7 @@ Useful classes and methods:
 - ~Transform~.
 
 ***** Engine Types
+
 - ~Color~;
 - ~Image~;
 - ~NodePath~;
@@ -378,6 +404,7 @@ Useful classes and methods:
 - ~InputEvent~.
 
 ***** Containers
+
 - ~Array~;
 - ~Dictionary~;
 - ~ByteArray~;
@@ -396,6 +423,7 @@ Useful classes and methods:
 *** Functions
 
 *** Operators
+
 | Operator               | Description                           |
 |------------------------+---------------------------------------|
 | x[index]               | Subscription, Highest Priority        |
@@ -417,6 +445,7 @@ Useful classes and methods:
 | = += -= *= /= %= &= |= | Assignment, Lowest Priority           |
 
 *** Literals
+
 | Literal           | Name                         |
 |-------------------+------------------------------|
 | 45                | Base 10 Integer              |
@@ -428,7 +457,9 @@ Useful classes and methods:
 
 *** Comments
 
+
 ** Syntax Highlighting (Font Locking)
+
 #+BEGIN_SRC emacs-lisp
 ;;; Godot-Gdscript specialized rx
 
@@ -735,6 +766,7 @@ It makes underscores and dots word constituent chars.")
 #+END_SRC
 
 ** Indentation
+
 #+BEGIN_SRC emacs-lisp
 ;;; Indentation
 
@@ -1303,6 +1335,7 @@ the line will be re-indented automatically if needed."
 #+END_SRC
 
 ** Navigation
+
 #+BEGIN_SRC emacs-lisp
 ;;; Navigation
 
@@ -1851,6 +1884,7 @@ position, else returns nil."
 #+END_SRC
 
 ** Shell Integration
+
 #+BEGIN_SRC emacs-lisp
 ;;; Shell integration
 
@@ -2782,6 +2816,7 @@ This function takes the list of setup code to send from the
 #+END_SRC
 
 ** Shell Completion
+
 #+BEGIN_SRC emacs-lisp
 ;;; Shell completion
 
@@ -2934,6 +2969,7 @@ If not try to complete."
 #+END_SRC
 
 ** PDB Track Integration
+
 #+BEGIN_SRC emacs-lisp
 ;;; PDB Track integration
 
@@ -3028,6 +3064,7 @@ Argument OUTPUT is a string with the output from the comint process."
 #+END_SRC
 
 ** Symbol Completion
+
 #+BEGIN_SRC emacs-lisp
 ;;; Symbol completion
 
@@ -3041,6 +3078,7 @@ inferior Godot-Gdscript process is updated properly."
 #+END_SRC
 
 ** Fill Paragraph
+
 #+BEGIN_SRC emacs-lisp
 ;;; Fill paragraph
 
@@ -3284,6 +3322,7 @@ JUSTIFY should be used (if applicable) as in `fill-paragraph'."
 #+END_SRC
 
 ** Skeletons
+
 #+BEGIN_SRC emacs-lisp
 ;;; Skeletons
 
@@ -3424,6 +3463,7 @@ The skeleton will be bound to godot-gdscript-skeleton-NAME."
 #+END_SRC
 
 ** Misc Helpers
+
 #+BEGIN_SRC emacs-lisp
 ;;; FFAP
 
@@ -3470,6 +3510,7 @@ The skeleton will be bound to godot-gdscript-skeleton-NAME."
 #+END_SRC
 
 ** Code Check
+
 #+BEGIN_SRC emacs-lisp
 ;;; Code check
 
@@ -3512,6 +3553,7 @@ See `godot-gdscript-check-command' for the default."
 #+END_SRC
 
 ** Imenu
+
 #+BEGIN_SRC emacs-lisp
 ;;; Imenu
 
@@ -3661,6 +3703,7 @@ To this:
 #+END_SRC
 
 ** Misc Helpers
+
 #+BEGIN_SRC emacs-lisp
 ;;; Misc helpers
 
@@ -4087,6 +4130,7 @@ returned as is."
 #+END_SRC
 
 ** Declaration (look for "prog-mode")
+
 ~define-derived-mode~ uses another major mode as a basis to create a new major
 mode (see [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Derived-Modes.html#Derived-Modes][GNU Emacs Lisp Reference Manual: Derived Modes]]). The documentation
 recommends to inherit either from ~fundamental-mode~ or ~prog-mode~. As GDScript
@@ -4187,17 +4231,20 @@ Besides the mode, it automatically defines the variables:
 Therefore, one should consider all these values declared from this section on.
 
 ** Clean-Up
+
 #+NAME: clean_up
 #+BEGIN_SRC emacs-lisp
 #+END_SRC
 
 ** Provide the Module
+
 #+NAME: provide
 #+BEGIN_SRC emacs-lisp
 (provide 'godot-gdscript)
 #+END_SRC
 
 ** Local Variables
+
 #+NAME: local_variables
 #+BEGIN_SRC emacs-lisp
 ;; Local Variables:
@@ -4207,6 +4254,7 @@ Therefore, one should consider all these values declared from this section on.
 #+END_SRC
 
 ** End
+
 #+BEGIN_SRC emacs-lisp
 ;;; godot-gdscript.el ends here
 #+END_SRC
@@ -4219,16 +4267,19 @@ Therefore, one should consider all these values declared from this section on.
 :END:
 
 ** Header
+
 #+BEGIN_SRC emacs-lisp
 ;;; company-godot-gdscript.el --- Company back-end for Godot GDScript completion.
 #+END_SRC
 
 *** Copyright
+
 #+BEGIN_SRC emacs-lisp
 ;; Copyright (C) 2016 Franco Eusébio Garcia
 #+END_SRC
 
 *** Author, Version, Keywords
+
 #+BEGIN_SRC emacs-lisp
 ;; Author: Franco Eusébio Garcia <francogarcia@protonmail.com>
 ;; URL: https://github.com/francogarcia/godot-gdscript.el
@@ -4237,6 +4288,7 @@ Therefore, one should consider all these values declared from this section on.
 #+END_SRC
 
 *** License
+
 GNU General Public License version 3.
 
 #+NAME: license
@@ -4260,6 +4312,7 @@ GNU General Public License version 3.
 #+END_SRC
 
 *** Commentary
+
 #+BEGIN_SRC emacs-lisp
 ;;; Comentary:
 
@@ -4267,11 +4320,13 @@ GNU General Public License version 3.
 #+END_SRC
 
 *** Dependencies
+
 #+BEGIN_SRC emacs-lisp
 ;; Package-Requires: ((company "0.9.0"))
 #+END_SRC
 
 ** Group
+
 #+BEGIN_SRC emacs-lisp
 (defgroup company-godot-gdscript nil
   "Company back-end for Godot Engine GDScript Language completion."
@@ -4282,11 +4337,13 @@ GNU General Public License version 3.
 #+END_SRC
 
 ** Code
+
 #+BEGIN_SRC emacs-lisp
 ;;; Code
 #+END_SRC
 
 ** Dependencies --- Loading
+
 #+BEGIN_SRC emacs-lisp
 (require 'cl-lib)
 (require 'company)
@@ -4294,6 +4351,7 @@ GNU General Public License version 3.
 #+END_SRC
 
 ** Customization
+
 #+BEGIN_SRC emacs-lisp
 (defcustom company-godot-gdscript-curl-path "curl"
   "Path to curl executable, used to send HTTP requests to GD
@@ -4304,6 +4362,7 @@ Autocomplete Service."
 #+END_SRC
 
 ** GD Autocomplete Service
+
 - Request:
   + Path: absolute path of the file;
   + Text: the current script content;
@@ -4327,6 +4386,7 @@ Autocomplete Service."
 This example uses [[https://github.com/zweifisch/ob-http][ob-http]].
 
 **** Obtaining the Project's Checksum
+
 This directory is the one shown by Godot in the Project Manager's Recent
 Projects. Do not add a trailing slash, not the =engine.cfg= file.
 
@@ -4338,6 +4398,7 @@ echo -n $PROJECT_PATH | md5sum | awk '{print $1}'
 #+END_SRC
 
 **** Finding the Port
+
 Compare the checksum with the file =~/.godot/.autocomplete-servers.json= (X11)
 or =$APPDATA\Godot\.autocomplete-servers.json= (Windows) to find out the
 project's communication port.
@@ -4352,6 +4413,7 @@ grep -Po $PROJECT_MD5'":".*?[^\\]"[,}]' $SERVER_LIST_FILE | awk -F':"' '{print $
 #+END_SRC
 
 **** Sending a Test Request
+
 Lines and columns should start at 0. Thus, the first position in the buffer is
 (0, 0). However, it seems that lines start at 0, and columns at 1.
 
@@ -4389,6 +4451,7 @@ Content-Type: application/json; charset=UTF-8
 #+END_SRC
 
 **** Parsing the JSON
+
 Dumping the received information.
 
 #+NAME: COMPLETION_LIST_DUMP
@@ -4411,6 +4474,7 @@ Dumping the received information.
 #+END_SRC
 
 **** Returning a List of Possible Completions
+
 This is the list of candidates for auto-completion.
 
 #+NAME: COMPLETION_LIST
@@ -4424,7 +4488,9 @@ This is the list of candidates for auto-completion.
 #+END_SRC
 
 **** Creating a Request for the Completions
+
 ***** Using Curl
+
 #+BEGIN_SRC sh :results output
 curl \
     --data '{"path": "/home/franco/tmp/godot/emacs/example.gd", "text": "extends Node\nfunc _ready():\n\tprint(\"Hello, world!\")\n\tget", "cursor": {"row": 3, "column": 4}, "meta": "Ignored by the service. Returned in the response."}' \
@@ -4436,6 +4502,7 @@ curl \
 #+END_SRC
 
 ***** Curl in Emacs Lisp
+
 Add comma before ~buffer-content~.
 
 #+NAME: COMPLETION_REQUEST
@@ -4505,7 +4572,9 @@ Synopsis:
 #+END_SRC
 
 *** Emacs Lisp Implementation
+
 **** Finding the Project Configuration File
+
 #+BEGIN_SRC emacs-lisp
 (defun company-godot-gdscript-find-project-configuration (&optional path)
   "Returns the path on which Godot's configuration
@@ -4521,6 +4590,7 @@ starts by the current buffer path."
 #+END_SRC
 
 **** Finding the Correct Port
+
 #+BEGIN_SRC emacs-lisp
 (defun company-godot-gdscript-project-configuration-md5 (&optional path)
   "Returns the value of the MD5 check-sum of the project's
@@ -4552,6 +4622,7 @@ MD5 value, given by PROJECT-MD5."
 #+END_SRC
 
 **** Curl Request
+
 #+BEGIN_SRC emacs-lisp
 (defun company-godot-gdscript-build-json-request-at-point ()
   "Gather the required data to send to GD Auto-Complete Service,
@@ -4688,6 +4759,7 @@ Synopsis:
 #+END_SRC
 
 **** Request Completion at Point
+
 #+BEGIN_SRC emacs-lisp
 (defun company-godot-gdscript-process-request-completion-at-point (callback)
   "Build and send the request for completion at the current point in buffer.
@@ -4705,6 +4777,7 @@ filled should be handled by the supplied CALLBACK function."
 #+END_SRC
 
 **** Extract Data for Completion
+
 #+BEGIN_SRC emacs-lisp
 (defun company-godot-gdscript-mode-extract-completion-hint-from-json (completion-json)
   "Extract and return a string containing the hint field of the
@@ -4735,6 +4808,7 @@ candidates received in COMPLETION-JSON."
 :PROPERTIES:
 :header-args: :tangle no
 :END:
+
 #+BEGIN_SRC emacs-lisp
 (company-godot-gdscript-find-project-configuration "/home/franco/tmp/godot/emacs/")
 
@@ -4891,17 +4965,20 @@ ARG."
 #+END_SRC
 
 ** Clean-Up
+
 #+NAME: clean_up
 #+BEGIN_SRC emacs-lisp
 #+END_SRC
 
 ** Provide the Module
+
 #+NAME: provide
 #+BEGIN_SRC emacs-lisp
 (provide 'company-godot-gdscript)
 #+END_SRC
 
 ** Local Variables
+
 #+BEGIN_SRC emacs-lisp
 ;; Local Variables:
 ;; coding: utf-8
@@ -4910,6 +4987,7 @@ ARG."
 #+END_SRC
 
 ** End
+
 #+BEGIN_SRC emacs-lisp
 ;;; company-godot-gdscript.el ends here
 #+END_SRC
@@ -4917,6 +4995,7 @@ ARG."
 * Yasnippet
 
 ** Configuration
+
 #+BEGIN_SRC emacs-lisp
 (add-hook 'godot-gdscript-mode-hook
           '(lambda () (set (make-local-variable 'yas-indent-line) 'fixed)))
@@ -4925,12 +5004,15 @@ ARG."
 ** Snippets
 
 *** Meta
+
 **** Parents
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/.yas-parents"
 prog-mode
 #+END_SRC
 
 **** Setup
+
 Do not expand a snippet when inside a comment or string (see [[https://capitaomorte.github.io/yasnippet/snippet-expansion.html#sec-2-2][Yasnippet:
 Expanding snippets, The condition system]]).
 
@@ -4944,7 +5026,9 @@ Expanding snippets, The condition system]]).
 #+END_SRC
 
 *** Data Types
+
 **** Vector2
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/vector2"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -4956,6 +5040,7 @@ Vector2(${1:x}, ${2:y})$0
 #+END_SRC
 
 **** Vector3
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/vector3"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -4967,6 +5052,7 @@ Vector3(${1:x}, ${2:y}, ${3:z})$0
 #+END_SRC
 
 **** Rect2
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/rect2"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -4978,7 +5064,9 @@ Rect2(${1:x}, ${2:y}, ${3:width}, ${4:height})$0
 #+END_SRC
 
 *** Control Flow
+
 **** If
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/if"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -4991,6 +5079,7 @@ $0
 #+END_SRC
 
 **** If/Else
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/ifelse"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5006,6 +5095,7 @@ else:
 #+END_SRC
 
 **** Elif
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/elif"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5018,6 +5108,7 @@ $0
 #+END_SRC
 
 **** For In
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/fori"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5030,6 +5121,7 @@ $0
 #+END_SRC
 
 **** For In Range
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/forr"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5042,6 +5134,7 @@ $0
 #+END_SRC
 
 **** While
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/while"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5054,7 +5147,9 @@ $0
 #+END_SRC
 
 *** Functions
+
 **** Function
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/function"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5068,6 +5163,7 @@ func ${1:function_name}(${2:parameters}):
 #+END_SRC
 
 **** Static Function
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/function_static"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5081,7 +5177,9 @@ static func ${1:function_name}(${2:parameters}):
 #+END_SRC
 
 *** Classes
+
 **** Class
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/class"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5121,6 +5219,7 @@ $0
 #+END_SRC
 
 **** Constant
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/const"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5133,6 +5232,7 @@ const ${1:constant_name} = ${2:constant_value}
 #+END_SRC
 
 **** Attribute with On Ready
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/varonready"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5145,6 +5245,7 @@ onready var ${1:variable_name} = ${2:variable_value}
 #+END_SRC
 
 **** Attribute with Set Method
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/varset"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5161,6 +5262,7 @@ $0
 #+END_SRC
 
 **** Attribute with Get Method
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/varget"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5177,6 +5279,7 @@ $0
 #+END_SRC
 
 **** Attribute with Get and Set Method
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/varsetget"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5197,6 +5300,7 @@ $0
 #+END_SRC
 
 **** Attribute with Editor Export
+
 The list of options is optional; use ~C-d~ to skip (for more information, refer
 to [[https://capitaomorte.github.io/yasnippet/snippet-development.html#sec-3-9][Writing snippets --- Nested placeholder fields]]).
 
@@ -5212,6 +5316,7 @@ export (${1:String${2:, "Option1", "Option2"}}) var ${3:variable_name} = ${4:var
 #+END_SRC
 
 **** Enumeration
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/enum"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5227,7 +5332,9 @@ $0
 #+END_SRC
 
 *** Nodes
+
 **** Duplicate a Node
+
 *Note*: this also work for data structures, such as arrays and dictionaries.
 
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/node_duplicate"
@@ -5245,6 +5352,7 @@ $0
 #+END_SRC
 
 **** Add Node to Group
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/node_group_add"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5257,6 +5365,7 @@ $0
 #+END_SRC
 
 **** Get Node Group
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/node_group_get"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5269,6 +5378,7 @@ $0
 #+END_SRC
 
 **** Call Function on Members Node Group
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/node_group_call"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5281,6 +5391,7 @@ $0
 #+END_SRC
 
 **** Virtual Function: ~_enter_tree()~
+
 #+BEGIN_QUOTE
 When the node enters the ~Scene Tree~, it become active and this function is
 called. Children nodes have not entered the active scene yet. In general, it's
@@ -5302,6 +5413,7 @@ func _enter_tree():
 #+END_SRC
 
 **** Virtual Function: ~_ready()~
+
 #+BEGIN_QUOTE
 This function is called after _enter_tree, but it ensures that all children
 nodes have also entered the ~SceneTree~, and became active.
@@ -5326,6 +5438,7 @@ func _ready():
 #+END_SRC
 
 **** Virtual Function: ~_exit_tree()~
+
 #+BEGIN_QUOTE
 When the node exits the ~SceneTree~, this function is called. Children nodes
 have all exited the ~SceneTree~ at this point and all became inactive.
@@ -5346,6 +5459,7 @@ func _exit_tree():
 #+END_SRC
 
 **** Virtual Function: ~_process()~
+
 #+BEGIN_QUOTE
 When ~set_process()~ is enabled, this function is called every frame.
 
@@ -5365,6 +5479,7 @@ func _process(${1:delta}):
 #+END_SRC
 
 **** Virtual Function: ~_fixed_process()~
+
 #+BEGIN_QUOTE
 When ~set_fixed_process()~ is enabled, this is called every physics frame.
 
@@ -5384,6 +5499,7 @@ func _fixed_process(${1:delta}):
 #+END_SRC
 
 **** Virtual Function: ~_paused()~
+
 #+BEGIN_QUOTE
 Called when game is paused. After this call, the node will not receive any more
 process callbacks.
@@ -5404,6 +5520,7 @@ func _paused():
 #+END_SRC
 
 **** Virtual Function: ~_unpaused()~
+
 #+BEGIN_QUOTE
 Called when game is unpaused.
 
@@ -5423,6 +5540,7 @@ func _unpaused():
 #+END_SRC
 
 **** Virtual Function: ~_input()~
+
 #+BEGIN_QUOTE
 Called when any input happens (also must enable with set_process_input or the
 property).
@@ -5455,7 +5573,9 @@ func _input(${1:event}):
 #+END_SRC
 
 *** Objects
+
 **** Virtual Function: ~_notification()~
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/notification"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5470,6 +5590,7 @@ func _notification(${1:what}):
 #+END_SRC
 
 **** Connect to Event/Callback
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/connect"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5482,7 +5603,9 @@ get_node("${1:node}").connect("${2:event}", ${3:self}, "${4:function}")
 #+END_SRC
 
 *** Canvas Item
+
 **** Virtual Function: ~_draw()~
+
 #+BEGIN_QUOTE
 Called (if exists) to draw the canvas item.
 
@@ -5508,7 +5631,9 @@ func _draw():
 #+END_SRC
 
 *** GUI Controls
+
 **** Virtual Function: ~_input_event()~
+
 - See [[http://docs.godotengine.org/en/latest/tutorials/2d/custom_gui_controls.html][Custom GUI Control— Godot Engine latest documentation]].
 
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/gui_input_event"
@@ -5526,7 +5651,9 @@ func _input_event(${1:event}):
 #+END_SRC
 
 *** Resources
+
 **** Load Resource
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/resource_load"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5539,6 +5666,7 @@ $0
 #+END_SRC
 
 **** Preload Resource
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/resource_preload"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5551,7 +5679,9 @@ $0
 #+END_SRC
 
 *** Scenes
+
 **** Load Scene
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/scene_load"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5567,6 +5697,7 @@ $0
 #+END_SRC
 
 **** Preload Scene
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/scene_preload"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5582,6 +5713,7 @@ $0
 #+END_SRC
 
 **** Change Scene
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/scene_change"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5594,7 +5726,9 @@ $0
 #+END_SRC
 
 *** View Port
+
 **** Get View Port Dimensions
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/viewport_size"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5609,6 +5743,7 @@ $0
 #+END_SRC
 
 **** Capture the Screen (Screenshot)
+
 Original code from: [[http://www.gamefromscratch.com/post/2015/07/28/Godot-Engine-Tutorial-Part-13-Viewports-and-Cameras.aspx][Game from Scratch: Godot Engine Tutorial Part 13–Viewports
 and Cameras]].
 
@@ -5630,7 +5765,9 @@ $0
 #+END_SRC
 
 *** Files
+
 **** Read from File
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/file_read"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5660,6 +5797,7 @@ $0
 #+END_SRC
 
 **** Write to File
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/file_write"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5689,6 +5827,7 @@ $0
 #+END_SRC
 
 **** Read from Configuration (=.ini=) File
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/file_ini_read"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5712,6 +5851,7 @@ $0
 #+END_SRC
 
 **** Write to Configuration (=.ini=) File
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/file_ini_write"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5741,7 +5881,9 @@ $0
 #+END_SRC
 
 *** Input
+
 **** Get Cursor (Mouse) Position
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/input_mouse_position"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5754,6 +5896,7 @@ $0
 #+END_SRC
 
 **** Send Input Action
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/input_action"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5768,6 +5911,7 @@ get_tree().input_event($1)
 #+END_SRC
 
 **** Send Input Event
+
 Original code from: [[http://www.godotengine.org/qa/746/how-do-you-send-a-mouse-click-via-gdscript][How do you send a mouse click via gdscript? - Godot Engine -
 Q&A]].
 
@@ -5785,10 +5929,12 @@ get_tree().input_event($1)
 #+END_SRC
 
 *** Editor Plugins
+
 For more information (and examples) on creating editor plugins, check [[http://www.godotengine.org/qa/58/how-to-create-editor-tools-in-gdscript][How to
 create editor tools in GDScript? - Godot Engine - Q&A]].
 
 **** Plugin Script (Custom Control)
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/plugin_script_control"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5839,6 +5985,7 @@ $0
 #+END_SRC
 
 **** Plugin Script (Custom Type)
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/plugin_script_type"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5886,6 +6033,7 @@ $0
 #+END_SRC
 
 **** Plugin Configuration File
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/plugin_config"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5909,6 +6057,7 @@ install_files=[${7:"file_array"}]
 *** Internationalization
 
 **** Translatable String
+
 #+BEGIN_SRC snippet :tangle "snippets/godot-gdscript-mode/tr"
 # -*- mode: snippet -*-
 # contributor: Franco Eusébio Garcia
@@ -5920,6 +6069,7 @@ tr("${1:string_code}")
 #+END_SRC
 
 * Miscellaneous                                                                :noexport:
+
 #+BEGIN_SRC emacs-lisp
 (back-to-indentation)
 #+END_SRC
