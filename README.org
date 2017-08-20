@@ -137,7 +137,7 @@ GNU General Public License version 3.
 *** Commentary
 
 #+BEGIN_SRC emacs-lisp
-;;; Comentary:
+;;; Commentary:
 
 ;; This is a draft to add support for GDScript in Emacs. GDScript is the
 ;; language which Godot Game Engine uses to prototype and implement games. Godot
@@ -158,7 +158,7 @@ GNU General Public License version 3.
 ** Code
 
 #+BEGIN_SRC emacs-lisp
-;;; Code
+;;; Code:
 #+END_SRC
 
 ** Dependencies --- Loading
@@ -280,7 +280,7 @@ GNU General Public License version 3.
         ["Complete symbol" completion-at-point
          :help "Complete symbol before point"]))
     map)
-  "Keymap for `godot-gdscript-mode'.")
+  "Keymap for function `godot-gdscript-mode'.")
 #+END_SRC
 
 ** Customization
@@ -631,9 +631,9 @@ The type returned can be `comment', `string' or `paren'."
 
 (defsubst godot-gdscript-syntax-count-quotes (quote-char &optional point limit)
   "Count number of quotes around point (max is 3).
-QUOTE-CHAR is the quote char to count.  Optional argument POINT is
-the point where scan starts (defaults to current point), and LIMIT
-is used to limit the scan."
+QUOTE-CHAR is the quote char to count. Optional argument POINT is
+the point where scan starts (defaults to current point), and
+LIMIT is used to limit the scan."
   (let ((i 0))
     (while (and (< i 3)
                 (or (not limit) (< (+ point i) limit))
@@ -1905,7 +1905,8 @@ It should not contain a caret (^) at the beginning."
 
 (defcustom godot-gdscript-shell-enable-font-lock t
   "Should syntax highlighting be enabled in the Godot-GDScript shell buffer?
-Restart the Godot-GDScript shell after changing this variable for it to take effect."
+Restart the Godot-GDScript shell after changing this variable for
+it to take effect."
   :type 'boolean
   :group 'godot-gdscript
   :safe 'booleanp)
@@ -1949,9 +1950,9 @@ default `exec-path'."
 (defcustom godot-gdscript-shell-virtualenv-path nil
   "Path to virtualenv root.
 This variable, when set to a string, makes the values stored in
-`godot-gdscript-shell-process-environment' and `godot-gdscript-shell-exec-path'
-to be modified properly so shells are started with the specified
-virtualenv."
+`godot-gdscript-shell-process-environment' and
+`godot-gdscript-shell-exec-path' to be modified properly so
+shells are started with the specified virtualenv."
   :type '(choice (const nil) string)
   :group 'godot-gdscript
   :safe 'stringp)
@@ -2087,14 +2088,16 @@ regexps: `godot-gdscript-shell-prompt-regexp',
 
 (defun godot-gdscript-shell-prompt-set-calculated-regexps ()
   "Detect and set input and output prompt regexps.
-Build and set the values for `godot-gdscript-shell-input-prompt-regexp'
-and `godot-gdscript-shell-output-prompt-regexp' using the values from
-`godot-gdscript-shell-prompt-regexp', `godot-gdscript-shell-prompt-block-regexp',
+Build and set the values for
+`godot-gdscript-shell-input-prompt-regexp' and
+`godot-gdscript-shell-output-prompt-regexp' using the values from
+`godot-gdscript-shell-prompt-regexp',
+`godot-gdscript-shell-prompt-block-regexp',
 `godot-gdscript-shell-prompt-pdb-regexp',
 `godot-gdscript-shell-prompt-output-regexp',
 `godot-gdscript-shell-prompt-input-regexps',
-`godot-gdscript-shell-prompt-output-regexps' and detected prompts from
-`godot-gdscript-shell-prompt-detect'."
+`godot-gdscript-shell-prompt-output-regexps' and detected prompts
+from `godot-gdscript-shell-prompt-detect'."
   (when (not (and godot-gdscript-shell--prompt-calculated-input-regexp
                   godot-gdscript-shell--prompt-calculated-output-regexp))
     (let* ((detected-prompts (godot-gdscript-shell-prompt-detect))
@@ -2143,8 +2146,8 @@ and `godot-gdscript-shell-output-prompt-regexp' using the values from
   "Calculate the appropriate process name for inferior Godot-GDScript process.
 If DEDICATED is t and the variable `buffer-file-name' is non-nil
 returns a string with the form
-`godot-gdscript-shell-buffer-name'[variable `buffer-file-name'] else
-returns the value of `godot-gdscript-shell-buffer-name'."
+`godot-gdscript-shell-buffer-name'[variable `buffer-file-name']
+else returns the value of `godot-gdscript-shell-buffer-name'."
   (let ((process-name
          (if (and dedicated
                   buffer-file-name)
@@ -2154,9 +2157,10 @@ returns the value of `godot-gdscript-shell-buffer-name'."
 
 (defun godot-gdscript-shell-internal-get-process-name ()
   "Calculate the appropriate process name for internal Godot-GDScript process.
-The name is calculated from `godot-gdscript-shell-global-buffer-name' and
-a hash of all relevant global shell settings in order to ensure
-uniqueness for different types of configurations."
+The name is calculated from
+`godot-gdscript-shell-global-buffer-name' and a hash of all
+relevant global shell settings in order to ensure uniqueness for
+different types of configurations."
   (format "%s [%s]"
           godot-gdscript-shell-internal-buffer-name
           (md5
@@ -2243,18 +2247,20 @@ It makes parens and quotes be treated as punctuation chars.")
 
 (define-derived-mode inferior-godot-gdscript-mode comint-mode "Inferior Godot-GDScript"
   "Major mode for Godot-GDScript inferior process.
-Runs a Godot-GDScript interpreter as a subprocess of Emacs, with Godot-GDScript
-I/O through an Emacs buffer.  Variables `godot-gdscript-shell-interpreter'
-and `godot-gdscript-shell-interpreter-args' control which Godot-GDScript
-interpreter is run.  Variables
+Runs a Godot-GDScript interpreter as a subprocess of Emacs, with
+Godot-GDScript I/O through an Emacs buffer. Variables
+`godot-gdscript-shell-interpreter' and
+`godot-gdscript-shell-interpreter-args' control which
+Godot-GDScript interpreter is run. Variables
 `godot-gdscript-shell-prompt-regexp',
 `godot-gdscript-shell-prompt-output-regexp',
 `godot-gdscript-shell-prompt-block-regexp',
 `godot-gdscript-shell-enable-font-lock',
 `godot-gdscript-shell-completion-setup-code',
 `godot-gdscript-shell-completion-string-code',
-`godot-gdscript-ffap-setup-code' and `godot-gdscript-ffap-string-code' can
-customize this mode for different Godot-GDScript interpreters.
+`godot-gdscript-ffap-setup-code' and
+`godot-gdscript-ffap-string-code' can customize this mode for
+different Godot-GDScript interpreters.
 
 You can also add additional setup code to be run at
 initialization of the interpreter via `godot-gdscript-shell-setup-codes'
@@ -2392,12 +2398,12 @@ Input and output via buffer named after
 This new kind of shell is intended to be used for generic
 communication related to defined configurations; the main
 difference with global or dedicated shells is that these ones are
-attached to a configuration, not a buffer.  This means that can
-be used for example to retrieve the sys.path and other stuff,
-without messing with user shells.  Note that
-`godot-gdscript-shell-enable-font-lock' and `inferior-godot-gdscript-mode-hook'
-are set to nil for these shells, so setup codes are not sent at
-startup."
+attached to a configuration, not a buffer. This means that can be
+used for example to retrieve the sys.path and other stuff,
+without messing with user shells. Note that
+`godot-gdscript-shell-enable-font-lock' and
+`inferior-godot-gdscript-mode-hook' are set to nil for these
+shells, so setup codes are not sent at startup."
   (let ((godot-gdscript-shell-enable-font-lock nil)
         (inferior-godot-gdscript-mode-hook nil))
     (get-buffer-process
@@ -2422,11 +2428,11 @@ startup."
   (get-buffer-process (godot-gdscript-shell-get-buffer)))
 
 (defun godot-gdscript-shell-get-or-create-process (&optional cmd dedicated show)
-  "Get or create an inferior Godot-GDScript process for current buffer and return it.
-Arguments CMD, DEDICATED and SHOW are those of `run-godot-gdscript' and
-are used to start the shell.  If those arguments are not
-provided, `run-godot-gdscript' is called interactively and the user will
-be asked for their values."
+  "Get or create an inferior GDScript process for current buffer and return it.
+Arguments CMD, DEDICATED and SHOW are those of
+`run-godot-gdscript' and are used to start the shell. If those
+arguments are not provided, `run-godot-gdscript' is called
+interactively and the user will be asked for their values."
   (let* ((dedicated-proc-name (godot-gdscript-shell-get-process-name t))
          (dedicated-proc-buffer-name (format "*%s*" dedicated-proc-name))
          (global-proc-name  (godot-gdscript-shell-get-process-name nil))
@@ -2482,6 +2488,7 @@ there for compatibility with CEDET.")
   'godot-gdscript-preoutput-result 'godot-gdscript-shell-internal-last-output "24.3")
 
 (defun godot-gdscript-shell--save-temp-file (string)
+  "Save a temporary file with contents defined in STRING."
   (let* ((temporary-file-directory
           (if (file-remote-p default-directory)
               (concat (file-remote-p default-directory) "/tmp")
@@ -2513,8 +2520,8 @@ there for compatibility with CEDET.")
   "Filter used in `godot-gdscript-shell-send-string-no-output' to grab output.
 STRING is the output received to this point from the process.
 This filter saves received output from the process in
-`godot-gdscript-shell-output-filter-buffer' and stops receiving it after
-detecting a prompt at the end of the buffer."
+`godot-gdscript-shell-output-filter-buffer' and stops receiving
+it after detecting a prompt at the end of the buffer."
   (setq
    string (ansi-color-filter-apply string)
    godot-gdscript-shell-output-filter-buffer
@@ -2653,7 +2660,7 @@ the godot-gdscript shell:
       (buffer-substring-no-properties (point-min) (point-max)))))
 
 (defun godot-gdscript-shell-send-region (start end &optional send-main)
-  "Send the region delimited by START and END to inferior Godot-GDScript process.
+  "Send the region delimited by START and END to inferior GDScript process.
 When optional argument SEND-MAIN is non-nil, allow execution of
 code inside blocks delimited by \"if __name__== '__main__':\".
 When called interactively SEND-MAIN defaults to nil, unless it's
@@ -2802,7 +2809,7 @@ else:
 
 (defcustom godot-gdscript-shell-completion-string-code
   "';'.join(__GODOT-GDSCRIPT_EL_get_completions('''%s'''))\n"
-  "Godot-Gdscript code used to get a string of completions separated by semicolons.
+  "Gdscript code used to get a string of completions separated by semicolons.
 The string passed to the function is the current Godot-GDScript name or
 the full statement in the case of imports."
   :type 'string
@@ -2816,7 +2823,7 @@ the full statement in the case of imports."
 
 (defcustom godot-gdscript-shell-completion-pdb-string-code
   "';'.join(globals().keys() + locals().keys())"
-  "Godot-Gdscript code used to get completions separated by semicolons for [i]pdb."
+  "Gdscript code used to get completions separated by semicolons for [i]pdb."
   :type 'string
   :group 'godot-gdscript)
 
@@ -3290,7 +3297,7 @@ the if condition."
                       godot-gdscript-skeleton-autoinsert)))
 
 (defmacro godot-gdscript-skeleton-define (name doc &rest skel)
-  "Define a `godot-gdscript-mode' skeleton using NAME DOC and SKEL.
+  "Define a skeleton using NAME DOC and SKEL.
 The skeleton will be bound to godot-gdscript-skeleton-NAME and will
 be added to `godot-gdscript-mode-skeleton-abbrev-table'."
   (declare (indent 2))
@@ -3311,7 +3318,7 @@ be added to `godot-gdscript-mode-skeleton-abbrev-table'."
   :parents (list godot-gdscript-mode-skeleton-abbrev-table))
 
 (defmacro godot-gdscript-define-auxiliary-skeleton (name doc &optional &rest skel)
-  "Define a `godot-gdscript-mode' auxiliary skeleton using NAME DOC and SKEL.
+  "Define a auxiliary skeleton using NAME DOC and SKEL.
 The skeleton will be bound to godot-gdscript-skeleton-NAME."
   (declare (indent 2))
   (let* ((name (symbol-name name))
@@ -3646,7 +3653,7 @@ To this:
 ;;; Misc helpers
 
 (defun godot-gdscript-info-current-defun (&optional include-type)
-  "Return name of surrounding function with Godot-Gdscript compatible dotty syntax.
+  "Return name of surrounding function with Gdscript compatible dotty syntax.
 Optional argument INCLUDE-TYPE indicates to include the type of the defun.
 This function can be used as the value of `add-log-current-defun-function'
 since it returns nil if point is not inside a defun."
@@ -4055,6 +4062,7 @@ returned as is."
 
 
 (defun godot-gdscript-electric-pair-string-delimiter ()
+  "Identify the delimiter for a string."
   (when (and electric-pair-mode
              (memq last-command-event '(?\" ?\'))
              (let ((count 0))
