@@ -3,7 +3,7 @@
 ;; Original code Python Mode (from `python.el'):
 ;; Copyright (C) 2003--2015 Free Software Foundation, Inc.
 ;; Godot-GDScript Mode:
-;; Copyright (C) 2015--2016 Franco Eusébio Garcia
+;; Copyright (C) 2015--2017 Franco Eusébio Garcia
 
 ;; Author: Franco Eusébio Garcia <francogarcia@protonmail.com>
 ;; URL: https://github.com/francogarcia/godot-gdscript.el
