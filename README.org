@@ -4635,7 +4635,11 @@ MD5 value, given by PROJECT-MD5."
 The current line and column of the cursor are used as the point
 on which to ask for completion."
   (let (;;(file-path buffer-file-name)
-        (file-path (concat "res://" (file-name-nondirectory buffer-file-name)))
+        (file-path (concat
+                    "res://"
+                    (file-relative-name
+                     (file-name-nondirectory
+                      buffer-file-name) (company-godot-gdscript-find-project-configuration))))
         (buffer-content (current-buffer))
         ;; TODO: Account for narrowing.
         (cursor-line (1- (line-number-at-pos)))
@@ -4655,7 +4659,11 @@ on which to ask for completion."
 The current line and column of the cursor are used as the point
 on which to ask for completion."
   (let (;;(file-path buffer-file-name)
-        (file-path (concat "res://" (file-name-nondirectory buffer-file-name)))
+        (file-path (concat
+                    "res://"
+                    (file-relative-name
+                     (file-name-nondirectory
+                      buffer-file-name) (company-godot-gdscript-find-project-configuration))))
         ;; TODO: Account for narrowing.
         (cursor-line (1- (line-number-at-pos)))
         (cursor-column (current-column))
@@ -4664,11 +4672,11 @@ on which to ask for completion."
       (message "file: %s\nbuffer: %s\nline: %s\tcolumn: %s"
                file-path buffer-content cursor-line cursor-column)
       (with-current-buffer buffer-content
-                        (json-encode `(
-                                       :path ,file-path
-                                       :text ,(buffer-substring-no-properties (point-min) (point-max))
-                                       :cursor (:row ,cursor-line :column ,cursor-column)
-                                       :meta ,meta-content))))))
+        (json-encode `(
+                       :path ,file-path
+                             :text ,(buffer-substring-no-properties (point-min) (point-max))
+                             :cursor (:row ,cursor-line :column ,cursor-column)
+                             :meta ,meta-content))))))
 
 (defun company-godot-gdscript-build-json-request-at-point-debug-version ()
   "Gather the required data to send to GD Auto-Complete Service,
