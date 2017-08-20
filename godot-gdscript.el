@@ -1,4 +1,4 @@
-;;; godot-gdscript.el --- Major mode for editing Godot Engine GDScript files.
+;;; godot-gdscript.el --- Major mode for editing Godot Engine GDScript files
 
 ;; Original code Python Mode (from `python.el'):
 ;; Copyright (C) 2003--2015 Free Software Foundation, Inc.
@@ -8,7 +8,7 @@
 ;; Author: Franco Eusébio Garcia <francogarcia@protonmail.com>
 ;; URL: https://github.com/francogarcia/godot-gdscript.el
 ;; Version: 0.0.1
-;; Keywords: godot game engine
+;; Keywords: languages
 
 ;;; License:
 
@@ -38,7 +38,7 @@
 ;; syntax. However, as some keywords and operators do differ, `python-mode' is
 ;; not derived; instead, its code is changed to support the GDScript language.
 
-;; Package-Requires:
+;; Package-Requires: ((emacs "24.3"))
 
 ;;; Code:
 
@@ -47,12 +47,13 @@
 (require 'comint)
 (require 'json)
 
-;; Avoid compiler warnings
-(defvar view-return-to-alist)
-(defvar compilation-error-regexp-alist)
-(defvar outline-heading-end-regexp)
-
-(autoload 'comint-mode "comint")
+;; Avoid compiler warnings (disable due to package-lint-current-buffer).
+;; (defvar view-return-to-alist)
+;; (defvar compilation-error-regexp-alist)
+;; (defvar outline-heading-end-regexp)
+;; (defvar ffap-alist)
+;; (defvar electric-indent-inhibit)
+;; (autoload 'comint-mode "comint")
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist (cons (purecopy "\\.gd\\'")  'godot-gdscript-mode))
@@ -87,7 +88,7 @@
     (define-key map "\C-c\C-tt" 'godot-gdscript-skeleton-try)
     (define-key map "\C-c\C-tw" 'godot-gdscript-skeleton-while)
     ;; Shell interaction
-    (define-key map "\C-c\C-p" 'run-godot-gdscript)
+    (define-key map "\C-c\C-p" 'godot-gdscript-run-script)
     (define-key map "\C-c\C-s" 'godot-gdscript-shell-send-string)
     (define-key map "\C-c\C-r" 'godot-gdscript-shell-send-region)
     (define-key map "\C-\M-x" 'godot-gdscript-shell-send-defun)
@@ -118,7 +119,7 @@
         "--"
         ("Skeletons")
         "---"
-        ["Start interpreter" run-godot-gdscript
+        ["Start interpreter" godot-gdscript-run-script
          :help "Run inferior Godot-Gdscript process in a separate buffer"]
         ["Switch to shell" godot-gdscript-shell-switch-to-shell
          :help "Switch to running inferior Godot-Gdscript process"]
@@ -2006,7 +2007,7 @@ variable.
     (when godot-gdscript-shell--parent-buffer
       (godot-gdscript-util-clone-local-variables godot-gdscript-shell--parent-buffer))
     ;; Users can override default values for these vars when calling
-    ;; `run-godot-gdscript'.  This ensures new values let-bound in
+    ;; `godot-gdscript-run-script'.  This ensures new values let-bound in
     ;; `godot-gdscript-shell-make-comint' are locally set.
     (set (make-local-variable 'godot-gdscript-shell-interpreter) interpreter)
     (set (make-local-variable 'godot-gdscript-shell-interpreter-args) args))
@@ -2083,7 +2084,7 @@ killed."
                (godot-gdscript-shell--parent-buffer (current-buffer))
                (process (get-buffer-process buffer))
                ;; As the user may have overridden default values for
-               ;; these vars on `run-godot-gdscript', let-binding them allows
+               ;; these vars on `godot-gdscript-run-script', let-binding them allows
                ;; to have the new right values in all setup code
                ;; that's is done in `inferior-godot-gdscript-mode', which is
                ;; important, especially for prompt detection.
@@ -2098,7 +2099,7 @@ killed."
       proc-buffer-name)))
 
 ;;;###autoload
-(defun run-godot-gdscript (cmd &optional dedicated show)
+(defun godot-gdscript-run-script (cmd &optional dedicated show)
   "Run an inferior Godot-GDScript process.
 Input and output via buffer named after
 `godot-gdscript-shell-buffer-name'.  If there is a process already
@@ -2123,7 +2124,7 @@ process buffer for a list of commands.)"
    cmd (godot-gdscript-shell-get-process-name dedicated) show)
   dedicated)
 
-(defun run-godot-gdscript-internal ()
+(defun godot-gdscript-run-script-internal ()
   "Run an inferior Internal Godot-GDScript process.
 Input and output via buffer named after
 `godot-gdscript-shell-internal-buffer-name' and what
@@ -2164,8 +2165,8 @@ shells, so setup codes are not sent at startup."
 (defun godot-gdscript-shell-get-or-create-process (&optional cmd dedicated show)
   "Get or create an inferior GDScript process for current buffer and return it.
 Arguments CMD, DEDICATED and SHOW are those of
-`run-godot-gdscript' and are used to start the shell. If those
-arguments are not provided, `run-godot-gdscript' is called
+`godot-gdscript-run-script' and are used to start the shell. If those
+arguments are not provided, `godot-gdscript-run-script' is called
 interactively and the user will be asked for their values."
   (let* ((dedicated-proc-name (godot-gdscript-shell-get-process-name t))
          (dedicated-proc-buffer-name (format "*%s*" dedicated-proc-name))
@@ -2176,10 +2177,10 @@ interactively and the user will be asked for their values."
          (current-prefix-arg 16))
     (when (and (not dedicated-running) (not global-running))
       (if (if (not cmd)
-              ;; XXX: Refactor code such that calling `run-godot-gdscript'
+              ;; XXX: Refactor code such that calling `godot-gdscript-run-script'
               ;; interactively is not needed anymore.
-              (call-interactively 'run-godot-gdscript)
-            (run-godot-gdscript cmd dedicated show))
+              (call-interactively 'godot-gdscript-run-script)
+            (godot-gdscript-run-script cmd dedicated show))
           (setq dedicated-running t)
         (setq global-running t)))
     ;; Always prefer dedicated
@@ -2202,7 +2203,7 @@ there for compatibility with CEDET.")
   (let* ((proc-name (godot-gdscript-shell-internal-get-process-name))
          (proc-buffer-name (format " *%s*" proc-name)))
     (when (not (process-live-p proc-name))
-      (run-godot-gdscript-internal)
+      (godot-gdscript-run-script-internal)
       (setq godot-gdscript-shell-internal-buffer proc-buffer-name)
       ;; XXX: Why is this `sit-for' needed?
       ;; `godot-gdscript-shell-make-comint' calls `accept-process-output'
@@ -3154,8 +3155,6 @@ The skeleton will be bound to godot-gdscript-skeleton-NAME."
         (when module-file
           (substring-no-properties module-file 1 -1))))))
 
-(defvar ffap-alist)
-
 (eval-after-load "ffap"
   '(progn
      (push '(godot-gdscript-mode . godot-gdscript-ffap-module-path) ffap-alist)
@@ -3767,8 +3766,6 @@ returned as is."
                (= count 3))
              (eq (char-after) last-command-event))
     (save-excursion (insert (make-string 2 last-command-event)))))
-
-(defvar electric-indent-inhibit)
 
 ;;;###autoload
 (define-derived-mode godot-gdscript-mode prog-mode "Godot-Gdscript"
