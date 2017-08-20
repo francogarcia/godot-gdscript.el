@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: Franco Eusébio Garcia
-# group: Classes
-# name: Variable with On Ready
-# key: onready
-# expand-env: ((yas-indent-line 'fixed))
-# --
-onready var ${1:variable_name} = ${2:variable_value}

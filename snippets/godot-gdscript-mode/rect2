@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: Franco Eusébio Garcia
-# group: Data Types
-# name: Rect2
-# key: r2
-# --
-Rect2(${1:x}, ${2:y}, ${3:width}, ${4:height})$0

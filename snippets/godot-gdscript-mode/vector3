@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: Franco Eusébio Garcia
-# group: Data Types
-# name: Vector3
-# key: v3
-# --
-Vector3(${1:x}, ${2:y}, ${3:z})$0

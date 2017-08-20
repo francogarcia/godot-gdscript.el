@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: Franco Eusébio Garcia
-# group: Control Flow
-# name: While
-# key: while
-# --
-while (${1:condition}):
-$0

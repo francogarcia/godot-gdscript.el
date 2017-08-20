@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: Franco Eusébio Garcia
-# group: Control Flow
-# name: For In
-# key: fori
-# --
-for ${1:variable} in ${2:collection}:
-$0

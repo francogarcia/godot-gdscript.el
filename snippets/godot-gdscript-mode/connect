@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# contributor: Franco Eusébio Garcia
-# group: Objects
-# name: Connect to Event/Callback
-# key: connect
-# expand-env: ((yas-indent-line 'fixed))
-# --
-get_node("${1:node}").connect("${2:event}", ${3:self}, "${4:function}")
