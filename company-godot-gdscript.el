@@ -96,7 +96,8 @@ MD5 value, given by PROJECT-MD5."
 
 The current line and column of the cursor are used as the point
 on which to ask for completion."
-  (let ((file-path buffer-file-name)
+  (let (;;(file-path buffer-file-name)
+        (file-path (concat "res://" (file-name-nondirectory buffer-file-name)))
         (buffer-content (current-buffer))
         ;; TODO: Account for narrowing.
         (cursor-line (1- (line-number-at-pos)))
@@ -115,8 +116,8 @@ on which to ask for completion."
 
 The current line and column of the cursor are used as the point
 on which to ask for completion."
-  (let ((file-path buffer-file-name)
-        (buffer-content (current-buffer))
+  (let (;;(file-path buffer-file-name)
+        (file-path (concat "res://" (file-name-nondirectory buffer-file-name)))
         ;; TODO: Account for narrowing.
         (cursor-line (1- (line-number-at-pos)))
         (cursor-column (current-column))
@@ -137,7 +138,7 @@ on which to ask for completion."
 
 The current line and column of the cursor are used as the point
 on which to ask for completion."
-  (let ((file-path "/home/franco/tmp/godot/emacs/example.gd")
+  (let ((file-path "res://example.gd")
         (buffer-content
 ;; "extends Node
 ;; func _ready():

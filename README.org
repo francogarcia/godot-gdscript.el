@@ -4427,6 +4427,10 @@ func _ready():
     get
 #+END_SRC
 
+Although the example says to use the full path, examing the source code of the
+lastest version of GD Autocomplete Service suggests that the path should start
+with Godot's =res://= protocol.
+
 #+NAME: COMPLETION_JSON
 #+HEADER: :var PORT=PROJECT_PORT
 #+HEADER: :var PROJECT_PATH=(substitute-in-file-name "$HOME/tmp/godot/emacs")
@@ -4437,7 +4441,7 @@ Connection: keep-alive
 Content-Type: application/json; charset=UTF-8
 
 {
-    "path": "${PROJECT_PATH}/example.gd",
+    "path": "res://example.gd",
 
     "text": "extends Node\nfunc _ready():\n\tprint(\"Hello, world!\")\n\tget",
 
@@ -4493,12 +4497,12 @@ This is the list of candidates for auto-completion.
 
 #+BEGIN_SRC sh :results output
 curl \
-    --data '{"path": "/home/franco/tmp/godot/emacs/example.gd", "text": "extends Node\nfunc _ready():\n\tprint(\"Hello, world!\")\n\tget", "cursor": {"row": 3, "column": 4}, "meta": "Ignored by the service. Returned in the response."}' \
+    --data '{"path": "res://example.gd", "text": "extends Node\nfunc _ready():\n\tprint(\"Hello, world!\")\n\tget", "cursor": {"row": 3, "column": 4}, "meta": "Ignored by the service. Returned in the response."}' \
     --header 'Accept: application/json' \
     --header 'Connection: keep-alive' \
     --header 'Content-Type: application/json; charset=UTF-8' \
     --http1.1 \
-    --request POST http://localhost:6071
+    --request POST http://localhost:6070
 #+END_SRC
 
 ***** Curl in Emacs Lisp
@@ -4563,7 +4567,7 @@ Synopsis:
          (kill-buffer output-buffer))))
     output-buffer))
 
-(let ((curl-command "curl --data '{\"path\": \"/home/franco/tmp/godot/emacs/example.gd\", \"text\": \"extends Node\nfunc _ready():\n\tprint(\\\"Hello, world!\\\")\n\tget\", \"cursor\": {\"row\": 3, \"column\": 4}, \"meta\": \"Ignored by the service. Returned in the response.\"}' --header 'Accept: application/json' --header 'Connection: keep-alive' --header 'Content-Type: application/json; charset=UTF-8' --http1.1 --request POST http://localhost:6071"))
+(let ((curl-command "curl --data '{\"path\": \"res://example.gd\", \"text\": \"extends Node\nfunc _ready():\n\tprint(\\\"Hello, world!\\\")\n\tget\", \"cursor\": {\"row\": 3, \"column\": 4}, \"meta\": \"Ignored by the service. Returned in the response.\"}' --header 'Accept: application/json' --header 'Connection: keep-alive' --header 'Content-Type: application/json; charset=UTF-8' --http1.1 --request POST http://localhost:6071"))
   (async-shell-command
    curl-command
    "*Godot-GDScript GD-AutoComplete Service*"
@@ -4630,7 +4634,8 @@ MD5 value, given by PROJECT-MD5."
 
 The current line and column of the cursor are used as the point
 on which to ask for completion."
-  (let ((file-path buffer-file-name)
+  (let (;;(file-path buffer-file-name)
+        (file-path (concat "res://" (file-name-nondirectory buffer-file-name)))
         (buffer-content (current-buffer))
         ;; TODO: Account for narrowing.
         (cursor-line (1- (line-number-at-pos)))
@@ -4649,8 +4654,8 @@ on which to ask for completion."
 
 The current line and column of the cursor are used as the point
 on which to ask for completion."
-  (let ((file-path buffer-file-name)
-        (buffer-content (current-buffer))
+  (let (;;(file-path buffer-file-name)
+        (file-path (concat "res://" (file-name-nondirectory buffer-file-name)))
         ;; TODO: Account for narrowing.
         (cursor-line (1- (line-number-at-pos)))
         (cursor-column (current-column))
@@ -4671,7 +4676,7 @@ on which to ask for completion."
 
 The current line and column of the cursor are used as the point
 on which to ask for completion."
-  (let ((file-path "/home/franco/tmp/godot/emacs/example.gd")
+  (let ((file-path "res://example.gd")
         (buffer-content
 ;; "extends Node
 ;; func _ready():
