@@ -2739,8 +2739,8 @@ Argument OUTPUT is a string with the output from the comint process."
 For this to work as best as possible you should call
 `godot-gdscript-shell-send-buffer' from time to time so context in
 inferior Godot-Gdscript process is updated properly."
-  ;; (company-complete))
-)
+  (when (require 'company nil 'noerror)
+    (company-complete)))
 
 ;;; Fill paragraph
 
