@@ -3030,14 +3030,14 @@ be added to `godot-gdscript-mode-skeleton-abbrev-table'."
   "Abbrev table for Godot-Gdscript mode."
   :parents (list godot-gdscript-mode-skeleton-abbrev-table))
 
-(defmacro godot-gdscript-define-auxiliary-skeleton (name doc &optional &rest skel)
+(defmacro godot-gdscript-define-auxiliary-skeleton (name &optional doc &rest skel)
   "Define a auxiliary skeleton using NAME DOC and SKEL.
 The skeleton will be bound to godot-gdscript-skeleton-NAME."
   (declare (indent 2))
   (let* ((name (symbol-name name))
          (function-name (intern (concat "godot-gdscript-skeleton--" name)))
-         (msg (format
-               "Add '%s' clause? " name)))
+         (msg (funcall (if (fboundp 'format-message) #'format-message #'format)
+                       "Add `%s' clause? " name)))
     (when (not skel)
       (setq skel
             `(< ,(format "%s:" name) \n \n
@@ -3050,11 +3050,11 @@ The skeleton will be bound to godot-gdscript-skeleton-NAME."
          (signal 'quit t))
        ,@skel)))
 
-(godot-gdscript-define-auxiliary-skeleton else nil)
+(godot-gdscript-define-auxiliary-skeleton else)
 
-(godot-gdscript-define-auxiliary-skeleton except nil)
+(godot-gdscript-define-auxiliary-skeleton except)
 
-(godot-gdscript-define-auxiliary-skeleton finally nil)
+(godot-gdscript-define-auxiliary-skeleton finally)
 
 (godot-gdscript-skeleton-define if nil
   "Condition: "
