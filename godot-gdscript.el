@@ -155,8 +155,8 @@
                                        "func" "if" "try" "while" "with")
                                    symbol-end))
       (dedenter            . ,(rx symbol-start
-                                   (or "elif" "else" "except" "finally")
-                                   symbol-end))
+                                  (or "elif" "else" "except" "finally")
+                                  symbol-end))
       (block-ender         . ,(rx symbol-start
                                   (or
                                    "break" "continue" "pass" "raise" "return")
@@ -272,11 +272,12 @@ The type returned can be `comment', `string' or `paren'."
   ;; Keywords
   `(,(rx symbol-start
          (or
-          "and" "in" "not" "or"
+          "and" "in" "is" "not" "or"
           "null" "self"
           "String" "bool" "float" "int"
+          ;; Functions
           ;; Variant types
-          "AABB" "Array" "ByteArray" "Color"
+          "AABB" "Array" "Basis" "ByteArray" "Color"
           "ColorArray" "Dictionary" "Image" "InputEvent" "IntArray"
           "Matrix3" "Matrix32" "NodePath" "Object" "Plane"
           "Quat" "RID" "RealArray" "Rect2" "StringArray"
@@ -330,28 +331,59 @@ The type returned can be `comment', `string' or `paren'."
            ;; Inherited methods from Object
            "connect" "emit" "get" "set_signal"
            ;; Inherited methods from Node
-           "_init" "_process" "_fixed_process" "idle_process"
-           "_input" "_unhandled_input" "_unhandled_key_input"
+           ;; (<https://github.com/godotengine/godot/blob/master/scene/scene_string_names.h>)
+           "_draw" "_enter_tree" "_enter_world" "_exit_tree" "_exit_world"
+           "_fixed_process" "_init" "_input" "_input" "_physics_process"
+           "_process" "_process" "_ready" "_unhandled_input"
+           "_unhandled_input" "_unhandled_key_input" "_unhandled_key_input"
+           ;; (<https://github.com/godotengine/godot/blob/master/scene/main/node.cpp>)
+           "add_child" "add_to_group" "can_process" "duplicate" "find_node"
+           "get_child" "get_child_count" "get_children" "get_filename"
+           "get_groups" "get_index" "get_name" "get_node"
+           "get_node_and_resource" "get_owner" "get_parent" "get_path"
+           "get_path_to" "get_pause_mode" "get_physics_process_delta_time"
+           "get_position_in_parent" "get_process_delta_time"
+           "get_scene_instance_load_placeholder" "get_tree" "get_viewport"
+           "has_node" "has_node_and_resource" "is_a_parent_of"
+           "is_displayed_folded" "is_greater_than" "is_in_group"
+           "is_inside_tree" "is_physics_processing"
+           "is_physics_processing_internal" "is_processing"
+           "is_processing_input" "is_processing_internal"
+           "is_processing_unhandled_input"
+           "is_processing_unhandled_key_input"
+           "move_child" "print_stray_nodes" "print_tree" "print_tree_pretty"
+           "propagate_call" "propagate_notification" "queue_free" "raise"
+           "remove_and_skip" "remove_child" "remove_from_group" "replace_by"
+           "request_ready" "set_display_folded" "set_filename" "set_name"
+           "set_owner" "set_pause_mode" "set_physics_process"
+           "set_physics_process_internal" "set_process" "set_process_input"
+           "set_process_internal" "set_process_unhandled_input"
+           "set_process_unhandled_key_input"
+           "set_scene_instance_load_placeholder"
            ;; Missing functions from header
            "basefunc" "call" "new" "instance"
            ;; Exported functions
-           "Color8" "abs" "acos" "asin" "atan" "atan2" "bytes2var" "ceil"
-           "clamp" "convert" "cos" "cosh" "db2linear" "decimals" "dectime"
-           "deg2rad" "dict2inst" "ease" "exp" "floor" "fmod" "fposmod_from"
-           "funcref_hash" "id" "inf" "inst2dict" "instance"
-           "is" "is" "lerp" "linear2db" "load_log" "max" "min_nan"
-           "nearest" "po2" "pow" "print" "print" "printerr" "printraw"
-           "prints_printt" "rad2deg" "rand" "rand" "randf" "randi" "randomize"
-           "range" "range" "round" "seed" "seed" "sign" "sin"
-           "sinh" "sqrt" "stack" "stepify" "str" "str2var" "tan"
-           "tanh_typeof" "var2bytes_var2str_weakref")
+           ;; (<https://github.com/godotengine/godot/blob/master/modules/gdscript/gdscript_functions.cpp>)
+           "Color8" "ColorN" "abs" "acos" "asin" "atan" "atan2" "bytes2var"
+           "cartesian2polar" "ceil" "char" "clamp" "convert" "cos" "cosh"
+           "db2linear" "decimals" "dectime" "deg2rad" "dict2inst" "ease"
+           "exp" "floor" "fmod" "fposmod" "funcref" "hash" "inst2dict"
+           "instance_from_id" "inverse_lerp" "is_inf" "is_instance_valid"
+           "is_nan" "len" "lerp" "linear2db" "load" "log" "max" "min"
+           "nearest_po2" "parse_json" "polar2cartesian" "pow" "print"
+           "print_stack" "printerr" "printraw" "prints" "printt" "rad2deg"
+           "rand_range" "rand_seed" "randf" "randi" "randomize" "range"
+           "range_lerp" "round" "seed" "sign" "sinh" "sqrt" "stepify" "str"
+           "str2var" "tan" "tanh" "to_json" "type_exists" "typeof"
+           "validate_json" "var2bytes" "var2str" "weakref" "wrapf" "wrapi"
+           "sin")
           symbol-end) . font-lock-builtin-face)
     ;; assignments
     ;; support for a = b = c = 5
     (,(lambda (limit)
         (let ((re (godot-gdscript-rx (group (+ (any word ?. ?_)))
-                             (? ?\[ (+ (not (any  ?\]))) ?\]) (* space)
-                             assignment-operator))
+                                     (? ?\[ (+ (not (any  ?\]))) ?\]) (* space)
+                                     assignment-operator))
               (res nil))
           (while (and (setq res (re-search-forward re limit t))
                       (or (godot-gdscript-syntax-context 'paren)
@@ -361,9 +393,9 @@ The type returned can be `comment', `string' or `paren'."
     ;; support for a, b, c = (1, 2, 3)
     (,(lambda (limit)
         (let ((re (godot-gdscript-rx (group (+ (any word ?. ?_))) (* space)
-                             (* ?, (* space) (+ (any word ?. ?_)) (* space))
-                             ?, (* space) (+ (any word ?. ?_)) (* space)
-                             assignment-operator))
+                                     (* ?, (* space) (+ (any word ?. ?_)) (* space))
+                                     ?, (* space) (+ (any word ?. ?_)) (* space)
+                                     assignment-operator))
               (res nil))
           (while (and (setq res (re-search-forward re limit t))
                       (goto-char (match-end 1))
