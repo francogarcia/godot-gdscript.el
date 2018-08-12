@@ -331,6 +331,9 @@ The type returned can be `comment', `string' or `paren'."
            ;; Inherited methods from Object
            "connect" "emit" "get" "set_signal"
            ;; Inherited methods from Node
+           ;; get_node() shorthand
+           ;; <https://github.com/godotengine/godot/issues/4309>
+           "$"
            ;; (<https://github.com/godotengine/godot/blob/master/scene/scene_string_names.h>)
            "_draw" "_enter_tree" "_enter_world" "_exit_tree" "_exit_world"
            "_fixed_process" "_init" "_input" "_input" "_physics_process"
