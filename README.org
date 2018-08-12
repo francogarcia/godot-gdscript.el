@@ -231,12 +231,13 @@ GNU General Public License version 3.
     (define-key map "\C-c\C-tt" 'godot-gdscript-skeleton-try)
     (define-key map "\C-c\C-tw" 'godot-gdscript-skeleton-while)
     ;; Shell interaction
-    (define-key map "\C-c\C-p" 'godot-gdscript-run-script)
-    (define-key map "\C-c\C-s" 'godot-gdscript-shell-send-string)
-    (define-key map "\C-c\C-r" 'godot-gdscript-shell-send-region)
-    (define-key map "\C-\M-x" 'godot-gdscript-shell-send-defun)
-    (define-key map "\C-c\C-c" 'godot-gdscript-shell-send-buffer)
-    (define-key map "\C-c\C-l" 'godot-gdscript-shell-send-file)
+    (define-key map "\C-c\C-g" 'godot-gdscript-run-godot-editor)
+    (define-key map "\C-c\C-p" 'godot-gdscript-run-project-in-godot)
+    (define-key map "\C-c\C-s" 'godot-gdscript-run-current-scene-in-godot)
+    (define-key map "\C-c\C-e" 'godot-gdscript-edit-current-scene-in-godot)
+    (define-key map "\C-c\C-r" 'godot-gdscript-run-current-script-in-godot)
+    (define-key map "\C-c\C-dp" 'godot-gdscript-run-project-in-godot-debug-mode)
+    (define-key map "\C-c\C-ds" 'godot-gdscript-run-current-scene-in-godot-debug-mode)
     (define-key map "\C-c\C-z" 'godot-gdscript-shell-switch-to-shell)
     ;; Some util commands
     (define-key map "\C-c\C-v" 'godot-gdscript-check)
@@ -262,21 +263,22 @@ GNU General Public License version 3.
         "--"
         ("Skeletons")
         "---"
-        ["Start interpreter" godot-gdscript-run-script
-         :help "Run inferior Godot-Gdscript process in a separate buffer"]
         ["Switch to shell" godot-gdscript-shell-switch-to-shell
          :help "Switch to running inferior Godot-Gdscript process"]
-        ["Eval string" godot-gdscript-shell-send-string
-         :help "Eval string in inferior Godot-Gdscript session"]
-        ["Eval buffer" godot-gdscript-shell-send-buffer
-         :help "Eval buffer in inferior Godot-Gdscript session"]
-        ["Eval region" godot-gdscript-shell-send-region
-         :help "Eval region in inferior Godot-Gdscript session"]
-        ["Eval defun" godot-gdscript-shell-send-defun
-         :help "Eval defun in inferior Godot-Gdscript session"]
-        ["Eval file" godot-gdscript-shell-send-file
-         :help "Eval file in inferior Godot-Gdscript session"]
-        ["Debugger" pdb :help "Run pdb under GUD"]
+        ["Run Godot Engine editor" godot-gdscript-run-godot-editor
+         :help "Run Godot Editor as a subprocess of Emacs, loading this project into it"]
+        ["Run project" godot-gdscript-run-project-in-godot
+         :help "Run the current project in Godot Engine"]
+        ["Run current scene" godot-gdscript-run-current-scene-in-godot
+         :help "Run the current scene in Godot Engine"]
+        ["Edit scene in Godot Engine" godot-gdscript-edit-current-scene-in-godot
+         :help "Edit the current scene in Godot Engine"]
+        ["Run current script" godot-gdscript-run-current-script-in-godot
+         :help "Run the current script in Godot Engine"]
+        ["Run project (debug mode)" godot-gdscript-run-project-in-godot-debug-mode
+         :help "Run the project in Godot Engine, using the debug mode option"]
+        ["Run scene (debug mode)" godot-gdscript-run-current-scene-in-godot-debug-mode
+         :help "Run the current scene in Godot Engine, using the debug mode option"]
         "----"
         ["Check file" godot-gdscript-check
          :help "Check file for errors"]
@@ -2045,6 +2047,7 @@ shows a warning with instructions to avoid hangs and returns nil.
 When `godot-gdscript-shell-prompt-detect-enabled' is nil avoids any
 detection and just returns nil."
   (when godot-gdscript-shell-prompt-detect-enabled
+    ;; FIXME This check causes Godot to run again, opening a new window.
     (let* ((process-environment (godot-gdscript-shell-calculate-process-environment))
            (exec-path (godot-gdscript-shell-calculate-exec-path))
            (code (concat
@@ -2322,51 +2325,54 @@ variable.
     (set (make-local-variable 'godot-gdscript-shell-interpreter-args) args))
   (set (make-local-variable 'godot-gdscript-shell--prompt-calculated-input-regexp) nil)
   (set (make-local-variable 'godot-gdscript-shell--prompt-calculated-output-regexp) nil)
-  (godot-gdscript-shell-prompt-set-calculated-regexps)
-  (setq comint-prompt-regexp godot-gdscript-shell--prompt-calculated-input-regexp)
-  (setq mode-line-process '(":%s"))
-  (make-local-variable 'comint-output-filter-functions)
-  (add-hook 'comint-output-filter-functions
-            'godot-gdscript-comint-output-filter-function)
-  (add-hook 'comint-output-filter-functions
-            'godot-gdscript-pdbtrack-comint-output-filter-function)
-  (set (make-local-variable 'compilation-error-regexp-alist)
-       godot-gdscript-shell-compilation-regexp-alist)
-  (define-key inferior-godot-gdscript-mode-map [remap complete-symbol]
-    'completion-at-point)
-  (add-hook 'completion-at-point-functions
-            #'godot-gdscript-shell-completion-complete-at-point nil 'local)
-  (add-hook 'comint-dynamic-complete-functions ;FIXME: really?
-            #'godot-gdscript-shell-completion-complete-at-point nil 'local)
-  (define-key inferior-godot-gdscript-mode-map "\t"
-    'godot-gdscript-shell-completion-complete-or-indent)
-  (make-local-variable 'godot-gdscript-pdbtrack-buffers-to-kill)
-  (make-local-variable 'godot-gdscript-pdbtrack-tracked-buffer)
-  (make-local-variable 'godot-gdscript-shell-internal-last-output)
-  (when godot-gdscript-shell-enable-font-lock
-    (set-syntax-table godot-gdscript-mode-syntax-table)
-    (set (make-local-variable 'font-lock-defaults)
-         '(godot-gdscript-font-lock-keywords nil nil nil nil))
-    (set (make-local-variable 'syntax-propertize-function)
-         (eval
-          ;; XXX: Unfortunately eval is needed here to make use of the
-          ;; dynamic value of `comint-prompt-regexp'.
-          `(syntax-propertize-rules
-            (,comint-prompt-regexp
-             (0 (ignore
-                 (put-text-property
-                  comint-last-input-start end 'syntax-table
-                  godot-gdscript-shell-output-syntax-table)
-                 ;; XXX: This might look weird, but it is the easiest
-                 ;; way to ensure font lock gets cleaned up before the
-                 ;; current prompt, which is needed for unclosed
-                 ;; strings to not mess up with current input.
-                 (font-lock-unfontify-region comint-last-input-start end))))
-            (,(godot-gdscript-rx string-delimiter)
-             (0 (ignore
-                 (and (not (eq (get-text-property start 'field) 'output))
-                      (godot-gdscript-syntax-stringify)))))))))
-  (compilation-shell-minor-mode 1))
+  ;; FIXME Causes window to be duplicated in `godot-gdscript-shell-prompt-detect`.
+  ;; (godot-gdscript-shell-prompt-set-calculated-regexps)
+  ;; As Godot's terminal does not accept input, we avoid font-locking for now.
+  ;; (setq comint-prompt-regexp godot-gdscript-shell--prompt-calculated-input-regexp)
+  ;; (setq mode-line-process '(":%s"))
+  ;; (make-local-variable 'comint-output-filter-functions)
+  ;; (add-hook 'comint-output-filter-functions
+  ;;           'godot-gdscript-comint-output-filter-function)
+  ;; (add-hook 'comint-output-filter-functions
+  ;;           'godot-gdscript-pdbtrack-comint-output-filter-function)
+  ;; (set (make-local-variable 'compilation-error-regexp-alist)
+  ;;      godot-gdscript-shell-compilation-regexp-alist)
+  ;; (define-key inferior-godot-gdscript-mode-map [remap complete-symbol]
+  ;;   'completion-at-point)
+  ;; (add-hook 'completion-at-point-functions
+  ;;           #'godot-gdscript-shell-completion-complete-at-point nil 'local)
+  ;; (add-hook 'comint-dynamic-complete-functions ;FIXME: really?
+  ;;           #'godot-gdscript-shell-completion-complete-at-point nil 'local)
+  ;; (define-key inferior-godot-gdscript-mode-map "\t"
+  ;;   'godot-gdscript-shell-completion-complete-or-indent)
+  ;; (make-local-variable 'godot-gdscript-pdbtrack-buffers-to-kill)
+  ;; (make-local-variable 'godot-gdscript-pdbtrack-tracked-buffer)
+  ;; (make-local-variable 'godot-gdscript-shell-internal-last-output)
+  ;; (when godot-gdscript-shell-enable-font-lock
+  ;;   (set-syntax-table godot-gdscript-mode-syntax-table)
+  ;;   (set (make-local-variable 'font-lock-defaults)
+  ;;        '(godot-gdscript-font-lock-keywords nil nil nil nil))
+  ;;   (set (make-local-variable 'syntax-propertize-function)
+  ;;        (eval
+  ;;         ;; XXX: Unfortunately eval is needed here to make use of the
+  ;;         ;; dynamic value of `comint-prompt-regexp'.
+  ;;         `(syntax-propertize-rules
+  ;;           (,comint-prompt-regexp
+  ;;            (0 (ignore
+  ;;                (put-text-property
+  ;;                 comint-last-input-start end 'syntax-table
+  ;;                 godot-gdscript-shell-output-syntax-table)
+  ;;                ;; XXX: This might look weird, but it is the easiest
+  ;;                ;; way to ensure font lock gets cleaned up before the
+  ;;                ;; current prompt, which is needed for unclosed
+  ;;                ;; strings to not mess up with current input.
+  ;;                (font-lock-unfontify-region comint-last-input-start end))))
+  ;;           (,(godot-gdscript-rx string-delimiter)
+  ;;            (0 (ignore
+  ;;                (and (not (eq (get-text-property start 'field) 'output))
+  ;;                     (godot-gdscript-syntax-stringify)))))))))
+  ;; (compilation-shell-minor-mode 1)
+)
 
 (defun godot-gdscript-shell-make-comint (cmd proc-name &optional pop internal)
   "Create a Godot-GDScript shell comint buffer.
@@ -3494,6 +3500,76 @@ The skeleton will be bound to godot-gdscript-skeleton-NAME."
   '(progn
      (push '(godot-gdscript-mode . godot-gdscript-ffap-module-path) ffap-alist)
      (push '(inferior-godot-gdscript-mode . godot-gdscript-ffap-module-path) ffap-alist)))
+#+END_SRC
+
+** Running the Project from Emacs
+
+#+BEGIN_SRC emacs-lisp
+(defun godot-gdscript-build-shell-command (&optional path)
+  "Build base shell command to run Godot Engine with the
+project's base PATH. If PATH is not provided, try to find it
+using the current file's directory as starting point."
+  (let* ((project-path (or path (godot-gdscript-find-project-configuration))))
+    (concat godot-gdscript-shell-interpreter " --path " project-path)))
+
+(defun godot-gdscript-run-godot-editor ()
+  "Run Godot Engine Editor."
+  (interactive)
+  (godot-gdscript-run-script
+   (concat (godot-gdscript-build-shell-command) " -e")))
+
+(defun godot-gdscript-run-project-in-godot ()
+  "Run the current project in Godot Engine."
+  (interactive)
+  (let* ((project-path (godot-gdscript-find-project-configuration)))
+    (godot-gdscript-run-script
+     (godot-gdscript-build-shell-command))))
+
+(defun godot-gdscript-run-project-in-godot-debug-mode ()
+  "Run the current project in Godot Engine."
+  (interactive)
+  (let* ((project-path (godot-gdscript-find-project-configuration)))
+    (godot-gdscript-run-script
+     (concat (godot-gdscript-build-shell-command) " -d"))))
+
+(defun godot-gdscript-run-current-scene-in-godot ()
+  "Run the current script file in Godot Engine."
+  (interactive)
+  (godot-gdscript-run-script
+   (concat (godot-gdscript-build-shell-command) " " (file-name-sans-extension (file-relative-name buffer-file-name)) ".tscn")))
+
+(defun godot-gdscript-run-current-scene-in-godot-debug-mode ()
+  "Run the current script file in Godot Engine."
+  (interactive)
+  (godot-gdscript-run-script
+   (concat (godot-gdscript-build-shell-command) " -d " (file-name-sans-extension (file-relative-name buffer-file-name)) ".tscn")))
+
+(defun godot-gdscript-edit-current-scene-in-godot ()
+  "Run the current script file in Godot Engine."
+  (interactive)
+  (godot-gdscript-run-script
+   (concat (godot-gdscript-build-shell-command) " -e " (file-name-sans-extension (file-relative-name buffer-file-name)) ".tscn")))
+
+(defun godot-gdscript-run-current-script-in-godot ()
+  "Run the current script file in Godot Engine.
+
+For this to work, the script must inherit either from
+\"SceneTree\" or \"MainLoop\"."
+  (interactive)
+  (godot-gdscript-run-script
+   (concat (godot-gdscript-build-shell-command) " -s " (file-relative-name buffer-file-name))))
+
+(defun godot-gdscript-find-project-configuration (&optional path)
+  "Return the path where Godot's configuration File (\"project.godot\") is stored.
+
+If PATH is given, starts searching by it. Otherwise, the search
+starts by the current buffer path."
+  ;; TODO: Handle error when project file does not exist.
+  ;; TODO: This is now duplicated in Company-Godot-GDScript.
+  (let ((base-path (or path default-directory)))
+    (locate-dominating-file base-path
+                            (lambda (parent)
+                              (directory-files parent t "project.godot")))))
 #+END_SRC
 
 ** Code Check
