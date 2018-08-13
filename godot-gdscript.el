@@ -3879,8 +3879,8 @@ returned as is."
   "Major mode for editing Godot Engine GDScript files.
 
 \\{godot-gdscript-mode-map}"
-  (set (make-local-variable 'tab-width) 8)
-  (set (make-local-variable 'indent-tabs-mode) nil)
+  (set (make-local-variable 'tab-width) 4)
+  (set (make-local-variable 'indent-tabs-mode) t)
 
   (set (make-local-variable 'comment-start) "# ")
   (set (make-local-variable 'comment-start-skip) "#+\\s-*")
