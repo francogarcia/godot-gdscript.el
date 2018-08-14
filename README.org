@@ -4198,6 +4198,10 @@ mode (see [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Derived-Mo
 recommends to inherit either from ~fundamental-mode~ or ~prog-mode~. As GDScript
 resembles Python, it would be possible to use ~python-mode~ as basis.
 
+Default configuration indents with tabs (4 characters wide), as recommended in
+[[https://godot.readthedocs.io/en/3.0/getting_started/scripting/gdscript/gdscript_styleguide.html][GDScript Style Guide, from Godot Engine documentation]]. If you wish to indent
+with spaces, instead, customize ~indent-tabs-mode~ and ~tab-width~.
+
 #+NAME: declaration
 #+BEGIN_SRC emacs-lisp
 ;;;###autoload
@@ -4205,8 +4209,8 @@ resembles Python, it would be possible to use ~python-mode~ as basis.
   "Major mode for editing Godot Engine GDScript files.
 
 \\{godot-gdscript-mode-map}"
-  (set (make-local-variable 'tab-width) 8)
-  (set (make-local-variable 'indent-tabs-mode) nil)
+  (set (make-local-variable 'tab-width) 4)
+  (set (make-local-variable 'indent-tabs-mode) t)
 
   (set (make-local-variable 'comment-start) "# ")
   (set (make-local-variable 'comment-start-skip) "#+\\s-*")
