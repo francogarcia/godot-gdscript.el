@@ -3267,6 +3267,15 @@ starts by the current buffer path."
                             (lambda (parent)
                               (directory-files parent t "project.godot")))))
 
+(defun godot-gdscript-get-project-name ()
+  "Retrieves the project name from Godot's configuration file."
+  (with-temp-buffer
+    (insert-file-contents (concat (godot-gdscript-find-project-configuration) "project.godot"))
+    (goto-char (point-min))
+    (if (re-search-forward "config/name=\"\\([^\"]*\\)\"" nil t)
+        (match-string 1)
+      (error "Could not find the name of the project"))))
+
 ;;; Code check
 
 (defcustom godot-gdscript-check-command
