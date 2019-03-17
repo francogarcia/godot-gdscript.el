@@ -154,7 +154,9 @@
   (defconst godot-gdscript-rx-constituents
     `((block-start          . ,(rx symbol-start
                                    (or "class" "elif" "else" "except" "finally" "for"
-                                       "func" "if" "try" "while" "with")
+                                       "func" "if" "try" "while" "with"
+                                       ;; Multiplayer stuff
+                                       "puppet" "master" "remote" "remotesync")
                                    symbol-end))
       (dedenter            . ,(rx symbol-start
                                   (or "elif" "else" "except" "finally")
@@ -163,7 +165,8 @@
                                   (or
                                    "break" "continue" "pass" "raise" "return")
                                   symbol-end))
-      (decorator            . ,(rx line-start (* space) ?@ (any letter ?_)
+      (decorator            . ,(rx line-start
+                                   (* space) ?@ (any letter ?_)
                                    (* (any word ?_))))
       (defun                . ,(rx symbol-start (or "func" "class") symbol-end))
       (if-name-main         . ,(rx line-start "if" (+ space) "__name__"
@@ -288,6 +291,8 @@ The type returned can be `comment', `string' or `paren'."
           "assert" "break" "breakpoint" "class" "const" "continue"
           "default" "do" "elif" "else" "enum"
           "export" "extends" "for" "func" "if" "onready"
+          ;; Multiplayer stuff
+          "puppet" "master" "remote" "remotesync"
           "pass" "preload" "resume" "return" "setget"
           "signal" "static" "tool" "var" "while" "yield")
          symbol-end)
