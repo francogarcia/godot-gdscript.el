@@ -9,7 +9,7 @@ used by the [[http://www.godotengine.org][Godot Game Engine]] into [[https://www
 language provided in [[https://github.com/godotengine/godot/wiki/gdscript][gdscript]].
 
 To add this major mode to your Emacs configuration, please see [[*Setting-Up in Emacs][Setting-Up in
-Emacs]].
+Emacs]] below.
 
 The implementation changes ~python.el~ major mode shipped with Emacs to support
 GDScript language syntax constructs. It is a work in progress; currently it
